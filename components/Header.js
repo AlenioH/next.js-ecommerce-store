@@ -68,7 +68,7 @@ export default function Header() {
           text-decoration: none;
           color: #062a06;
           text-shadow: 1px 1px #2f3640;
-          font-size: 120%;
+          font-size: 20px;
         }
 
         a:hover {

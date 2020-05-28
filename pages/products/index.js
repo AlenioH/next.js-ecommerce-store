@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
+import Footer from "../../components/Footer.js";
 
 export default function products() {
   return (
@@ -11,12 +12,12 @@ export default function products() {
           href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
           rel="stylesheet"
         ></link>
-        <title>Our rugs</title>
+        <title>Bist du Teppich! Shop</title>
       </Head>
       ;
       <Header />
+      <h1>//!TODOHEADIN!//</h1>
       <div className="rugtainer">
-        <h1>Our rugs</h1>
         <div className="itemContainer">
           <Link href="/products/1">
             <a>
@@ -63,12 +64,8 @@ export default function products() {
           </Link>
         </div>
       </div>
+      <Footer />
       <style jsx>{`
-        h1 {
-          margin-left: 150px;
-          text-shadow: 1.5px 1.5px black;
-        }
-
         .rugtainer {
           border-radius: 20px;
           margin-top: 140px;
@@ -84,6 +81,7 @@ export default function products() {
 
         img {
           height: 180px;
+          width: auto;
         }
 
         .itemContainer a {
@@ -96,9 +94,10 @@ export default function products() {
           color: inherit;
         }
 
-        .itemContainer a:hover {
-          border: 2px solid #e9f6ee;
-          transition: border 0.3s;
+        .itemContainer:hover {
+          background-color: #e9f6ee;
+          font-size: 105%;
+          transition: background-color, font-size 0.3s;
           border-radius: 10px;
         }
 

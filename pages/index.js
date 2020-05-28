@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 export default function Home() {
   return (
@@ -16,17 +17,14 @@ export default function Home() {
       <main>
         <h1 className="title"> Welcome to Bist du Teppich!</h1>
         <img src="/favicon.png"></img>
-        <h2>A home of most cosy interior decor</h2>
+        <h2>Home of most cosy interior decor</h2>
       </main>
+      <Footer />
 
       <style jsx>{`
         .container {
+          margin-top: 70px;
           min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
         }
 
         img {
