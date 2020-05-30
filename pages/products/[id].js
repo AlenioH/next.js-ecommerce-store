@@ -4,21 +4,68 @@ import Header from '../../components/Header.js';
 import { getProductById } from '../../db.js';
 import Footer from '../../components/Footer.js';
 import { useState } from 'react';
+import cookie from 'js-cookie';
 
-export function Product(props) {
-  if (!props.product) {
+export function Product({ product }) {
+  if (!product) {
     return <div>Item not found...</div>;
   }
 
-  // const [pieces, setPieces] = useState(0);
-
+  const [pieces, setPieces] = useState(0);
   const [total, setTotal] = useState(0);
+  const [cart, setCart] = useState([]);
 
   function handlePieces(e) {
     //so like this is the initial thing out of scope, must think of smth else.
-    const pieces = e.target.value;
-    setTotal(pieces * props.product.price);
+    setPieces(e.target.value);
+    setTotal(e.target.value * product.price);
   }
+
+  function addToCart() {
+    if (pieces > 0) {
+      // let pairs = { price: total, pieces: +pieces };
+      // product = { product, ...pairs };
+
+      // setCart([...prevCart, { ...product, price: total, pieces: +pieces }]);
+      //attemp to spread non-iterable instance
+
+      setCart((prevCart) => {
+        return [...prevCart, { ...product, price: total, amount: +pieces }];
+      });
+
+      // let itemsInCart = { ...product, price: total, amount: +pieces };
+      // if (props.product.id === props.product.id) {
+      //   itemsInCart = { ...props.product, amount: +pieces + +pieces };
+      // }
+
+      // [
+      //   {
+      //     ...props.product,
+      //     price: total,
+      //     pieces: +pieces,
+      //   },
+      // ];
+
+      alert('The item has been successfully added to the cart!');
+    } else {
+      alert('You need to enter a valid number of pieces!');
+    }
+  }
+
+  cookie.set('cart', cart);
+  console.log(cart);
+  //Local storage thing works but I'm going to get some cookies...
+  // function addToCart() {
+  //   if (typeof window !== 'undefined') {
+  //     window.localStorage.itemsInCartLocStorage = JSON.stringify([
+  //       props.product, //PIECES shall go there too AAAAND total
+  //     ]);
+  //     setCart(window.localStorage.itemsInCartLocStorage);
+  //     console.log(cart);
+  //   } else {
+  //     alert('Something went wrong...');
+  //   }
+  // }
 
   return (
     <div>
@@ -28,32 +75,32 @@ export function Product(props) {
           href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
           rel="stylesheet"
         ></link>
-        <title>{props.product.name}</title>
+        <title>{product.name}</title>
       </Head>
       <Header />
       <div className="wrapper">
-        <img src={props.product.img}></img>
+        <img src={product.img}></img>
         <div className="description">
-          <h1>{props.product.name}</h1>
-          <p>{props.product.info}</p>
+          <h1>{product.name}</h1>
+          <p>{product.info}</p>
           <hr />
           <p className="info">
             Dispatched in 8-10 weeks.
             <br></br>
             Free shipping within the 3rd district.
           </p>
-          <p className="price">{props.product.price}€</p>
+          <p className="price">{product.price}€</p>
 
           <label for="productNumber">
             <input
               type="number"
-              min="1"
               placeholder="0"
+              min="0"
               onChange={handlePieces}
             ></input>
           </label>
           <p>Total: {total}€</p>
-          <button>Add to the cart</button>
+          <button onClick={addToCart}>Add to the cart</button>
         </div>
       </div>
       <Footer />
@@ -147,44 +194,3 @@ export function getServerSideProps(context) {
     },
   };
 }
-
-//   // if (typeof window !== 'undefined' && props.product) {
-//   //   const [pieces, setPieces] = useState(
-//   //     JSON.parse(
-//   //       // This is the same as:
-//   //       // window.localStorage.lastUsersVisited
-//   //       window.localStorage.getItem('piecesInLocalStorage'),
-//   //     ) || 0,
-//   //   );
-
-//   // This is the same as:
-//   // window.localStorage.lastUsersVisited = JSON.stringify([...prevLastUsersVisited, props.user.id])
-//   //   window.localStorage.setItem(
-//   //     'piecesInLocalStorage',
-//   //     JSON.stringify([pieces]),
-//   //   );
-//   // }
-
-//   // if (typeof window !== 'undefined' && props.product) {
-//   //   const [pieces, setPieces] = useState(
-//   //     JSON.parse(window.localStorage.getItem('piecesInLocalStorage')) || 0,
-//   //   );
-
-//   // const [pieces, setPieces] = useState(
-//   //   JSON.parse(window.localStorage.getItem('piecesInLocalStorage')) || 0,
-//   // );
-
-//   // if (typeof window !== 'undefined' && props.product) {
-//   //   JSON.parse(window.localStorage.getItem('piecesInLocalStorage'));
-
-//   //   useEffect(() => {
-//   //     window.localStorage.setItem(
-//   //       'piecesInLocalStorage',
-//   //       JSON.stringify(pieces),
-//   //     );
-//   //   }, [pieces]);
-
-//   // function countTotal() {
-//   //   return pieces * props.product.price;
-//   //   setTotal(countTotal());
-//   // }

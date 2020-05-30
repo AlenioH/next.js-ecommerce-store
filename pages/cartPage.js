@@ -3,18 +3,27 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import { useState } from 'react';
+// import nextCookies from 'next-cookies';
 // import { getProductById } from '../db.js';
+import cookie from 'js-cookie';
+import nextCookies from 'next-cookies';
 
-const cartPage = (props) => {
-  const [pieces, setPieces] = useState(0);
+function cartPage(props) {
+  // const [pieces, setPieces] = useState(0);
   const [total, setTotal] = useState(0);
+  const [cart, setCart] = useState([]);
 
-  function handlePieces(e) {
-    setPieces(e.target.value);
-    let newTotal = total;
-    newTotal = pieces * props.product.price;
-    setTotal(newTotal);
+  // function handlePieces(e) {
+  //   setPieces(e.target.value);
+  //   setTotal(e.target.value * props.product.price);
+  // }
+
+  function removeItem() {
+    cookie.remove('cart');
+    window.location.reload();
   }
+
+  let itemsInCart = cookie.get('cart');
 
   return (
     <div>
@@ -33,40 +42,28 @@ const cartPage = (props) => {
           <h4>Description</h4>
           <h4>Quantity</h4>
           <h4>Price</h4>
+          <p>{itemsInCart}</p>
 
-          <img src="/carpet1.png"></img>
-          <p>
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-            ipsum{' '}
-          </p>
-          <label for="productNumber">
-            <input
-              type="number"
-              min="1"
-              placeholder="1"
-              onChange={handlePieces}
-            ></input>
-          </label>
-          <p>309€</p>
-          <img src="/carpet4.png"></img>
-          <p>
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-            ipsum{' '}
-          </p>
-          <label for="productNumber">
-            <input
-              type="number"
-              min="1"
-              placeholder="1"
-              onChange={handlePieces}
-            ></input>
-          </label>
-          <p>100€</p>
+          {/* {itemsInCart.map((item) => {
+              return (
+                <img src={item.url}></img>
+                <p>{item.name}</p>
+                <label for="productNumber">
+              <input
+                type="number"
+                min="1"
+                placeholder={item.amount}
+                onChange={handlePieces}
+              ></input>
+            </label>
+            <p>{item.price}</p>
+            
+              );
+            })} */}
+          <button onClick={removeItem}>Remove item from cart</button>
         </div>
-
         <p className="total">
-          Total: 409€
-          <br></br>
+          {total}€<br></br>
           <button>Proceed to checkout</button>
         </p>
       </div>
@@ -156,19 +153,46 @@ const cartPage = (props) => {
       `}</style>
     </div>
   );
-};
+}
 export default cartPage;
 
+//dont know exactly what that would do....
 // export function getServerSideProps(context) {
-//   const product = getProductById(context.params.id);
-//   if (product === undefined) {
+//   //   // The line below is the same as writing this line:
+//   //   // const user = nextCookies(context).user;
+//   const { product } = nextCookies(context);
+
+//   return {
+//     //     // will be passed to the page component as props
+//     props: {
+//       //       // This is a shorthand for the line below
+//       //       // user,
+//       ...(product ? { cart: product } : undefined),
+//     },
+//   };
+// }
+/* 
+          <img src={itemsInCart.url}></img>
+          <p>{itemsInCart.name}</p>
+          <label for="productNumber">
+            <input
+              type="number"
+              min="1"
+              placeholder="1"
+              onChange={handlePieces}
+            ></input>
+          </label>
+          <p>{itemsInCart.price}</p> */
+
+// export function getServerSideProps(context) {
+//   const cart = addToCart(context.params.id);
+//   if (cart === undefined) {
 //     return { props: {} };
 //   }
 //   return {
 //     // will be passed to the page component as props
 //     props: {
-//       product,
+//       cart,
 //     },
 //   };
 // }
-//is this the way it works if i already have it in another file
