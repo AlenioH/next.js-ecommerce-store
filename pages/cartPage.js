@@ -7,9 +7,10 @@ import { useState } from 'react';
 // import { getProductById } from '../db.js';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
+import products from './products/index.js';
 
 function cartPage(props) {
-  // const [pieces, setPieces] = useState(0);
+  // const [pieces, setPieces] = useState(0);  //mb i do like to keep it in order to sum pieces of the same items
   const [total, setTotal] = useState(0);
   const [cart, setCart] = useState([]);
 
@@ -18,12 +19,21 @@ function cartPage(props) {
   //   setTotal(e.target.value * props.product.price);
   // }
 
-  function removeItem() {
-    cookie.remove('cart');
+  function removeItem(id) {
+    // return props.product.id !== props.product.id
+    cookie.remove(product.id + cart); //product must be defined
     window.location.reload();
   }
+  //removes all the cookies, how to remove one!
 
-  let itemsInCart = cookie.get('cart');
+  let itemsInCart = [cookie.get()];
+  //it's an array of objects that have STRINGS inside which i cannot FUCKING PARSE!!!11 ALL cookies doesnt work either. so its either i get them each specifically with the id, or nothing
+
+  //when getJSON: TypeError: Cannot read property 'suppressHydrationWarning' of null
+
+  //then must be smth like when product.id === product.id {then dont create a new entry, just do amount: pieces + pieces}
+  // let itemsInCart = cookie.getJSON('cart');
+  // TypeError: Cannot read property 'suppressHydrationWarning' of null
 
   return (
     <div>
@@ -42,7 +52,7 @@ function cartPage(props) {
           <h4>Description</h4>
           <h4>Quantity</h4>
           <h4>Price</h4>
-          <p>{itemsInCart}</p>
+          <p>{itemsInCart || 'The cart is empty...'}</p>
 
           {/* {itemsInCart.map((item) => {
               return (
@@ -64,7 +74,11 @@ function cartPage(props) {
         </div>
         <p className="total">
           {total}€<br></br>
-          <button>Proceed to checkout</button>
+          <Link href="/payment">
+            <a>
+              <button>Proceed to checkout</button>
+            </a>
+          </Link>
         </p>
       </div>
       <Footer />

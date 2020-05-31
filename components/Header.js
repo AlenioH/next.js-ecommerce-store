@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import cookie from 'js-cookie';
 
 // const headerItems = [
 //   { name: 'Home', link: '/index' },
@@ -7,6 +8,8 @@ import Link from 'next/link';
 // ];
 
 export default function Header() {
+  // let itemsInCart = cookie.get();
+
   return (
     <div className="wrap">
       <div className="navBar">
@@ -27,7 +30,8 @@ export default function Header() {
             <a>
               <li>
                 <img src="/cart.png"></img>
-                Go to cart
+                Items in cart:
+                {cookie.get() ? cookie.get().length : 'empty'}
               </li>
             </a>
           </Link>

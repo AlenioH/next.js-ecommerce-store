@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
 import { getProductById } from '../../db.js';
@@ -23,17 +23,22 @@ export function Product({ product }) {
 
   function addToCart() {
     if (pieces > 0) {
-      // let pairs = { price: total, pieces: +pieces };
-      // product = { product, ...pairs };
+      // setCart((prevCart) => {
+      //   return [...prevCart, { ...product, price: total, amount: +pieces }];
+      // }); doesnt work
 
-      // setCart([...prevCart, { ...product, price: total, pieces: +pieces }]);
-      //attemp to spread non-iterable instance
+      // setCart({ ...cookie.get('itemsInCart'), price: total, pieces: +pieces });  doesnt work either
 
-      setCart((prevCart) => {
-        return [...prevCart, { ...product, price: total, amount: +pieces }];
-      });
+      let itemsInCart =
+        // ...cart,
+        { ...product, price: total, amount: +pieces };
+      let cookieName = product.id + 'cart';
 
-      // let itemsInCart = { ...product, price: total, amount: +pieces };
+      cookie.set(cookieName, itemsInCart);
+      //TODO need smth like when its about the same item, dont create a new entry, just update the price and the amount
+
+      //so it does what i want but only if it's the same rug and i dont leave the page
+
       // if (props.product.id === props.product.id) {
       //   itemsInCart = { ...props.product, amount: +pieces + +pieces };
       // }
@@ -45,15 +50,14 @@ export function Product({ product }) {
       //     pieces: +pieces,
       //   },
       // ];
-
+      console.log(itemsInCart);
       alert('The item has been successfully added to the cart!');
+      window.location.reload();
     } else {
       alert('You need to enter a valid number of pieces!');
     }
   }
 
-  cookie.set('cart', cart);
-  console.log(cart);
   //Local storage thing works but I'm going to get some cookies...
   // function addToCart() {
   //   if (typeof window !== 'undefined') {

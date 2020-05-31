@@ -38,6 +38,22 @@ const products = [
     price: 208,
     info: 'This rug is as pink as a murshmellow. And as mellow as a marsh.',
   },
+  {
+    id: '6',
+    name: 'Fluffy cushion',
+    img: '/cushion1.png',
+    price: 29,
+    info: 'Yes, everything in this online-shop has to be fluffy.',
+  },
+
+  {
+    id: '7',
+    name: 'Lovey Loverson Couch',
+    img: '/couch1.png',
+    price: 499,
+    info:
+      'This couch was inspired by Phoebe Buffay. Make sure you do not let your smelly cat mark its exquisite exterior.',
+  },
 ];
 
 export function getProductById(id) {

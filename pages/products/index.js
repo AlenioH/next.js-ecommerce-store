@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
-import Footer from "../../components/Footer.js";
+import Footer from '../../components/Footer.js';
+import { getProductById } from '../../db.js';
 
-export default function products() {
+// const product = getProductById();
+
+export default function products(props) {
   return (
     <div>
       <Head>
@@ -22,8 +25,8 @@ export default function products() {
           <Link href="/products/1">
             <a>
               <img src="/carpet1.png"></img>
-              <h3>A very pretty creamy rug</h3>
-              <p>199€</p>
+              <h3>Creamy rug</h3>
+              <p> 199€</p>
             </a>
           </Link>
         </div>
@@ -60,6 +63,24 @@ export default function products() {
               <img src="/carpet5.png"></img>
               <h3>Pink one</h3>
               <p>209€</p>
+            </a>
+          </Link>
+        </div>
+        <div className="itemContainer">
+          <Link href="/products/6">
+            <a>
+              <img src="/cushion1.png"></img>
+              <h3>Fluffy cushion</h3>
+              <p>29€</p>
+            </a>
+          </Link>
+        </div>
+        <div className="itemContainer">
+          <Link href="/products/7">
+            <a>
+              <img src="/couch1.png"></img>
+              <h3>Lovey Loverson Couch</h3>
+              <p>499€</p>
             </a>
           </Link>
         </div>
@@ -122,3 +143,17 @@ export default function products() {
     </div>
   );
 }
+
+// export function getServerSideProps(context) {
+//   const product = getProductById(context.params.id);
+//   if (product === undefined) {
+//     return { props: {} };
+//   }
+//   return {
+//     // will be passed to the page component as props
+//     props: {
+//       product,
+//     },
+//   };
+// }
+//cannot read property id of undefined
