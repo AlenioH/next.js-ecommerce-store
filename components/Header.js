@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
+import nextCookies from 'next-cookies';
 
 // const headerItems = [
 //   { name: 'Home', link: '/index' },
@@ -7,8 +8,16 @@ import cookie from 'js-cookie';
 //   { name: 'Cart', link: '/cartPage' },
 // ];
 
-export default function Header() {
-  // let itemsInCart = cookie.get();
+export default function Header({ cart }) {
+  let itemsInCart = cart.reduce((accumulator, currentValue) => {
+    return accumulator + +currentValue.amount;
+  }, 0);
+  //cannot read proprerty amount of undefined
+
+  // let howManyItems = itemsInCart.amount.reduce((accumulator, currentValue) => {
+  //   return accumulator + currentValue;
+  // }, 0);
+  // console.log(howManyItems);
 
   return (
     <div className="wrap">
@@ -31,7 +40,7 @@ export default function Header() {
               <li>
                 <img src="/cart.png"></img>
                 Items in cart:
-                {cookie.get() ? cookie.get().length : 'empty'}
+                {itemsInCart || 'empty'}
               </li>
             </a>
           </Link>
@@ -82,4 +91,15 @@ export default function Header() {
       `}</style>
     </div>
   );
+}
+
+export function getServerSideProps(context) {
+  const { cart } = nextCookies(context);
+
+  return {
+    // will be passed to the page component as props
+    props: {
+      ...(cart ? { cart: cart } : undefined),
+    },
+  };
 }

@@ -16,41 +16,27 @@ export function Product({ product }) {
   const [cart, setCart] = useState([]);
 
   function handlePieces(e) {
-    //so like this is the initial thing out of scope, must think of smth else.
     setPieces(e.target.value);
     setTotal(e.target.value * product.price);
   }
 
   function addToCart() {
     if (pieces > 0) {
-      // setCart((prevCart) => {
-      //   return [...prevCart, { ...product, price: total, amount: +pieces }];
-      // }); doesnt work
+      let itemsStored = cookie.getJSON('cart');
+      if (itemsStored) {
+        let itemsInCart = [
+          ...cookie.getJSON('cart'),
+          { ...product, price: total, amount: +pieces },
+        ];
+        //so when there are no cookies ATM the first spread is NOT POSSIBLE
 
-      // setCart({ ...cookie.get('itemsInCart'), price: total, pieces: +pieces });  doesnt work either
-
-      let itemsInCart =
-        // ...cart,
-        { ...product, price: total, amount: +pieces };
-      let cookieName = product.id + 'cart';
-
-      cookie.set(cookieName, itemsInCart);
+        cookie.set('cart', itemsInCart);
+      } else {
+        let itemsInCart = [{ ...product, price: total, amount: +pieces }];
+        cookie.set('cart', itemsInCart);
+      }
       //TODO need smth like when its about the same item, dont create a new entry, just update the price and the amount
 
-      //so it does what i want but only if it's the same rug and i dont leave the page
-
-      // if (props.product.id === props.product.id) {
-      //   itemsInCart = { ...props.product, amount: +pieces + +pieces };
-      // }
-
-      // [
-      //   {
-      //     ...props.product,
-      //     price: total,
-      //     pieces: +pieces,
-      //   },
-      // ];
-      console.log(itemsInCart);
       alert('The item has been successfully added to the cart!');
       window.location.reload();
     } else {

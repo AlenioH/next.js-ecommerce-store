@@ -3,7 +3,6 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import { useState } from 'react';
-// import nextCookies from 'next-cookies';
 // import { getProductById } from '../db.js';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
@@ -14,26 +13,26 @@ function cartPage(props) {
   const [total, setTotal] = useState(0);
   const [cart, setCart] = useState([]);
 
-  // function handlePieces(e) {
-  //   setPieces(e.target.value);
-  //   setTotal(e.target.value * props.product.price);
-  // }
+  function handlePieces(e) {
+    //so like this is the initial thing out of scope, must think of smth else.
+    e.target.value * props.cart.price;
+  }
+
+  // const itemsInCart = props.cart;
 
   function removeItem(id) {
-    // return props.product.id !== props.product.id
-    cookie.remove(product.id + cart); //product must be defined
+    cookie.remove(
+      props.cart.id.find((item) => {
+        return item.id !== item.id;
+      }),
+    );
+    //product must be defined
     window.location.reload();
   }
   //removes all the cookies, how to remove one!
 
-  let itemsInCart = [cookie.get()];
-  //it's an array of objects that have STRINGS inside which i cannot FUCKING PARSE!!!11 ALL cookies doesnt work either. so its either i get them each specifically with the id, or nothing
-
-  //when getJSON: TypeError: Cannot read property 'suppressHydrationWarning' of null
-
-  //then must be smth like when product.id === product.id {then dont create a new entry, just do amount: pieces + pieces}
-  // let itemsInCart = cookie.getJSON('cart');
-  // TypeError: Cannot read property 'suppressHydrationWarning' of null
+  let itemsInCart = props.cart;
+  console.log(itemsInCart);
 
   return (
     <div>
@@ -52,25 +51,30 @@ function cartPage(props) {
           <h4>Description</h4>
           <h4>Quantity</h4>
           <h4>Price</h4>
-          <p>{itemsInCart || 'The cart is empty...'}</p>
-
-          {/* {itemsInCart.map((item) => {
-              return (
-                <img src={item.url}></img>
-                <p>{item.name}</p>
-                <label for="productNumber">
-              <input
-                type="number"
-                min="1"
-                placeholder={item.amount}
-                onChange={handlePieces}
-              ></input>
-            </label>
-            <p>{item.price}</p>
-            
-              );
-            })} */}
-          <button onClick={removeItem}>Remove item from cart</button>
+          <h4></h4>
+          {/* <p>{props.cart.name || 'The cart is empty...'}</p> */}
+          {itemsInCart
+            ? itemsInCart.map((item) => {
+                return (
+                  <div className="item" key={item.id}>
+                    <img src={item.img}></img>
+                    <p>{item.name}</p>
+                    <label for="productNumber">
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder={item.amount}
+                        onChange={handlePieces}
+                      ></input>
+                    </label>
+                    <p>{item.price}€</p>
+                    <button onClick={removeItem} className="removeButton">
+                      Remove item from cart
+                    </button>
+                  </div>
+                );
+              })
+            : 'The cart is empty....'}
         </div>
         <p className="total">
           {total}€<br></br>
@@ -110,7 +114,7 @@ function cartPage(props) {
         .tableItems {
           padding: 10px;
           display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr;
+          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
           grid-gap: 10px;
           text-align: center;
           border-bottom: 1px solid #2f3640;
@@ -127,11 +131,19 @@ function cartPage(props) {
           width: 50px;
           text-align: center;
         }
+
+        .removeButton {
+          width: 100px;
+          font-size: 80%;
+          padding: 5px;
+          background-color: red;
+        }
         .total {
           text-align: right;
           font-size: 20px;
           margin-right: 10px;
         }
+
         button {
           margin-top: 40px;
           align-self: center;
@@ -170,43 +182,16 @@ function cartPage(props) {
 }
 export default cartPage;
 
-//dont know exactly what that would do....
-// export function getServerSideProps(context) {
-//   //   // The line below is the same as writing this line:
-//   //   // const user = nextCookies(context).user;
-//   const { product } = nextCookies(context);
+export function getServerSideProps(context) {
+  const { cart } = nextCookies(context);
 
-//   return {
-//     //     // will be passed to the page component as props
-//     props: {
-//       //       // This is a shorthand for the line below
-//       //       // user,
-//       ...(product ? { cart: product } : undefined),
-//     },
-//   };
-// }
-/* 
-          <img src={itemsInCart.url}></img>
-          <p>{itemsInCart.name}</p>
-          <label for="productNumber">
-            <input
-              type="number"
-              min="1"
-              placeholder="1"
-              onChange={handlePieces}
-            ></input>
-          </label>
-          <p>{itemsInCart.price}</p> */
-
-// export function getServerSideProps(context) {
-//   const cart = addToCart(context.params.id);
-//   if (cart === undefined) {
-//     return { props: {} };
-//   }
-//   return {
-//     // will be passed to the page component as props
-//     props: {
-//       cart,
-//     },
-//   };
-// }
+  return {
+    // will be passed to the page component as props
+    props: {
+      ...(cart ? { cart: cart } : undefined),
+    },
+  };
+}
+// ...(cart ? { cart: cart } : undefined),
+//first "cart" is the constant so if the cart is defined not empty, return cart object with the value of cart
+//otherwise: undefined
