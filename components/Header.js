@@ -9,9 +9,10 @@ import nextCookies from 'next-cookies';
 // ];
 
 export default function Header({ cart }) {
-  let itemsInCart = cart.reduce((accumulator, currentValue) => {
-    return accumulator + +currentValue.amount;
-  }, 0);
+  let itemsInCart = cookie.getJSON('cart');
+  // .reduce((accumulator, currentValue) => {
+  //   return accumulator + +currentValue.amount;
+  // }, 0);
   //cannot read proprerty amount of undefined
 
   // let howManyItems = itemsInCart.amount.reduce((accumulator, currentValue) => {
@@ -40,7 +41,11 @@ export default function Header({ cart }) {
               <li>
                 <img src="/cart.png"></img>
                 Items in cart:
-                {itemsInCart || 'empty'}
+                {itemsInCart
+                  ? itemsInCart.reduce((accumulator, currentValue) => {
+                      return accumulator + currentValue.amount;
+                    }, 0)
+                  : 'empty'}
               </li>
             </a>
           </Link>
