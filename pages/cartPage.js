@@ -32,7 +32,7 @@ function cartPage(props) {
   //removes all the cookies, how to remove one!
 
   let itemsInCart = props.cart;
-  console.log(itemsInCart);
+  console.log(itemsInCart); 
 
   return (
     <div>

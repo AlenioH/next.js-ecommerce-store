@@ -12,38 +12,56 @@ export function Product({ product }) {
   }
 
   const [pieces, setPieces] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(product.price);
+  // const [cart, setCart] = useState([]);
 
   function handlePieces(e) {
-    setPieces(e.target.value);
+    setPieces(Number(e.target.value));
     setTotal(e.target.value * product.price);
   }
 
   function addToCart() {
-    if (pieces > 0) {
-      let itemsStored = cookie.getJSON('cart');
-      if (itemsStored) {
-        let itemsInCart = [
-          ...cookie.getJSON('cart'),
-          { ...product, price: total, amount: +pieces },
-        ];
-        //so when there are no cookies ATM the first spread is NOT POSSIBLE
+    let itemsInCart = cookie.getJSON('cart') || [];
 
-        cookie.set('cart', itemsInCart);
-      } else {
-        let itemsInCart = [{ ...product, price: total, amount: +pieces }];
-        cookie.set('cart', itemsInCart);
-      }
-      //TODO need smth like when its about the same item, dont create a new entry, just update the price and the amount
+    product = {
+      name: product.name,
+      price: total,
+      id: product.id,
+      amount: pieces,
+      img: product.img,
+      info: product.info,
+    };
 
-      alert('The item has been successfully added to the cart!');
-      window.location.reload();
-    } else {
-      alert('You need to enter a valid number of pieces!');
+    itemsInCart.push(product);
+    cookie.set('cart', itemsInCart);
+
+    let itemFilter = itemsStored.find((item) => item.id === product.id);
+    if (itemFilter) {
+      itemsInCart = itemsStored.map((item, id) => {
+        if (item.id === product.id) {
+          return { ...item, amount: item.amount + pieces };
+        } else {
+          return item;
+        }
+      });
+      cookie.set('cart', itemsInCart);
     }
-  }
 
+    // if (itemsStored) {
+    //   let itemsInCart = [
+    //     ...itemsStored,
+    //     { ...product, price: total, amount: pieces },
+    //   ];
+    //   cookie.set('cart', itemsInCart);
+
+    // } else {
+    //   let itemsInCart = [{ ...product, price: total, amount: pieces }];
+    //   cookie.set('cart', itemsInCart);
+    // }
+
+    alert('The item has been successfully added to the cart!');
+    window.location.reload();
+  }
   //Local storage thing works but I'm going to get some cookies...
   // function addToCart() {
   //   if (typeof window !== 'undefined') {
@@ -84,13 +102,13 @@ export function Product({ product }) {
           <label for="productNumber">
             <input
               type="number"
+              min="1"
               placeholder="0"
-              min="0"
               onChange={handlePieces}
             ></input>
           </label>
           <p>Total: {total}€</p>
-          <button onClick={addToCart}>Add to the cart</button>
+          <button onClick={addToCart}>Add to cart</button>
         </div>
       </div>
       <Footer />
