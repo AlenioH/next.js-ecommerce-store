@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
+import cookie from 'js-cookie';
 
 export default function payment() {
   return (
@@ -14,6 +15,7 @@ export default function payment() {
 
       <div className="container">
         <h1>Contact information and payment</h1>
+        <p>Total price of items in cart: {cookie.getJSON('total')}€</p>
         <div className="wholeBox">
           <div className="contactInfo">
             <h3>Shipping address</h3>

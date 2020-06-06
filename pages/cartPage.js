@@ -6,33 +6,47 @@ import { useState } from 'react';
 // import { getProductById } from '../db.js';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
-import products from './products/index.js';
+// import products from './products/index.js';
 
-function cartPage(props) {
-  // const [pieces, setPieces] = useState(0);  //mb i do like to keep it in order to sum pieces of the same items
-  const [total, setTotal] = useState(0);
-  const [cart, setCart] = useState([]);
+function cartPage({ cart }) {
+  const [pieces, setPieces] = useState(0); //mb i do like to keep it in order to sum pieces of the same items
+  let itemsInCart = cart;
+  const total = itemsInCart.reduce((acc, cur) => {
+    return acc + cur.price;
+  }, 0);
+  console.log(total);
+  cookie.set("total", total);
 
-  function handlePieces(e) {
-    //so like this is the initial thing out of scope, must think of smth else.
-    e.target.value * props.cart.price;
+  // let product = products;
+
+  function handlePieces(e, id) {
+    let newCart = cart.map((item) => {
+      // setPieces(Number(e.target.value));
+      if (item.id === id) {
+        //item.id === item.id = ALL items in cart
+        //product.id also not, cart.id either, itemsInCart either, item.key also not.
+        return {
+          ...item,
+          amount: Number(e.target.value),
+          price: Number(e.target.value) * item.price,
+        };
+      } else {
+        return item;
+      }
+    });
+    cookie.set('cart', newCart);
+    console.log(newCart);
   }
-
-  // const itemsInCart = props.cart;
 
   function removeItem(id) {
-    cookie.remove(
-      props.cart.id.find((item) => {
-        return item.id !== item.id;
-      }),
-    );
-    //product must be defined
-    window.location.reload();
-  }
-  //removes all the cookies, how to remove one!
+    let newCart = itemsInCart.filter((item) => {
+      return item.id !== id;
+    });
+    cookie.set('cart', newCart);
 
-  let itemsInCart = props.cart;
-  console.log(itemsInCart); 
+    window.location.reload();
+    console.log(newCart);
+  }
 
   return (
     <div>
@@ -52,11 +66,10 @@ function cartPage(props) {
           <h4>Quantity</h4>
           <h4>Price</h4>
           <h4></h4>
-          {/* <p>{props.cart.name || 'The cart is empty...'}</p> */}
           {itemsInCart
             ? itemsInCart.map((item) => {
                 return (
-                  <div className="item" key={item.id}>
+                  <li className="item" key={item.id}>
                     <img src={item.img}></img>
                     <p>{item.name}</p>
                     <label for="productNumber">
@@ -68,10 +81,13 @@ function cartPage(props) {
                       ></input>
                     </label>
                     <p>{item.price}€</p>
-                    <button onClick={removeItem} className="removeButton">
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className="removeButton"
+                    >
                       Remove item from cart
                     </button>
-                  </div>
+                  </li>
                 );
               })
             : 'The cart is empty....'}
@@ -192,6 +208,3 @@ export function getServerSideProps(context) {
     },
   };
 }
-// ...(cart ? { cart: cart } : undefined),
-//first "cart" is the constant so if the cart is defined not empty, return cart object with the value of cart
-//otherwise: undefined

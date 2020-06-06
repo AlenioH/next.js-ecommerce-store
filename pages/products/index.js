@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
-import { getProductById } from '../../db.js';
 
 // const product = getProductById();
 
@@ -157,3 +156,8 @@ export default function products(props) {
 //   };
 // }
 //cannot read property id of undefined
+
+// export async function getServerSideProps(context) {
+//   const {getProductById} =
+// }
+// import { getProductById } from '../../db.js';

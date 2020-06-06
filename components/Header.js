@@ -2,8 +2,11 @@ import Link from 'next/link';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
 
-export default function Header({ cart }) {
+export default function Header() {
   let itemsInCart = cookie.getJSON('cart');
+  // let amountInCart = itemsInCart.reduce((accumulator, currentValue) => {
+  //   return accumulator + currentValue.amount;
+  // }, 0);  if i do it like this = undefined
 
   return (
     <div className="wrap">
@@ -25,12 +28,14 @@ export default function Header({ cart }) {
             <a>
               <li>
                 <img src="/cart.png"></img>
-                Items in cart:
                 {itemsInCart
-                  ? itemsInCart.reduce((accumulator, currentValue) => {
-                      return accumulator + currentValue.amount;
-                    }, 0)
-                  : 'empty'}
+                  ? `Items in cart: ${itemsInCart.reduce(
+                      (accumulator, currentValue) => {
+                        return accumulator + currentValue.amount;
+                      },
+                      0,
+                    )}`
+                  : 'Your cart is empty'}
               </li>
             </a>
           </Link>
@@ -82,5 +87,3 @@ export default function Header({ cart }) {
     </div>
   );
 }
-
-//

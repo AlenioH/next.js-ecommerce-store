@@ -1,10 +1,10 @@
-// import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
-import { getProductById } from '../../db.js';
 import Footer from '../../components/Footer.js';
 import { useState } from 'react';
 import cookie from 'js-cookie';
+// const postgres = require('postgres');
+// const sql = postgres();
 
 export function Product({ product }) {
   if (!product) {
@@ -13,11 +13,10 @@ export function Product({ product }) {
 
   const [pieces, setPieces] = useState(0);
   const [total, setTotal] = useState(product.price);
-  // const [cart, setCart] = useState([]);
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
-    setTotal(e.target.value * product.price);
+    setTotal(pieces * product.price);
   }
 
   function addToCart() {
@@ -32,36 +31,39 @@ export function Product({ product }) {
       info: product.info,
     };
 
-    itemsInCart.push(product);
-    cookie.set('cart', itemsInCart);
-
-    let itemFilter = itemsStored.find((item) => item.id === product.id);
+    if (pieces === 0) {
+      alert('You need to enter a valid number of pieces!');
+    }
+    let itemFilter = itemsInCart.find((item) => item.id === product.id); //this part checks if there is an item with the id already present in the array of items in cart
     if (itemFilter) {
-      itemsInCart = itemsStored.map((item, id) => {
+      let itemsDouble = itemsInCart.map((item) => {
         if (item.id === product.id) {
+          //this condition makes sure the map only adjusts the current item
           return { ...item, amount: item.amount + pieces };
         } else {
           return item;
         }
       });
+      cookie.set('cart', itemsDouble);
+    } else {
+      itemsInCart.push(product);
       cookie.set('cart', itemsInCart);
     }
-
-    // if (itemsStored) {
-    //   let itemsInCart = [
-    //     ...itemsStored,
-    //     { ...product, price: total, amount: pieces },
-    //   ];
-    //   cookie.set('cart', itemsInCart);
-
-    // } else {
-    //   let itemsInCart = [{ ...product, price: total, amount: pieces }];
-    //   cookie.set('cart', itemsInCart);
-    // }
-
     alert('The item has been successfully added to the cart!');
     window.location.reload();
   }
+  // if (itemsStored) {
+  //   let itemsInCart = [
+  //     ...itemsStored,
+  //     { ...product, price: total, amount: pieces },
+  //   ];
+  //   cookie.set('cart', itemsInCart);
+
+  // } else {
+  //   let itemsInCart = [{ ...product, price: total, amount: pieces }];
+  //   cookie.set('cart', itemsInCart);
+  // }
+
   //Local storage thing works but I'm going to get some cookies...
   // function addToCart() {
   //   if (typeof window !== 'undefined') {
@@ -190,8 +192,10 @@ export default Product;
 // you can write code here that is "secret" - eg. passwords,
 // database connection information, etc.
 
-export function getServerSideProps(context) {
-  const product = getProductById(context.params.id);
+export async function getServerSideProps(context) {
+  const { getProductById } = await import('../../db.js');
+
+  const product = await getProductById(context.params.id);
   if (product === undefined) {
     return { props: {} };
   }
