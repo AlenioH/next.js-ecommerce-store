@@ -3,9 +3,7 @@ import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
 
-// const product = getProductById();
-
-export default function products(props) {
+export default function products({ products }) {
   return (
     <div>
       <Head>
@@ -20,16 +18,21 @@ export default function products(props) {
       <Header />
       <h1>//!TODOHEADIN!//</h1>
       <div className="rugtainer">
-        <div className="itemContainer">
-          <Link href="/products/1">
-            <a>
-              <img src="/carpet1.png"></img>
-              <h3>Creamy rug</h3>
-              <p> 199€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
+        {products.map((item) => {
+          return (
+            <div className="itemContainer">
+              <Link href={'/products/' + item.id}>
+                <a>
+                  <img src={item.img}></img>
+                  <h3>{item.name}</h3>
+                  <p> {item.price}€</p>
+                </a>
+              </Link>
+            </div>
+          );
+        })}
+
+        {/* <div className="itemContainer">
           <Link href="/products/2">
             <a>
               <img src="/carpet2.png"></img>
@@ -82,7 +85,7 @@ export default function products(props) {
               <p>499€</p>
             </a>
           </Link>
-        </div>
+        </div> */}
       </div>
       <Footer />
       <style jsx>{`
@@ -116,8 +119,8 @@ export default function products(props) {
 
         .itemContainer:hover {
           background-color: #e9f6ee;
-          font-size: 105%;
-          transition: background-color, font-size 0.3s;
+
+          transition: background-color 0.3s;
           border-radius: 10px;
         }
 
@@ -143,21 +146,12 @@ export default function products(props) {
   );
 }
 
-// export function getServerSideProps(context) {
-//   const product = getProductById(context.params.id);
-//   if (product === undefined) {
-//     return { props: {} };
-//   }
-//   return {
-//     // will be passed to the page component as props
-//     props: {
-//       product,
-//     },
-//   };
-// }
-//cannot read property id of undefined
-
-// export async function getServerSideProps(context) {
-//   const {getProductById} =
-// }
-// import { getProductById } from '../../db.js';
+export async function getServerSideProps(context) {
+  const { getProducts } = await import('../../db.js');
+  const products = await await getProducts(context.params);
+  return {
+    props: {
+      products,
+    },
+  };
+}
