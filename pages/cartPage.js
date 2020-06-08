@@ -65,7 +65,7 @@ function CartPage({ cart, products }) {
       }
     });
     cookie.set('cart', newCart);
-    // window.location.reload();
+    window.location.reload();
     console.log(newCart);
   }
 
@@ -76,11 +76,11 @@ function CartPage({ cart, products }) {
           alert('Use remove button!');
           return item;
         } else {
-          setPieces(+pieces - 1);
-
+          let prodPrice = products.find((prod) => prod.id === id);
           return {
             ...item,
-            amount: pieces,
+            amount: +item.amount - 1,
+            price: +prodPrice.price * (+item.amount - 1),
           };
         }
       } else {
@@ -88,7 +88,7 @@ function CartPage({ cart, products }) {
       }
     });
     cookie.set('cart', newCart);
-    // window.location.reload();
+    window.location.reload();
     console.log(newCart);
   }
 
@@ -115,20 +115,24 @@ function CartPage({ cart, products }) {
           <a> Back to shop</a>
         </Link>
         <div className="tableItems">
-          <h4> Product</h4>
-          <h4>Description</h4>
-          <h4>Quantity</h4>
-          <h4>Price</h4>
-          <h4>&nbsp;</h4>
+          <div className="headings">
+            <h4> Product</h4>
+            <h4>Description</h4>
+            <h4>Quantity</h4>
+            <h4>Price</h4>
+            <h4>&nbsp;</h4>
+          </div>
           {itemsInCart
             ? itemsInCart.map((item) => {
                 return (
-                  <li className="item" key={item.id}>
+                  <div className="item" key={item.id}>
                     <img src={item.img} alt="item" />
                     <p>{item.name}</p>
-                    <button onClick={() => reduceOne(item.id)}>-</button>
-                    <p>{item.amount}</p>
-                    <button onClick={() => addOne(item.id)}>+</button>
+                    <span className="buttonz">
+                      <button onClick={() => reduceOne(item.id)}>-</button>
+                      <p>{item.amount}</p>
+                      <button onClick={() => addOne(item.id)}>+</button>
+                    </span>
                     {/* <label for="productNumber">
                       <input
                         type="number"
@@ -145,7 +149,7 @@ function CartPage({ cart, products }) {
                     >
                       Remove item from cart
                     </button>
-                  </li>
+                  </div>
                 );
               })
             : 'The cart is empty....'}
@@ -188,13 +192,33 @@ function CartPage({ cart, products }) {
 
         .tableItems {
           padding: 10px;
-          display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-          grid-gap: 10px;
+
           text-align: center;
           border-bottom: 1px solid #2f3640;
         }
 
+        .headings {
+          display: grid;
+          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+          grid-gap: 10px;
+        }
+
+        .item {
+          display: grid;
+          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+          grid-gap: 10px;
+        }
+
+        .buttonz {
+          display: flex;
+          flex-direction: row;
+          padding: 0px;
+          justify-content: center;
+          align-items: baseline;
+        }
+        .buttonz button {
+          padding: 2px;
+        }
         img {
           height: 70px;
           align-self: center;
