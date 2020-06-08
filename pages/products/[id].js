@@ -3,24 +3,24 @@ import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
 import { useState } from 'react';
 import cookie from 'js-cookie';
-// const postgres = require('postgres');
-// const sql = postgres();
+import React from 'react';
 
 export function Product({ product }) {
   if (!product) {
     return <div>Item not found...</div>;
   }
 
-  const [pieces, setPieces] = useState(0);
+  const [pieces, setPieces] = useState(product.amount);
   const [total, setTotal] = useState(product.price);
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
-    setTotal(pieces * product.price);
+    setTotal(Number(e.target.value) * product.price);
   }
 
   function addToCart() {
     let itemsInCart = cookie.getJSON('cart') || [];
+    console.log('jonas', itemsInCart);
 
     product = {
       name: product.name,
@@ -30,16 +30,24 @@ export function Product({ product }) {
       img: product.img,
       info: product.info,
     };
-
+    // console.log('hamed', product);
     if (pieces === 0) {
       alert('You need to enter a valid number of pieces!');
     }
-    let itemFilter = itemsInCart.find((item) => item.id === product.id); //this part checks if there is an item with the id already present in the array of items in cart
+    let itemFilter = itemsInCart.find((item) => item.id === product.id);
+
+    //this part checks if there is an item with the id already present in the array of items in cart
     if (itemFilter) {
       let itemsDouble = itemsInCart.map((item) => {
         if (item.id === product.id) {
           //this condition makes sure the map only adjusts the current item
-          return { ...item, amount: item.amount + pieces };
+          return {
+            ...item,
+            amount: item.amount + pieces,
+            price: (item.amount + pieces) * item.price,
+
+            // price: item.price * item.amount,
+          };
         } else {
           return item;
         }
@@ -85,11 +93,11 @@ export function Product({ product }) {
           href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
           rel="stylesheet"
         ></link>
-        <title>{product.name}</title>
+        <title>{product.name || ''}</title>
       </Head>
       <Header />
       <div className="wrapper">
-        <img src={product.img}></img>
+        <img src={product.img} alt=""></img>
         <div className="description">
           <h1>{product.name}</h1>
           <p>{product.info}</p>
@@ -202,7 +210,7 @@ export async function getServerSideProps(context) {
   return {
     // will be passed to the page component as props
     props: {
-      product,
+      product: product,
     },
   };
 }

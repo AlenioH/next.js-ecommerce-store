@@ -1,40 +1,94 @@
 import Head from 'next/head';
+import React from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import { useState } from 'react';
-// import { getProductById } from '../db.js';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
-// import products from './products/index.js';
 
-function cartPage({ cart }) {
-  const [pieces, setPieces] = useState(0); //mb i do like to keep it in order to sum pieces of the same items
+function CartPage({ cart, products }) {
+  //mb i do like to keep it in order to sum pieces of the same items
   let itemsInCart = cart;
-  const total = itemsInCart.reduce((acc, cur) => {
-    return acc + cur.price;
-  }, 0);
-  console.log(total);
-  cookie.set("total", total);
+  console.log(itemsInCart);
 
-  // let product = products;
+  // let piecesInit = Number(itemsInCart.map)
 
-  function handlePieces(e, id) {
+  const [pieces, setPieces] = useState(
+    Number(itemsInCart.map((item) => item.amount)),
+  ); //take it out into a separate var now it says amount is an array
+  const [itemTotal, setItemTotal] = useState(
+    products.map((item) => item.price),
+  );
+  // console.log(pieces);
+  // console.log(itemTotal);
+
+  const total = itemsInCart
+    ? itemsInCart.reduce((acc, cur) => {
+        return acc + cur.price;
+      }, 0)
+    : 0;
+  cookie.set('total', total);
+
+  // function handlePieces(e, id) {
+  //   let newCart = cart.map((item) => {
+  //     if (item.id === id) {
+  //       //item.id === item.id = ALL items in cart
+  //       //product.id also not, cart.id either, itemsInCart either, item.key also not.
+  //       return {
+  //         ...item,
+  //         amount: Number(e.target.value),
+  //         price: Number(e.target.value) * item.price,
+  //       };
+  //     } else {
+  //       return item;
+  //     }
+  //   });
+
+  //   cookie.set('cart', newCart);
+  //   // window.location.reload();
+  //   console.log(newCart);
+  // }
+
+  function addOne(id) {
     let newCart = cart.map((item) => {
-      // setPieces(Number(e.target.value));
       if (item.id === id) {
-        //item.id === item.id = ALL items in cart
-        //product.id also not, cart.id either, itemsInCart either, item.key also not.
+        let prodPrice = products.find((prod) => prod.id === id);
+
         return {
           ...item,
-          amount: Number(e.target.value),
-          price: Number(e.target.value) * item.price,
+          amount: +item.amount + 1,
+          price: +prodPrice.price * (+item.amount + 1),
         };
       } else {
         return item;
       }
     });
     cookie.set('cart', newCart);
+    // window.location.reload();
+    console.log(newCart);
+  }
+
+  function reduceOne(id) {
+    let newCart = cart.map((item) => {
+      if (item.id === id) {
+        if (pieces === 1) {
+          alert('Use remove button!');
+          return item;
+        } else {
+          setPieces(+pieces - 1);
+
+          return {
+            ...item,
+            amount: pieces,
+          };
+        }
+      } else {
+        return item;
+      }
+    });
+    cookie.set('cart', newCart);
+    // window.location.reload();
     console.log(newCart);
   }
 
@@ -65,21 +119,25 @@ function cartPage({ cart }) {
           <h4>Description</h4>
           <h4>Quantity</h4>
           <h4>Price</h4>
-          <h4></h4>
+          <h4>&nbsp;</h4>
           {itemsInCart
             ? itemsInCart.map((item) => {
                 return (
                   <li className="item" key={item.id}>
-                    <img src={item.img}></img>
+                    <img src={item.img} alt="item" />
                     <p>{item.name}</p>
-                    <label for="productNumber">
+                    <button onClick={() => reduceOne(item.id)}>-</button>
+                    <p>{item.amount}</p>
+                    <button onClick={() => addOne(item.id)}>+</button>
+                    {/* <label for="productNumber">
                       <input
                         type="number"
                         min="1"
                         placeholder={item.amount}
-                        onChange={handlePieces}
+                        onChange={(e) => handlePieces(e, item.id)}
                       ></input>
-                    </label>
+                    </label> */}
+                    {/* <p>{Number(item.price) * Number(item.amount)}€</p> */}
                     <p>{item.price}€</p>
                     <button
                       onClick={() => removeItem(item.id)}
@@ -93,6 +151,7 @@ function cartPage({ cart }) {
             : 'The cart is empty....'}
         </div>
         <p className="total">
+          Total:
           {total}€<br></br>
           <Link href="/payment">
             <a>
@@ -196,15 +255,18 @@ function cartPage({ cart }) {
     </div>
   );
 }
-export default cartPage;
+export default CartPage;
 
-export function getServerSideProps(context) {
-  const { cart } = nextCookies(context);
+export async function getServerSideProps(context) {
+  const { cart } = await nextCookies(context);
+  const { getProducts } = await import('../db.js');
+  const products = await getProducts(context.params);
 
   return {
     // will be passed to the page component as props
     props: {
       ...(cart ? { cart: cart } : undefined),
+      products,
     },
   };
 }

@@ -3,8 +3,14 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import cookie from 'js-cookie';
+import React from 'react';
+import nextCookies from 'next-cookies';
 
 export default function payment() {
+  function buy() {
+    cookie.remove('cart');
+    cookie.remove('total');
+  }
   return (
     <div>
       <Head>
@@ -15,7 +21,7 @@ export default function payment() {
 
       <div className="container">
         <h1>Contact information and payment</h1>
-        <p>Total price of items in cart: {cookie.getJSON('total')}€</p>
+
         <div className="wholeBox">
           <div className="contactInfo">
             <h3>Shipping address</h3>
@@ -56,8 +62,8 @@ export default function payment() {
             <h3>Payment info</h3>
             <div className="cards">
               <p>Accepted cards</p>
-              <img src="/visa.png"></img>
-              <img src="/alenio.png"></img>
+              <img src="/visa.png" alt="visa"></img>
+              <img src="/alenio.png" alt="jaegermeister"></img>
             </div>
             <span>
               <label for="namecard">Name on card</label>
@@ -85,9 +91,12 @@ export default function payment() {
             </span>
           </div>
         </div>
+        <p className="total">
+          Total price of items in cart: {cookie.getJSON('total')}€
+        </p>
         <Link href="/thx">
           <a>
-            <button>BUY!</button>
+            <button onClick={buy}>BUY!</button>
           </a>
         </Link>
       </div>
@@ -160,6 +169,10 @@ export default function payment() {
         a {
           align-self: flex-end;
         }
+
+        .total {
+          align-self: flex-end;
+        }
         button {
           font-weight: bold;
           text-align: center;
@@ -196,4 +209,14 @@ export default function payment() {
       `}</style>
     </div>
   );
+}
+export function getServerSideProps(context) {
+  const { cart, total } = nextCookies(context);
+
+  return {
+    props: {
+      ...(cart ? { cart: cart } : undefined),
+      total,
+    },
+  };
 }

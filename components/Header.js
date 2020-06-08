@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
-import nextCookies from 'next-cookies';
+// import nextCookies from 'next-cookies';
+import React from 'react';
 
 export default function Header() {
   let itemsInCart = cookie.getJSON('cart');
@@ -15,7 +16,8 @@ export default function Header() {
           <Link href={'/index'}>
             <a>
               <li>
-                <img src="/favicon.png"></img>Bist du Teppich! Home
+                <img src="/favicon.png" alt="logo couch"></img>Bist du Teppich!
+                Home
               </li>
             </a>
           </Link>
@@ -27,7 +29,7 @@ export default function Header() {
           <Link href={'/cartPage'}>
             <a>
               <li>
-                <img src="/cart.png"></img>
+                <img src="/cart.png" alt=""></img>
                 {itemsInCart
                   ? `Items in cart: ${itemsInCart.reduce(
                       (accumulator, currentValue) => {

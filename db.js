@@ -67,7 +67,7 @@ const sql = postgres();
 //   `;
 //   return products;
 // }
-
+// console.log(products);
 export async function getProducts() {
   const products = await sql`
   SELECT * FROM products
@@ -78,5 +78,5 @@ export async function getProducts() {
 export async function getProductById(id) {
   const product = await sql`
   SELECT * FROM products WHERE id = ${id}`;
-  return product;
+  return product[0];
 }

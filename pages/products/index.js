@@ -2,8 +2,10 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
+import React from 'react';
 
-export default function products({ products }) {
+export default function Products({ products }) {
+  // console.log(products);
   return (
     <div>
       <Head>
@@ -16,14 +18,14 @@ export default function products({ products }) {
       </Head>
       ;
       <Header />
-      <h1>//!TODOHEADIN!//</h1>
+      {/* <h1></h1> */}
       <div className="rugtainer">
         {products.map((item) => {
           return (
-            <div className="itemContainer">
+            <div className="itemContainer" key={item.id}>
               <Link href={'/products/' + item.id}>
                 <a>
-                  <img src={item.img}></img>
+                  <img src={item.img} alt="item"></img>
                   <h3>{item.name}</h3>
                   <p> {item.price}€</p>
                 </a>
@@ -148,7 +150,8 @@ export default function products({ products }) {
 
 export async function getServerSideProps(context) {
   const { getProducts } = await import('../../db.js');
-  const products = await await getProducts(context.params);
+  const products = await getProducts(context.params);
+
   return {
     props: {
       products,
