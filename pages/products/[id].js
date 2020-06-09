@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
 import { useState } from 'react';
-import cookie from 'js-cookie';
+// import cookie from 'js-cookie';
 import React from 'react';
+import AddToCart from '../../components/AddToCart';
 
 export function Product({ product }) {
   if (!product) {
@@ -18,48 +19,49 @@ export function Product({ product }) {
     setTotal(Number(e.target.value) * product.price);
   }
 
-  function addToCart() {
-    let itemsInCart = cookie.getJSON('cart') || [];
-    console.log('jonas', itemsInCart);
+  // function addToCart() {
+  //   let itemsInCart = cookie.getJSON('cart') || [];
+  //   console.log('jonas', itemsInCart);
 
-    product = {
-      name: product.name,
-      price: total,
-      id: product.id,
-      amount: pieces,
-      img: product.img,
-      info: product.info,
-    };
-    // console.log('hamed', product);
-    if (pieces === 0) {
-      alert('You need to enter a valid number of pieces!');
-    }
-    let itemFilter = itemsInCart.find((item) => item.id === product.id);
+  //   product = {
+  //     name: product.name,
+  //     price: total,
+  //     id: product.id,
+  //     amount: pieces,
+  //     img: product.img,
+  //     info: product.info,
+  //   };
+  //   // console.log('hamed', product);
+  //   if (pieces === 0) {
+  //     alert('You need to enter a valid number of pieces!');
+  //   }
+  //   let itemFilter = itemsInCart.find((item) => item.id === product.id);
 
-    //this part checks if there is an item with the id already present in the array of items in cart
-    if (itemFilter) {
-      let itemsDouble = itemsInCart.map((item) => {
-        if (item.id === product.id) {
-          //this condition makes sure the map only adjusts the current item
-          return {
-            ...item,
-            amount: item.amount + pieces,
-            price: (item.amount + pieces) * item.price,
+  //   //this part checks if there is an item with the id already present in the array of items in cart
+  //   if (itemFilter) {
+  //     let itemsDouble = itemsInCart.map((item) => {
+  //       if (item.id === product.id) {
+  //         //this condition makes sure the map only adjusts the current item
+  //         return {
+  //           ...item,
+  //           amount: item.amount + pieces,
+  //           price: (item.amount + pieces) * item.price,
 
-            // price: item.price * item.amount,
-          };
-        } else {
-          return item;
-        }
-      });
-      cookie.set('cart', itemsDouble);
-    } else {
-      itemsInCart.push(product);
-      cookie.set('cart', itemsInCart);
-    }
-    alert('The item has been successfully added to the cart!');
-    window.location.reload();
-  }
+  //           // price: item.price * item.amount,
+  //         };
+  //       } else {
+  //         return item;
+  //       }
+  //     });
+  //     cookie.set('cart', itemsDouble);
+  //   } else {
+  //     itemsInCart.push(product);
+  //     cookie.set('cart', itemsInCart);
+  //   }
+  //   alert('The item has been successfully added to the cart!');
+  //   window.location.reload();
+  // }
+
   // if (itemsStored) {
   //   let itemsInCart = [
   //     ...itemsStored,
@@ -118,7 +120,7 @@ export function Product({ product }) {
             ></input>
           </label>
           <p>Total: {total}€</p>
-          <button onClick={addToCart}>Add to cart</button>
+          <AddToCart product={product} pieces={pieces} total={total} />
         </div>
       </div>
       <Footer />

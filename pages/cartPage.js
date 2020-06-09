@@ -3,25 +3,12 @@ import React from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
-import { useState } from 'react';
+// import { useState } from 'react';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
 
 function CartPage({ cart, products }) {
-  //mb i do like to keep it in order to sum pieces of the same items
   let itemsInCart = cart;
-  console.log(itemsInCart);
-
-  // let piecesInit = Number(itemsInCart.map)
-
-  const [pieces, setPieces] = useState(
-    Number(itemsInCart.map((item) => item.amount)),
-  ); //take it out into a separate var now it says amount is an array
-  const [itemTotal, setItemTotal] = useState(
-    products.map((item) => item.price),
-  );
-  // console.log(pieces);
-  // console.log(itemTotal);
 
   const total = itemsInCart
     ? itemsInCart.reduce((acc, cur) => {
@@ -72,7 +59,8 @@ function CartPage({ cart, products }) {
   function reduceOne(id) {
     let newCart = cart.map((item) => {
       if (item.id === id) {
-        if (pieces === 1) {
+        if (item.amount === 1) {
+          //see if this works, previous version: if pieces===1
           alert('Use remove button!');
           return item;
         } else {
