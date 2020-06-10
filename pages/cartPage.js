@@ -3,9 +3,11 @@ import React from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
-// import { useState } from 'react';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
+import RemoveFromCart from '../components/RemoveFromCart.js';
+import AddOneItem from '../components/AddOneItem.js';
+import ReduceOneItem from '../components/ReduceOneItem.js';
 
 function CartPage({ cart, products }) {
   let itemsInCart = cart;
@@ -16,79 +18,6 @@ function CartPage({ cart, products }) {
       }, 0)
     : 0;
   cookie.set('total', total);
-
-  // function handlePieces(e, id) {
-  //   let newCart = cart.map((item) => {
-  //     if (item.id === id) {
-  //       //item.id === item.id = ALL items in cart
-  //       //product.id also not, cart.id either, itemsInCart either, item.key also not.
-  //       return {
-  //         ...item,
-  //         amount: Number(e.target.value),
-  //         price: Number(e.target.value) * item.price,
-  //       };
-  //     } else {
-  //       return item;
-  //     }
-  //   });
-
-  //   cookie.set('cart', newCart);
-  //   // window.location.reload();
-  //   console.log(newCart);
-  // }
-
-  function addOne(id) {
-    let newCart = cart.map((item) => {
-      if (item.id === id) {
-        let prodPrice = products.find((prod) => prod.id === id);
-
-        return {
-          ...item,
-          amount: +item.amount + 1,
-          price: +prodPrice.price * (+item.amount + 1),
-        };
-      } else {
-        return item;
-      }
-    });
-    cookie.set('cart', newCart);
-    window.location.reload();
-    console.log(newCart);
-  }
-
-  function reduceOne(id) {
-    let newCart = cart.map((item) => {
-      if (item.id === id) {
-        if (item.amount === 1) {
-          //see if this works, previous version: if pieces===1
-          alert('Use remove button!');
-          return item;
-        } else {
-          let prodPrice = products.find((prod) => prod.id === id);
-          return {
-            ...item,
-            amount: +item.amount - 1,
-            price: +prodPrice.price * (+item.amount - 1),
-          };
-        }
-      } else {
-        return item;
-      }
-    });
-    cookie.set('cart', newCart);
-    window.location.reload();
-    console.log(newCart);
-  }
-
-  function removeItem(id) {
-    let newCart = itemsInCart.filter((item) => {
-      return item.id !== id;
-    });
-    cookie.set('cart', newCart);
-
-    window.location.reload();
-    console.log(newCart);
-  }
 
   return (
     <div>
@@ -117,26 +46,19 @@ function CartPage({ cart, products }) {
                     <img src={item.img} alt="item" />
                     <p>{item.name}</p>
                     <span className="buttonz">
-                      <button onClick={() => reduceOne(item.id)}>-</button>
+                      <ReduceOneItem
+                        item={item}
+                        cart={cart}
+                        products={products}
+                      />
+
                       <p>{item.amount}</p>
-                      <button onClick={() => addOne(item.id)}>+</button>
+
+                      <AddOneItem item={item} cart={cart} products={products} />
                     </span>
-                    {/* <label for="productNumber">
-                      <input
-                        type="number"
-                        min="1"
-                        placeholder={item.amount}
-                        onChange={(e) => handlePieces(e, item.id)}
-                      ></input>
-                    </label> */}
-                    {/* <p>{Number(item.price) * Number(item.amount)}€</p> */}
                     <p>{item.price}€</p>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="removeButton"
-                    >
-                      Remove item from cart
-                    </button>
+
+                    <RemoveFromCart item={item} itemsInCart={itemsInCart} />
                   </div>
                 );
               })
@@ -145,11 +67,15 @@ function CartPage({ cart, products }) {
         <p className="total">
           Total:
           {total}€<br></br>
-          <Link href="/payment">
-            <a>
-              <button>Proceed to checkout</button>
-            </a>
-          </Link>
+          {itemsInCart ? (
+            <Link href="/payment">
+              <a>
+                <button>Proceed to checkout</button>
+              </a>
+            </Link>
+          ) : (
+            ' '
+          )}
         </p>
       </div>
       <Footer />
@@ -204,9 +130,7 @@ function CartPage({ cart, products }) {
           justify-content: center;
           align-items: baseline;
         }
-        .buttonz button {
-          padding: 2px;
-        }
+
         img {
           height: 70px;
           align-self: center;
@@ -219,12 +143,6 @@ function CartPage({ cart, products }) {
           text-align: center;
         }
 
-        .removeButton {
-          width: 100px;
-          font-size: 80%;
-          padding: 5px;
-          background-color: red;
-        }
         .total {
           text-align: right;
           font-size: 20px;
@@ -282,3 +200,56 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+//moved to a separate components
+
+// function removeItem(id) {
+//   let newCart = itemsInCart.filter((item) => {
+//     return item.id !== id;
+//   });
+//   cookie.set('cart', newCart);
+
+//   window.location.reload();
+//   console.log(newCart);
+// }
+
+// function addOne(id) {
+//   let newCart = cart.map((item) => {
+//     if (item.id === id) {
+//       let prodPrice = products.find((prod) => prod.id === id);
+
+//       return {
+//         ...item,
+//         amount: +item.amount + 1,
+//         price: +prodPrice.price * (+item.amount + 1),
+//       };
+//     } else {
+//       return item;
+//     }
+//   });
+//   cookie.set('cart', newCart);
+//   window.location.reload();
+//   console.log(newCart);
+// }
+// function reduceOne(id) {
+//   let newCart = cart.map((item) => {
+//     if (item.id === id) {
+//       if (item.amount === 1) {
+//         alert('Use remove button!');
+//         return item;
+//       } else {
+//         let prodPrice = products.find((prod) => prod.id === id);
+//         return {
+//           ...item,
+//           amount: +item.amount - 1,
+//           price: +prodPrice.price * (+item.amount - 1),
+//         };
+//       }
+//     } else {
+//       return item;
+//     }
+//   });
+//   cookie.set('cart', newCart);
+//   window.location.reload();
+//   console.log(newCart);
+// }

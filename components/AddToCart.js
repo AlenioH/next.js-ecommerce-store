@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import cookie from 'js-cookie';
 import React from 'react';
 
@@ -16,9 +15,6 @@ export default function AddToCart(props) {
       info: props.product.info,
     };
 
-    if (props.pieces === 0) {
-      alert('You need to enter a valid number of pieces!');
-    }
     let itemFilter = itemsInCart.find((item) => item.id === product.id);
 
     //this part checks if there is an item with the id already present in the array of items in cart
@@ -30,8 +26,6 @@ export default function AddToCart(props) {
             ...item,
             amount: item.amount + props.pieces,
             price: (item.amount + props.pieces) * item.price,
-
-            // price: item.price * item.amount,
           };
         } else {
           return item;
@@ -46,11 +40,25 @@ export default function AddToCart(props) {
     window.location.reload();
   }
 
-  // console.log('hamed', product);
   return (
     <div>
       <button onClick={makeCookies}>Add to cart</button>
+      <style jsx>{`
+        button {
+          margin-top: 40px;
+          align-self: center;
+          background-color: #2f3640;
+          padding: 15px;
+          border-radius: 10px;
+          color: white;
+          font-family: inherit;
+          font-size: 120%;
+        }
+        button:hover {
+          background-color: #636e72;
+          transition: background-color 0.3s;
+        }
+      `}</style>
     </div>
   );
 }
-// export default function AddToCart;

@@ -26,7 +26,7 @@ export default function Header() {
               <li>Go to shop</li>
             </a>
           </Link>
-          <Link href={'/cartPage'}>
+          <Link className="cart" href={'/cartPage'}>
             <a>
               <li>
                 <img src="/cart.png" alt=""></img>
@@ -78,7 +78,7 @@ export default function Header() {
           text-decoration: none;
           color: #062a06;
           text-shadow: 1px 1px #2f3640;
-          font-size: 20px;
+          font-size: 1.5rem;
         }
 
         a:hover {

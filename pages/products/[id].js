@@ -11,81 +11,13 @@ export function Product({ product }) {
     return <div>Item not found...</div>;
   }
 
-  const [pieces, setPieces] = useState(product.amount);
+  const [pieces, setPieces] = useState(1);
   const [total, setTotal] = useState(product.price);
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
     setTotal(Number(e.target.value) * product.price);
   }
-
-  // function addToCart() {
-  //   let itemsInCart = cookie.getJSON('cart') || [];
-  //   console.log('jonas', itemsInCart);
-
-  //   product = {
-  //     name: product.name,
-  //     price: total,
-  //     id: product.id,
-  //     amount: pieces,
-  //     img: product.img,
-  //     info: product.info,
-  //   };
-  //   // console.log('hamed', product);
-  //   if (pieces === 0) {
-  //     alert('You need to enter a valid number of pieces!');
-  //   }
-  //   let itemFilter = itemsInCart.find((item) => item.id === product.id);
-
-  //   //this part checks if there is an item with the id already present in the array of items in cart
-  //   if (itemFilter) {
-  //     let itemsDouble = itemsInCart.map((item) => {
-  //       if (item.id === product.id) {
-  //         //this condition makes sure the map only adjusts the current item
-  //         return {
-  //           ...item,
-  //           amount: item.amount + pieces,
-  //           price: (item.amount + pieces) * item.price,
-
-  //           // price: item.price * item.amount,
-  //         };
-  //       } else {
-  //         return item;
-  //       }
-  //     });
-  //     cookie.set('cart', itemsDouble);
-  //   } else {
-  //     itemsInCart.push(product);
-  //     cookie.set('cart', itemsInCart);
-  //   }
-  //   alert('The item has been successfully added to the cart!');
-  //   window.location.reload();
-  // }
-
-  // if (itemsStored) {
-  //   let itemsInCart = [
-  //     ...itemsStored,
-  //     { ...product, price: total, amount: pieces },
-  //   ];
-  //   cookie.set('cart', itemsInCart);
-
-  // } else {
-  //   let itemsInCart = [{ ...product, price: total, amount: pieces }];
-  //   cookie.set('cart', itemsInCart);
-  // }
-
-  //Local storage thing works but I'm going to get some cookies...
-  // function addToCart() {
-  //   if (typeof window !== 'undefined') {
-  //     window.localStorage.itemsInCartLocStorage = JSON.stringify([
-  //       props.product, //PIECES shall go there too AAAAND total
-  //     ]);
-  //     setCart(window.localStorage.itemsInCartLocStorage);
-  //     console.log(cart);
-  //   } else {
-  //     alert('Something went wrong...');
-  //   }
-  // }
 
   return (
     <div>
@@ -115,11 +47,12 @@ export function Product({ product }) {
             <input
               type="number"
               min="1"
-              placeholder="0"
+              placeholder="Qty"
               onChange={handlePieces}
             ></input>
           </label>
-          <p>Total: {total}€</p>
+          {pieces > 1 ? <p>Total: {total}€</p> : ''}
+
           <AddToCart product={product} pieces={pieces} total={total} />
         </div>
       </div>
@@ -216,3 +149,71 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+// function addToCart() {
+//   let itemsInCart = cookie.getJSON('cart') || [];
+//   console.log('jonas', itemsInCart);
+
+//   product = {
+//     name: product.name,
+//     price: total,
+//     id: product.id,
+//     amount: pieces,
+//     img: product.img,
+//     info: product.info,
+//   };
+//   // console.log('hamed', product);
+//   if (pieces === 0) {
+//     alert('You need to enter a valid number of pieces!');
+//   }
+//   let itemFilter = itemsInCart.find((item) => item.id === product.id);
+
+//   //this part checks if there is an item with the id already present in the array of items in cart
+//   if (itemFilter) {
+//     let itemsDouble = itemsInCart.map((item) => {
+//       if (item.id === product.id) {
+//         //this condition makes sure the map only adjusts the current item
+//         return {
+//           ...item,
+//           amount: item.amount + pieces,
+//           price: (item.amount + pieces) * item.price,
+
+//           // price: item.price * item.amount,
+//         };
+//       } else {
+//         return item;
+//       }
+//     });
+//     cookie.set('cart', itemsDouble);
+//   } else {
+//     itemsInCart.push(product);
+//     cookie.set('cart', itemsInCart);
+//   }
+//   alert('The item has been successfully added to the cart!');
+//   window.location.reload();
+// }
+
+// if (itemsStored) {
+//   let itemsInCart = [
+//     ...itemsStored,
+//     { ...product, price: total, amount: pieces },
+//   ];
+//   cookie.set('cart', itemsInCart);
+
+// } else {
+//   let itemsInCart = [{ ...product, price: total, amount: pieces }];
+//   cookie.set('cart', itemsInCart);
+// }
+
+//Local storage thing works but I'm going to get some cookies...
+// function addToCart() {
+//   if (typeof window !== 'undefined') {
+//     window.localStorage.itemsInCartLocStorage = JSON.stringify([
+//       props.product, //PIECES shall go there too AAAAND total
+//     ]);
+//     setCart(window.localStorage.itemsInCartLocStorage);
+//     console.log(cart);
+//   } else {
+//     alert('Something went wrong...');
+//   }
+// }
