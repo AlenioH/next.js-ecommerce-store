@@ -5,11 +5,22 @@ import Link from 'next/link';
 import cookie from 'js-cookie';
 import React from 'react';
 import nextCookies from 'next-cookies';
+import { useState } from 'react';
 
-export default function payment() {
+export default function Payment() {
+  const [text, setText] = useState('');
+
   function buy() {
     cookie.remove('cart');
     cookie.remove('total');
+  }
+
+  function checksType(e) {
+    setText(e.target.value);
+    if (typeof e.target.value !== 'string') {
+      alert('not valid');
+      console.log(text);
+    }
   }
   return (
     <div>
@@ -26,11 +37,12 @@ export default function payment() {
           <div className="contactInfo">
             <h3>Shipping address</h3>
             <span>
-              <label for="name">Full name</label>
+              <label htmlFor="name">Full name</label>
               <input
                 type="text"
                 id="name"
                 placeholder="Alenio Hasslacherio"
+                onChange={(e) => checksType(e)}
               ></input>
             </span>
             <span>
@@ -51,7 +63,12 @@ export default function payment() {
             </span>
             <span>
               <label for="zip">Zip-code</label>
-              <input id="zip" placeholder="2320" type="text"></input>
+              <input
+                id="zip"
+                placeholder="2320"
+                type="text"
+                maxLength="4"
+              ></input>
             </span>
             <span>
               <label for="city">City</label>
@@ -91,6 +108,7 @@ export default function payment() {
             </span>
           </div>
         </div>
+
         <p className="total">
           Total price of items in cart: {cookie.getJSON('total')}€
         </p>

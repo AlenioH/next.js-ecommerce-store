@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
 import { useState } from 'react';
-// import cookie from 'js-cookie';
 import React from 'react';
 import AddToCart from '../../components/AddToCart';
 
@@ -45,14 +44,16 @@ export function Product({ product }) {
 
           <label for="productNumber">
             <input
+              data-cy={'input-field/' + product.name.toLowerCase()}
               type="number"
               min="1"
               placeholder="Qty"
               onChange={handlePieces}
             ></input>
           </label>
-          {pieces > 1 ? <p>Total: {total}€</p> : ''}
-
+          <p data-cy={'total-price/' + product.name.toLowerCase()}>
+            {pieces > 1 ? <p>Total: {total}€</p> : ''}
+          </p>
           <AddToCart product={product} pieces={pieces} total={total} />
         </div>
       </div>
