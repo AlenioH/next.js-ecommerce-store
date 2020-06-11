@@ -13,7 +13,10 @@ export default function RemoveFromCart(props) {
   }
   return (
     <div>
-      <button onClick={() => removeItem(props.item.id)}>
+      <button
+        data-cy={'remove-button'}
+        onClick={() => removeItem(props.item.id)}
+      >
         Remove item from cart
       </button>
       <style jsx>{`

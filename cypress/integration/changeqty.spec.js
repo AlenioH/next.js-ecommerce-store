@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 context('Quantity', () => {
   it('can change quantity of given product', () => {
     cy.visit('http://localhost:3000/products/2'); //ok well this actually DOES visit the page yay!

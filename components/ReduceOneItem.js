@@ -26,7 +26,9 @@ export default function ReduceOneItem(props) {
   }
   return (
     <div>
-      <button onClick={() => reduceOne(props.item.id)}>-</button>
+      <button data-cy="reduce-button" onClick={() => reduceOne(props.item.id)}>
+        -
+      </button>
 
       <style jsx>{`
         button {

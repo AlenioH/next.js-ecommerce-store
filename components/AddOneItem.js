@@ -23,7 +23,9 @@ export default function AddOneItem(props) {
 
   return (
     <div>
-      <button onClick={() => addOne(props.item.id)}>+</button>
+      <button data-cy="add-button" onClick={() => addOne(props.item.id)}>
+        +
+      </button>
       <style jsx>{`
         button {
           padding: 2px;

@@ -39,24 +39,24 @@ function CartPage({ cart, products }) {
             <h4>Price</h4>
             <h4>&nbsp;</h4>
           </div>
-          {itemsInCart
+          {total !== 0
             ? itemsInCart.map((item) => {
                 return (
-                  <div className="item" key={item.id}>
+                  <div data-cy={'item-cart'} className="item" key={item.id}>
                     <img src={item.img} alt="item" />
                     <p>{item.name}</p>
-                    <span className="buttonz">
+                    <span data-cy={'amount-cart'} className="buttonz">
                       <ReduceOneItem
                         item={item}
                         cart={cart}
                         products={products}
                       />
 
-                      <p>{item.amount}</p>
+                      <p className="amount-cart">{item.amount}</p>
 
                       <AddOneItem item={item} cart={cart} products={products} />
                     </span>
-                    <p>{item.price}€</p>
+                    <p className="total-cart">{item.price}€</p>
 
                     <RemoveFromCart item={item} itemsInCart={itemsInCart} />
                   </div>
