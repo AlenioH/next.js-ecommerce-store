@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
 // import nextCookies from 'next-cookies';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Header() {
-  let itemsInCart = cookie.getJSON('cart');
-  // let amountInCart = itemsInCart.reduce((accumulator, currentValue) => {
-  //   return accumulator + currentValue.amount;
-  // }, 0);  if i do it like this = undefined
+  let itemsInCart = cookie.getJSON('cart') || [];
+
+  useEffect(() => {
+    cookie.set('cart', itemsInCart);
+    console.log(itemsInCart);
+  }, [itemsInCart]);
 
   return (
     <div className="wrap">

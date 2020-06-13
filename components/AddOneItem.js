@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cookie from 'js-cookie';
 
 export default function AddOneItem(props) {
+  // const [itemsInCart, setItemsInCart] = useState(props.itemsInCart || []);
+
+  // useEffect(() => {
+  //   cookie.set('cart', props.itemsInCart);
+  // }, [props.itemsInCart]);
+
   function addOne(id) {
     let newCart = props.cart.map((item) => {
       if (item.id === id) {
@@ -16,9 +22,12 @@ export default function AddOneItem(props) {
         return item;
       }
     });
+    // setItemsInCart(newCart);
     cookie.set('cart', newCart);
-    window.location.reload();
+
+    // window.location.reload();
     console.log(newCart);
+    // console.log(itemsInCart);
   }
 
   return (

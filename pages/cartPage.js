@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
@@ -10,14 +10,27 @@ import AddOneItem from '../components/AddOneItem.js';
 import ReduceOneItem from '../components/ReduceOneItem.js';
 
 function CartPage({ cart, products }) {
-  let itemsInCart = cart;
+  const [itemsInCart, setItemsInCart] = useState(cart || []);
+  const [total, setTotal] = useState(cookie.getJSON('total') || 0);
 
-  const total = itemsInCart
+  //to sync the prop to state when re-rendering happens,
+  //you need a useEffect inside the child that listens to prop change:
+
+  // useEffect(() => {
+  //   cookie.set('cart', itemsInCart);
+  // }, [itemsInCart]); ////this gets run every time the value is changed, so it stores new value
+
+  const totalCart = itemsInCart
     ? itemsInCart.reduce((acc, cur) => {
         return acc + cur.price;
       }, 0)
     : 0;
-  cookie.set('total', total);
+  // setTotal(totalCart);
+  // cookie.set('total', total);
+
+  // useEffect(() => {
+  //   cookie.set('total', total);
+  // }, [total]);
 
   return (
     <div>
@@ -54,7 +67,12 @@ function CartPage({ cart, products }) {
 
                       <p className="amount-cart">{item.amount}</p>
 
-                      <AddOneItem item={item} cart={cart} products={products} />
+                      <AddOneItem
+                        item={item}
+                        cart={cart}
+                        products={products}
+                        itemsInCart={itemsInCart}
+                      />
                     </span>
                     <p className="total-cart">{item.price}€</p>
 
@@ -66,8 +84,8 @@ function CartPage({ cart, products }) {
         </div>
         <p className="total">
           Total:
-          {total}€<br></br>
-          {total !== 0 ? (
+          {totalCart}€<br></br>
+          {totalCart !== 0 ? (
             <Link href="/payment">
               <a>
                 <button>Proceed to checkout</button>

@@ -1,11 +1,16 @@
 import cookie from 'js-cookie';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function AddToCart(props) {
-  function makeCookies() {
-    let itemsInCart = cookie.getJSON('cart') || [];
-    console.log('jonas', itemsInCart);
+  let itemsInCart = cookie.getJSON('cart') || [];
+  console.log('jonas', itemsInCart);
 
+  // useEffect(() => {
+  //   cookie.set('cart', itemsInCart);
+  //   console.log(itemsInCart);
+  // }, [itemsInCart]);
+
+  function MakeCookies() {
     let product = {
       name: props.product.name,
       price: props.total,
@@ -37,12 +42,12 @@ export default function AddToCart(props) {
       cookie.set('cart', itemsInCart);
     }
     alert('The item has been successfully added to the cart!');
-    window.location.reload();
+    // window.location.reload();
   }
 
   return (
     <div>
-      <button onClick={makeCookies}>Add to cart</button>
+      <button onClick={MakeCookies}>Add to cart</button>
       <style jsx>{`
         button {
           margin-top: 40px;

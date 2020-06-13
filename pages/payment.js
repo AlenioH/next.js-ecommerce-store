@@ -5,10 +5,15 @@ import Link from 'next/link';
 import cookie from 'js-cookie';
 import React from 'react';
 import nextCookies from 'next-cookies';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+// import PaymentInputs from '../components/PaymentInputs.js';
 
 export default function Payment() {
   const [input, setInput] = useState('');
+
+  useEffect(() => {
+    setInput(input);
+  }, [input]);
 
   function buy() {
     cookie.remove('cart');
@@ -56,11 +61,6 @@ export default function Payment() {
                 id="name"
                 placeholder="Alenio Hasslacherio"
                 onChange={checksTypeText}
-                style={
-                  input !== ''
-                    ? { backgroundColor: 'white' }
-                    : { backgroundColor: 'pink' }
-                }
               ></input>
             </span>
             <span>
@@ -140,13 +140,14 @@ export default function Payment() {
                 maxLength="3"
               ></input>
             </span>
+            {/* <PaymentInputs /> */}
           </div>
         </div>
 
         <p className="total">
           Total price of items in cart: {cookie.getJSON('total')}€
         </p>
-        {input !== '' ? (
+        {input ? (
           <Link href="/thx">
             <a>
               <button onClick={buy}>BUY!</button>
