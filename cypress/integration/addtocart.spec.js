@@ -16,7 +16,7 @@ context('Add to cart', () => {
     cy.get("input[type='number']").type('2');
     //check price
     cy.get('[data-cy="total-price/magic clock"]').contains(338);
-    //add to cart
+    // click add to cart button
     cy.get('button').click();
     //go to cart
     cy.visit('http://localhost:3000/cartPage');

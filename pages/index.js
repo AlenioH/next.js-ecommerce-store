@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import React from 'react';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
       <Header />
       <main>
         <h1 className="title"> Welcome to Bist du Teppich!</h1>
-        <img src="/favicon.png"></img>
+        <img alt="item" src="/favicon.png"></img>
         <h2>Home of most cosy interior decor</h2>
       </main>
       <Footer />

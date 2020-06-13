@@ -67,7 +67,7 @@ function CartPage({ cart, products }) {
         <p className="total">
           Total:
           {total}€<br></br>
-          {itemsInCart ? (
+          {total !== 0 ? (
             <Link href="/payment">
               <a>
                 <button>Proceed to checkout</button>

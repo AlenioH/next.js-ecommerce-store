@@ -8,20 +8,34 @@ import nextCookies from 'next-cookies';
 import { useState } from 'react';
 
 export default function Payment() {
-  const [text, setText] = useState('');
+  const [input, setInput] = useState('');
 
   function buy() {
     cookie.remove('cart');
     cookie.remove('total');
   }
 
-  function checksType(e) {
-    setText(e.target.value);
-    if (typeof e.target.value !== 'string') {
-      alert('not valid');
-      console.log(text);
+  const regexText = /[a-zA-Z]/g;
+  const regexNumber = /[0-9/]/g;
+
+  function checksTypeText(e) {
+    if (e.target.value.match(regexText)) {
+      setInput(e.target.value);
+      console.log(input);
+    } else {
+      e.target.value = '';
     }
   }
+
+  function checksTypeNumber(e) {
+    if (e.target.value.match(regexNumber)) {
+      setInput(e.target.value);
+      console.log(input);
+    } else {
+      e.target.value = '';
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -32,7 +46,6 @@ export default function Payment() {
 
       <div className="container">
         <h1>Contact information and payment</h1>
-
         <div className="wholeBox">
           <div className="contactInfo">
             <h3>Shipping address</h3>
@@ -42,7 +55,12 @@ export default function Payment() {
                 type="text"
                 id="name"
                 placeholder="Alenio Hasslacherio"
-                onChange={(e) => checksType(e)}
+                onChange={checksTypeText}
+                style={
+                  input !== ''
+                    ? { backgroundColor: 'white' }
+                    : { backgroundColor: 'pink' }
+                }
               ></input>
             </span>
             <span>
@@ -68,6 +86,7 @@ export default function Payment() {
                 placeholder="2320"
                 type="text"
                 maxLength="4"
+                onChange={checksTypeNumber}
               ></input>
             </span>
             <span>
@@ -88,6 +107,7 @@ export default function Payment() {
                 id="namecard"
                 type="text"
                 placeholder="Alenio B. Hasslacherio"
+                onChange={checksTypeText}
               ></input>
             </span>
             <span>
@@ -96,15 +116,29 @@ export default function Payment() {
                 id="cardnumber"
                 type="text"
                 placeholder="1234-5678-9000-1111"
+                maxLength="16"
+                onChange={checksTypeNumber}
               ></input>
             </span>
             <span>
-              <label for="expdate">Expiry date</label>
-              <input id="expdate" type="text" placeholder="12/20"></input>
+              <label htmlFor="expdate">Expiry date</label>
+              <input
+                id="expdate"
+                type="text"
+                placeholder="12/20"
+                onChange={checksTypeNumber}
+                maxLength="5"
+              ></input>
             </span>
             <span>
               <label for="cvv">CVV</label>
-              <input id="cvv" type="text" placeholder="456"></input>
+              <input
+                id="cvv"
+                type="text"
+                placeholder="456"
+                onChange={checksTypeNumber}
+                maxLength="3"
+              ></input>
             </span>
           </div>
         </div>
@@ -112,11 +146,15 @@ export default function Payment() {
         <p className="total">
           Total price of items in cart: {cookie.getJSON('total')}€
         </p>
-        <Link href="/thx">
-          <a>
-            <button onClick={buy}>BUY!</button>
-          </a>
-        </Link>
+        {input !== '' ? (
+          <Link href="/thx">
+            <a>
+              <button onClick={buy}>BUY!</button>
+            </a>
+          </Link>
+        ) : (
+          ''
+        )}
       </div>
 
       <Footer />
