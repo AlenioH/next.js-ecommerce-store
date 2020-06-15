@@ -1,7 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import cookie from 'js-cookie';
 
-export default function ReduceOneItem(props) {
+type Item = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+
+type Cart = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+
+type Products = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+type Props = { item: Item; cart: Cart[]; products: Products[] };
+export default function ReduceOneItem(props: Props) {
   // const [itemsInCart, setItemsInCart] = useState(props.itemsInCart || []);
 
   // useEffect(() => {

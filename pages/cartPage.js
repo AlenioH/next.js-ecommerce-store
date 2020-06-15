@@ -5,9 +5,9 @@ import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
-import RemoveFromCart from '../components/RemoveFromCart.js';
+import RemoveFromCart from '../components/RemoveFromCart.tsx';
 import AddOneItem from '../components/AddOneItem.tsx';
-import ReduceOneItem from '../components/ReduceOneItem.js';
+import ReduceOneItem from '../components/ReduceOneItem.tsx';
 
 function CartPage({ cart, products }) {
   const [itemsInCart, setItemsInCart] = useState(cart || []); //changed it to state const, but it wasnt one before. mb i wanna remove set cookies from other child functions????

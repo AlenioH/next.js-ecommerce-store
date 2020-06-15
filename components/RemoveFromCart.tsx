@@ -1,7 +1,26 @@
 import React from 'react';
 import cookie from 'js-cookie';
 
-export default function RemoveFromCart(props) {
+type Item = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+
+type itemsInCart = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+type Props = { item: Item; itemsInCart: itemsInCart[] };
+
+export default function RemoveFromCart(props: Props) {
   function removeItem(id) {
     let newCart = props.itemsInCart.filter((item) => {
       return item.id !== id;

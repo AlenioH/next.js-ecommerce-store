@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Footer() {
   return (
     <div className="big">
@@ -8,8 +10,8 @@ export default function Footer() {
             <li>Terms and conditions</li>
             <li>Cookies and privacy policy</li>
             <li className="rightsReserved">
-              <img src="/favicon.png"></img>© 2020 Bist du Teppich!, inc. All
-              rights reserved
+              <img alt="logo" src="/favicon.png"></img>© 2020 Bist du Teppich!,
+              inc. All rights reserved
             </li>
           </ul>
         </div>
