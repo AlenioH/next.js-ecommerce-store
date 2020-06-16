@@ -2,10 +2,16 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
-import React from 'react';
+import React, { useState } from 'react';
+import SearchBar from '../../components/SearchBar.js';
 
 export default function Products({ products }) {
+  // const [filter, setFilter] = useState('not active');
   // console.log(products);
+
+  //so mb i put my search bar here in this page
+
+  // const filtered = filter === "active" ? products.filter((item) => item.name.toLowerCase === search.toLowerCase()) : "hallo"....
   return (
     <div>
       <Head>
@@ -18,8 +24,8 @@ export default function Products({ products }) {
       </Head>
       ;
       <Header />
-      {/* <h1></h1> */}
       <div className="rugtainer">
+        <SearchBar products={products} />
         {products.map((item) => {
           return (
             <div className="itemContainer" key={item.id}>
@@ -33,61 +39,6 @@ export default function Products({ products }) {
             </div>
           );
         })}
-
-        {/* <div className="itemContainer">
-          <Link href="/products/2">
-            <a>
-              <img src="/carpet2.png"></img>
-              <h3>Jungle rug</h3>
-              <p>240€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
-          <Link href="/products/3">
-            <a>
-              <img src="/carpet3.png"></img>
-              <h3>Cosy fluffy rug</h3>
-              <p>329€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
-          <Link href="/products/4">
-            <a>
-              <img src="/carpet4.png"></img>
-              <h3>Marijuana rug</h3>
-              <p>118€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
-          <Link href="/products/5">
-            <a>
-              <img src="/carpet5.png"></img>
-              <h3>Pink one</h3>
-              <p>209€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
-          <Link href="/products/6">
-            <a>
-              <img src="/cushion1.png"></img>
-              <h3>Fluffy cushion</h3>
-              <p>29€</p>
-            </a>
-          </Link>
-        </div>
-        <div className="itemContainer">
-          <Link href="/products/7">
-            <a>
-              <img src="/couch1.png"></img>
-              <h3>Lovey Loverson Couch</h3>
-              <p>499€</p>
-            </a>
-          </Link>
-        </div> */}
       </div>
       <Footer />
       <style jsx>{`
