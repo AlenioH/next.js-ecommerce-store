@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "heroku-postbild": "yarn migrate up && next build",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "e2e": "cypress open",
     "test": "jest",
     "migrate": "dotenv ley"
+    
   },
   "dependencies": {
     "dotenv": "^8.2.0",
