@@ -6,12 +6,36 @@ import React, { useState } from 'react';
 import SearchBar from '../../components/SearchBar.js';
 
 export default function Products({ products }) {
-  // const [filter, setFilter] = useState('not active');
-  // console.log(products);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('not active');
+  // const [filteredItems, setFilteredItems] = useState(products);
 
-  //so mb i put my search bar here in this page
+  // const productNames = products.map((item) => item.name.toLowerCase());
+  // console.log(productNames);
+  //is an array of names
+  //need to return items where item.name
 
-  // const filtered = filter === "active" ? products.filter((item) => item.name.toLowerCase === search.toLowerCase()) : "hallo"....
+  function searchFunction(e) {
+    setSearch(e.target.value);
+
+    // let filteredProd = productNames.filter((item) =>
+    //   item.includes(search.toLowerCase()),
+    // );
+    // setFilteredItems(filteredProd); //filterProd == are just NAMES
+    // console.log(filteredProd);
+  }
+
+  function clickSearch(e) {
+    setFilter('active');
+    e.preventDefault();
+  }
+
+  function showAll(e) {
+    setFilter('not active');
+    e.preventDefault();
+  }
+  //so the problem is when you do one search, it sets the thing to active so whatever you write afterwards gets displayed immediately
+
   return (
     <div>
       <Head>
@@ -25,20 +49,34 @@ export default function Products({ products }) {
       ;
       <Header />
       <div className="rugtainer">
-        <SearchBar products={products} />
-        {products.map((item) => {
-          return (
-            <div className="itemContainer" key={item.id}>
-              <Link href={'/products/' + item.id}>
-                <a>
-                  <img src={item.img} alt="item"></img>
-                  <h3>{item.name}</h3>
-                  <p> {item.price}€</p>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
+        <SearchBar
+          products={products}
+          searchFunction={searchFunction}
+          clickSearch={clickSearch}
+          showAll={showAll}
+        />
+        {products
+          .filter((item) => {
+            if (filter === 'active') {
+              return item.name.toLowerCase().includes(search.toLowerCase());
+            } else if (filter === 'not active') {
+              return true;
+            }
+          })
+
+          .map((item) => {
+            return (
+              <div className="itemContainer" key={item.id}>
+                <Link href={'/products/' + item.id}>
+                  <a>
+                    <img src={item.img} alt="item"></img>
+                    <h3>{item.name}</h3>
+                    <p> {item.price}€</p>
+                  </a>
+                </Link>
+              </div>
+            );
+          })}
       </div>
       <Footer />
       <style jsx>{`
