@@ -10,8 +10,8 @@ import AddOneItem from '../components/AddOneItem.tsx';
 import ReduceOneItem from '../components/ReduceOneItem.tsx';
 
 function CartPage({ cart, products }) {
-  const [itemsInCart, setItemsInCart] = useState(cart || []); //changed it to state const, but it wasnt one before. mb i wanna remove set cookies from other child functions????
-  const [total, setTotal] = useState(cookie.getJSON('total') || 0);
+  const itemsInCart = cart || []; //changed it to state const, but it wasnt one before. mb i wanna remove set cookies from other child functions????
+  // const [total, setTotal] = useState(cookie.getJSON('total') || 0);
 
   //to sync the prop to state when re-rendering happens,
   //you need a useEffect inside the child that listens to prop change:
@@ -20,11 +20,13 @@ function CartPage({ cart, products }) {
   //   cookie.set('cart', itemsInCart);
   // }, [itemsInCart]); ////this gets run every time the value is changed, so it stores new value
 
-  const totalCart = itemsInCart
-    ? itemsInCart.reduce((acc, cur) => {
-        return acc + cur.price;
-      }, 0)
-    : 0;
+  const totalCart =
+    itemsInCart.length !== 0
+      ? itemsInCart.reduce((acc, cur) => {
+          return acc + cur.price;
+        }, 0)
+      : 0;
+  cookie.set('total', totalCart);
   // setTotal(totalCart);
   // cookie.set('total', total);
 
@@ -42,7 +44,7 @@ function CartPage({ cart, products }) {
       <div className="container">
         <h1>Shopping Cart</h1>
         <Link href="/products">
-          <a> Back to shop</a>
+          <a className="backToShop"> Back to shop</a>
         </Link>
         <div className="tableItems">
           <div className="headings">
@@ -52,7 +54,7 @@ function CartPage({ cart, products }) {
             <h4>Price</h4>
             <h4>&nbsp;</h4>
           </div>
-          {total !== 0
+          {itemsInCart.length !== 0
             ? itemsInCart.map((item) => {
                 return (
                   <div data-cy={'item-cart'} className="item" key={item.id}>
@@ -85,9 +87,9 @@ function CartPage({ cart, products }) {
         <p className="total">
           Total:
           {totalCart}€<br></br>
-          {totalCart !== 0 ? (
+          {itemsInCart.length !== 0 ? (
             <Link href="/payment">
-              <a>
+              <a data-cy="checkout-button">
                 <button>Proceed to checkout</button>
               </a>
             </Link>
@@ -121,7 +123,16 @@ function CartPage({ cart, products }) {
         a:hover {
           text-decoration: underline;
         }
-
+        .backToShop {
+          background-color: #2ed573;
+          padding: 7px;
+          border-radius: 7px;
+        }
+        .backToShop:hover {
+          background-color: #2f3640;
+          color: white;
+          transition: background-color 0.3s;
+        }
         .tableItems {
           padding: 10px;
 

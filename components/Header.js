@@ -6,10 +6,10 @@ import React, { useEffect } from 'react';
 export default function Header() {
   let itemsInCart = cookie.getJSON('cart') || [];
 
-  useEffect(() => {
-    cookie.set('cart', itemsInCart);
-    console.log(itemsInCart);
-  }, [itemsInCart]);
+  // useEffect(() => {
+  //   cookie.set('cart', itemsInCart);
+  //   console.log(itemsInCart);
+  // }, [itemsInCart]);
 
   return (
     <div className="wrap">
@@ -30,16 +30,16 @@ export default function Header() {
           </Link>
           <Link className="cart" href={'/cartPage'}>
             <a>
-              <li>
+              <li className="cartItems">
                 <img src="/cart.png" alt=""></img>
-                {itemsInCart
+                {itemsInCart.length !== 0
                   ? `Items in cart: ${itemsInCart.reduce(
                       (accumulator, currentValue) => {
                         return accumulator + currentValue.amount;
                       },
                       0,
                     )}`
-                  : 'Your cart is empty'}
+                  : ''}
               </li>
             </a>
           </Link>
@@ -75,7 +75,10 @@ export default function Header() {
         ul a li {
           padding: 15px;
         }
-
+        .cartItems {
+          font-size: 20px;
+          margin-left: 300px;
+        }
         a {
           text-decoration: none;
           color: #062a06;

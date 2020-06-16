@@ -55,7 +55,7 @@ export default function ReduceOneItem(props: Props) {
     });
     // setItemsInCart(newCart);
     cookie.set('cart', newCart);
-    // window.location.reload();
+    window.location.reload();
     console.log(newCart);
   }
   return (

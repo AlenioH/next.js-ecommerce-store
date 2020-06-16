@@ -11,9 +11,9 @@ import { useState, useEffect } from 'react';
 export default function Payment() {
   const [input, setInput] = useState('');
 
-  useEffect(() => {
-    setInput(input);
-  }, [input]);
+  // useEffect(() => {
+  //   setInput(input);
+  // }, [input]);
 
   function buy() {
     cookie.remove('cart');
@@ -57,6 +57,7 @@ export default function Payment() {
             <span>
               <label htmlFor="name">Full name</label>
               <input
+                data-cy="full-name"
                 type="text"
                 id="name"
                 placeholder="Alenio Hasslacherio"
@@ -149,7 +150,7 @@ export default function Payment() {
         </p>
         {input ? (
           <Link href="/thx">
-            <a>
+            <a data-cy="buy-button">
               <button onClick={buy}>BUY!</button>
             </a>
           </Link>
@@ -270,6 +271,7 @@ export default function Payment() {
 export function getServerSideProps(context) {
   const { cart, total } = nextCookies(context);
 
+  console.log(total);
   return {
     props: {
       ...(cart ? { cart: cart } : undefined),

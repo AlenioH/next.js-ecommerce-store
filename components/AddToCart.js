@@ -42,12 +42,14 @@ export default function AddToCart(props) {
       cookie.set('cart', itemsInCart);
     }
     alert('The item has been successfully added to the cart!');
-    // window.location.reload();
+    window.location.reload();
   }
 
   return (
     <div>
-      <button onClick={MakeCookies}>Add to cart</button>
+      <button data-cy="add-cart-button" onClick={MakeCookies}>
+        Add to cart
+      </button>
       <style jsx>{`
         button {
           margin-top: 40px;

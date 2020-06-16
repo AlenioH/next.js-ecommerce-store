@@ -58,7 +58,7 @@ export default function AddOneItem(props: Props) {
     // setItemsInCart(newCart);
     cookie.set('cart', newCart);
 
-    // window.location.reload();
+   window.location.reload();
     console.log(newCart);
     // console.log(itemsInCart);
     console.log(props.item);

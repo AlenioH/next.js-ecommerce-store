@@ -24,7 +24,9 @@
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
+    "@types/react": "^16.9.36",
     "cypress": "^4.8.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "typescript": "^3.9.5"
   }
 }

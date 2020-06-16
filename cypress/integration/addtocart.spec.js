@@ -3,7 +3,7 @@ context('Add to cart', () => {
   it('adds given item to cart', () => {
     cy.visit('http://localhost:3000/products/6');
     //add item to cart
-    cy.get('button').click();
+    cy.get('[data-cy="add-cart-button"]').click();
     cy.visit('http://localhost:3000/cartPage');
     cy.get('.item > p').contains('Fluffy cushion');
     //remove item from cart
@@ -17,7 +17,7 @@ context('Add to cart', () => {
     //check price
     cy.get('[data-cy="total-price/magic clock"]').contains(338);
     // click add to cart button
-    cy.get('button').click();
+    cy.get('[data-cy="add-cart-button"]').click();
     //go to cart
     cy.visit('http://localhost:3000/cartPage');
     //check if the item is there, price and quantity are correct

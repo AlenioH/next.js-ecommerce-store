@@ -4,7 +4,37 @@ import Footer from '../../components/Footer.js';
 import { useState } from 'react';
 import React from 'react';
 import AddToCart from '../../components/AddToCart';
+import Link from 'next/link';
 
+type Product = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+
+type Cart = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+
+type Products = {
+  id: string;
+  name: string;
+  img: string;
+  amount: number;
+  price: number;
+  info: string;
+};
+type Props = { product: Product[] };
+
+//write inside props props: Props
 export function Product({ product }) {
   if (!product) {
     return <div>Item not found...</div>;
@@ -42,7 +72,7 @@ export function Product({ product }) {
           </p>
           <p className="price">{product.price}€</p>
 
-          <label for="productNumber">
+          <label htmlFor="productNumber">
             <input
               data-cy={'input-field/' + product.name.toLowerCase()}
               type="number"
@@ -55,6 +85,9 @@ export function Product({ product }) {
             {pieces > 1 ? <p>Total: {total}€</p> : ''}
           </p>
           <AddToCart product={product} pieces={pieces} total={total} />
+          <Link href="/products">
+            <a className="backToShop">Back to shop</a>
+          </Link>
         </div>
       </div>
       <Footer />
@@ -104,6 +137,22 @@ export function Product({ product }) {
           font-size: 120%;
         }
         button:hover {
+          background-color: #636e72;
+          transition: background-color 0.3s;
+        }
+
+        .backToShop {
+          text-decoration: none;
+          background-color: #2f3640;
+          padding: 15px;
+          margin-top: 10px;
+          border-radius: 10px;
+          color: white;
+          font-family: inherit;
+          font-size: 120%;
+        }
+
+        .backToShop:hover {
           background-color: #636e72;
           transition: background-color 0.3s;
         }
