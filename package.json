@@ -6,11 +6,10 @@
     "dev": "next dev",
     "heroku-postbild": "yarn migrate up && next build",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start -p ${PORT:-\"3000\"}",
     "e2e": "cypress open",
     "test": "jest",
     "migrate": "dotenv ley"
-    
   },
   "dependencies": {
     "dotenv": "^8.2.0",
