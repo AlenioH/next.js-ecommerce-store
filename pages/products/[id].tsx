@@ -6,7 +6,7 @@ import React from 'react';
 import AddToCart from '../../components/AddToCart';
 import Link from 'next/link';
 
-type Product = {
+type Item = {
   id: string;
   name: string;
   img: string;
@@ -32,20 +32,20 @@ type Products = {
   price: number;
   info: string;
 };
-type Props = { product: Product[] };
+type Props = { product: Item };
 
 //write inside props props: Props
-export function Product({ product }) {
-  if (!product) {
+export function Product(props: Props) {
+  if (!props.product) {
     return <div>Item not found...</div>;
   }
-
+  console.log(props.product);
   const [pieces, setPieces] = useState(1);
-  const [total, setTotal] = useState(product.price);
+  const [total, setTotal] = useState(props.product.price);
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
-    setTotal(Number(e.target.value) * product.price);
+    setTotal(Number(e.target.value) * props.product.price);
   }
 
   return (
@@ -56,35 +56,35 @@ export function Product({ product }) {
           href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
           rel="stylesheet"
         ></link>
-        <title>{product.name || ''}</title>
+        <title>{props.product.name || ''}</title>
       </Head>
       <Header />
       <div className="wrapper">
-        <img src={product.img} alt=""></img>
+        <img src={props.product.img} alt=""></img>
         <div className="description">
-          <h1>{product.name}</h1>
-          <p>{product.info}</p>
+          <h1>{props.product.name}</h1>
+          <p>{props.product.info}</p>
           <hr />
           <p className="info">
             Dispatched in 8-10 weeks.
             <br></br>
             Free shipping within the 3rd district.
           </p>
-          <p className="price">{product.price}€</p>
+          <p className="price">{props.product.price}€</p>
 
           <label htmlFor="productNumber">
             <input
-              data-cy={'input-field/' + product.name.toLowerCase()}
+              data-cy={'input-field/' + props.product.name.toLowerCase()}
               type="number"
               min="1"
               placeholder="Qty"
               onChange={handlePieces}
             ></input>
           </label>
-          <p data-cy={'total-price/' + product.name.toLowerCase()}>
+          <p data-cy={'total-price/' + props.product.name.toLowerCase()}>
             {pieces > 1 ? <p>Total: {total}€</p> : ''}
           </p>
-          <AddToCart product={product} pieces={pieces} total={total} />
+          <AddToCart product={props.product} pieces={pieces} total={total} />
           <Link href="/products">
             <a className="backToShop">Back to shop</a>
           </Link>

@@ -11,6 +11,8 @@ context('Add to cart', () => {
     cy.get('.tableItems').contains('The cart is empty...');
 
     //another item
+    cy.get('.backToShop').click();
+
     cy.visit('http://localhost:3000/products/9');
     //increase amount
     cy.get("input[type='number']").type('2');

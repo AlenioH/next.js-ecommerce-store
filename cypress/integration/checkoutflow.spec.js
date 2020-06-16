@@ -20,6 +20,7 @@ context('Checkout flow', () => {
     //check the url
     cy.location('pathname').should('include', 'thx');
     //check if items were removed from cart
+
     cy.get('.cartItems').should('not.contain', 'Items in cart');
   });
 });
