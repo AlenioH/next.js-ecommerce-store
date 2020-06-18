@@ -20,6 +20,10 @@ function CartPage({ cart, products }) {
   //   cookie.set('cart', itemsInCart);
   // }, [itemsInCart]); ////this gets run every time the value is changed, so it stores new value
 
+  // const [pieces, setPieces] = useState(0);
+  // const [itemTotal, setItemTotal] = useState(0); //yes haha
+  //here you cant go like itemmm
+
   const totalCart =
     itemsInCart.length !== 0
       ? itemsInCart.reduce((acc, cur) => {

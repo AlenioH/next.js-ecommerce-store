@@ -3,8 +3,24 @@ import cookie from 'js-cookie';
 // import nextCookies from 'next-cookies';
 import React, { useEffect } from 'react';
 
+export function totalAmount(itemsInCart) {
+  // console.log(itemsInCart);
+  return itemsInCart.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.amount;
+  }, 0);
+}
+
 export default function Header() {
   let itemsInCart = cookie.getJSON('cart') || [];
+  // let itemsInCart = cookie.getJSON('cart') || [];
+
+  // const totalAmount =
+  //   itemsInCart.length !== 0
+  //     ? itemsInCart.reduce((accumulator, currentValue) => {
+  //         return accumulator + currentValue.amount;
+  //       }, 0)
+  //     : 0;
+  // console.log(typeof totalAmount);
 
   // useEffect(() => {
   //   cookie.set('cart', itemsInCart);
@@ -32,13 +48,8 @@ export default function Header() {
             <a>
               <li className="cartItems">
                 <img src="/cart.png" alt=""></img>
-                {itemsInCart.length !== 0
-                  ? `Items in cart: ${itemsInCart.reduce(
-                      (accumulator, currentValue) => {
-                        return accumulator + currentValue.amount;
-                      },
-                      0,
-                    )}`
+                {totalAmount(itemsInCart) !== 0
+                  ? `Items in cart: ${totalAmount(itemsInCart)}`
                   : ''}
               </li>
             </a>

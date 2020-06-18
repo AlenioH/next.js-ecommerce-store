@@ -17,17 +17,23 @@ export default function Products({ products }) {
 
   function searchFunction(e) {
     setSearch(e.target.value);
+    // setFilter('active');
+    // if (e.keycode === 8) {
+    //   setFilter('not active');
+    // } //backspace button
 
     // let filteredProd = productNames.filter((item) =>
     //   item.includes(search.toLowerCase()),
     // );
     // setFilteredItems(filteredProd); //filterProd == are just NAMES
-    // console.log(filteredProd);
   }
 
   function clickSearch(e) {
     setFilter('active');
     e.preventDefault();
+    // if (e.keycode === 8) {
+    //   setFilter('not active');
+    // }
   }
 
   function showAll(e) {
@@ -35,6 +41,7 @@ export default function Products({ products }) {
     e.preventDefault();
   }
   //so the problem is when you do one search, it sets the thing to active so whatever you write afterwards gets displayed immediately
+  //second problem to solve: when no matches are found
 
   return (
     <div>

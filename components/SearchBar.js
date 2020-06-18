@@ -1,11 +1,6 @@
 import React from 'react';
 
-//use state to store the input
-//return name to lower case that include this target value
-
 export default function SearchBar(props) {
-  //need to put it in parent
-
   return (
     <div>
       <form>
@@ -27,7 +22,6 @@ export default function SearchBar(props) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          margin: 10px;
         }
         input {
           padding: 12px;

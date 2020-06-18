@@ -36,6 +36,8 @@ type Props = { item: Item; cart: Cart[]; products: Products[] };
 
 export default function AddOneItem(props: Props) {
   // const [itemsInCart, setItemsInCart] = useState(props.itemsInCart || []);
+  // const [pieces, setPieces] = useState(props.item.amount);
+  // const [itemTotal, setItemTotal] = useState(props.item.price);
 
   // useEffect(() => {
   //   cookie.set('cart', props.itemsInCart);
@@ -55,12 +57,11 @@ export default function AddOneItem(props: Props) {
         return item;
       }
     });
-    // setItemsInCart(newCart);
     cookie.set('cart', newCart);
 
-   window.location.reload();
+    window.location.reload();
     console.log(newCart);
-    // console.log(itemsInCart);
+
     console.log(props.item);
   }
 
