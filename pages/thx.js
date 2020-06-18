@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
-import Link from 'next/link';
+import React from 'react';
 
 export default function thx() {
   return (
@@ -12,7 +12,8 @@ export default function thx() {
       </Head>
       <Header />
       <div className="container">
-        <h1>THX sweetheart</h1>
+        <h1>Thank you for you purchase! </h1>
+        <h2>Our team will contact you shortly</h2>
       </div>
       <Footer />
 
