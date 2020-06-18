@@ -11,10 +11,6 @@ export default function SearchBar(props) {
             onChange={props.searchFunction}
           ></input>
         </label>
-        <div className="buttons">
-          <button onClick={props.clickSearch}>search!</button>
-          <button onClick={props.showAll}>show all</button>
-        </div>
       </form>
       <style jsx>{`
         form {
@@ -30,21 +26,6 @@ export default function SearchBar(props) {
           width: 20rem;
           border-color: #e9f6ee;
           font-size: 1.2rem;
-        }
-        button {
-          font-weight: bold;
-          text-align: center;
-          background-color: #2ed573;
-          padding: 5px;
-          border-radius: 10px;
-          color: white;
-          font-family: inherit;
-          font-size: 1rem;
-          margin: 5px;
-        }
-        button:hover {
-          background-color: #636e72;
-          transition: background-color 0.3s;
         }
       `}</style>
       <style jsx global>{`

@@ -8,40 +8,11 @@ import SearchBar from '../../components/SearchBar.js';
 export default function Products({ products }) {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('not active');
-  // const [filteredItems, setFilteredItems] = useState(products);
-
-  // const productNames = products.map((item) => item.name.toLowerCase());
-  // console.log(productNames);
-  //is an array of names
-  //need to return items where item.name
 
   function searchFunction(e) {
     setSearch(e.target.value);
-    // setFilter('active');
-    // if (e.keycode === 8) {
-    //   setFilter('not active');
-    // } //backspace button
-
-    // let filteredProd = productNames.filter((item) =>
-    //   item.includes(search.toLowerCase()),
-    // );
-    // setFilteredItems(filteredProd); //filterProd == are just NAMES
-  }
-
-  function clickSearch(e) {
     setFilter('active');
-    e.preventDefault();
-    // if (e.keycode === 8) {
-    //   setFilter('not active');
-    // }
   }
-
-  function showAll(e) {
-    setFilter('not active');
-    e.preventDefault();
-  }
-  //so the problem is when you do one search, it sets the thing to active so whatever you write afterwards gets displayed immediately
-  //second problem to solve: when no matches are found
 
   return (
     <div>
@@ -56,12 +27,7 @@ export default function Products({ products }) {
       ;
       <Header />
       <div className="rugtainer">
-        <SearchBar
-          products={products}
-          searchFunction={searchFunction}
-          clickSearch={clickSearch}
-          showAll={showAll}
-        />
+        <SearchBar products={products} searchFunction={searchFunction} />
         {products
           .filter((item) => {
             if (filter === 'active') {
