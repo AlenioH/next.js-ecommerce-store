@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
@@ -9,6 +9,13 @@ import RemoveFromCart from '../components/RemoveFromCart.tsx';
 import AddOneItem from '../components/AddOneItem.tsx';
 import ReduceOneItem from '../components/ReduceOneItem.tsx';
 
+export function totalSum(itemsInCart) {
+  return itemsInCart.length !== 0
+    ? itemsInCart.reduce((acc, cur) => {
+        return acc + cur.price;
+      }, 0)
+    : 0;
+}
 function CartPage({ cart, products }) {
   const itemsInCart = cart || []; //changed it to state const, but it wasnt one before. mb i wanna remove set cookies from other child functions????
   // const [total, setTotal] = useState(cookie.getJSON('total') || 0);
@@ -23,14 +30,15 @@ function CartPage({ cart, products }) {
   // const [pieces, setPieces] = useState(0);
   // const [itemTotal, setItemTotal] = useState(0); //yes haha
   //here you cant go like itemmm
-
-  const totalCart =
-    itemsInCart.length !== 0
-      ? itemsInCart.reduce((acc, cur) => {
-          return acc + cur.price;
-        }, 0)
-      : 0;
+  const totalCart = totalSum(itemsInCart);
   cookie.set('total', totalCart);
+  //       const totalCart =
+  //   itemsInCart.length !== 0
+  //     ? itemsInCart.reduce((acc, cur) => {
+  //         return acc + cur.price;
+  //       }, 0)
+  //     : 0;
+  // cookie.set('total', totalCart);
   // setTotal(totalCart);
   // cookie.set('total', total);
 
@@ -90,7 +98,7 @@ function CartPage({ cart, products }) {
         </div>
         <p className="total">
           Total:
-          {totalCart}€<br></br>
+          {totalSum(itemsInCart)}€<br></br>
           {itemsInCart.length !== 0 ? (
             <Link href="/payment">
               <a data-cy="checkout-button">
