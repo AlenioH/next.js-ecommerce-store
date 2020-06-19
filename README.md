@@ -27,3 +27,42 @@ Cart: ![Cart Page](/public/screenshot2.png)
 ## Technologies used
 
 Bist du Teppich is a Next.js app which makes use of PostgresQL database. Migrations are set up with Ley. It uses cookies to keep track of items in cart and their amount. Some pages and components are written using Typescript. The project contains testing with Jest and Cypress. Deployment was carried out with Heroku.
+
+## Setup instructions
+
+### Database Setup
+
+Copy the .env.example file to .env and add the database connection information.
+
+You'll also need PostgreSQL for this.
+
+PostgreSQL Installation instructions
+
+Follow the instructions from the PostgreSQL step on https://www.postgresql.org/docs/10/runtime.html
+
+Run the following queries inside of psql to set up the database and the user:
+
+CREATE DATABASE nextjs_ecommerce_store;
+CREATE USER nextjs_ecommerce_score WITH ENCRYPTED PASSWORD 'nextjs_ecommerce_store';
+GRANT ALL PRIVILEGES ON DATABASE nextjs_ecommerce_store TO nextjs_ecommerce_score;
+Then, to connect to the database using this new user, quit psql and reconnect:
+
+\q
+psql -U nextjs_ecommerce_score nextjs_ecommerce_store
+
+You can run the migrations with the following command:
+`yarn migrate up`
+
+To drop the last migration run the following in your terminal:
+`yarn migrate down`
+
+### Deployment instructions for Heroku
+
+- Sign up for Heroku: https://signup.heroku.com/
+- Create a new App
+- Choose a name and select your region
+- Click on the button in the middle called "Connect to GitHub"
+- Search for your repository in the search box at the bottom of the page and click on the "Connect" button
+- Click on the button for "Enable Automatic Deploys"
+- Go back to the Overview tab and click on "Configure Add-On"
+- Search for "Postgres" and select "Heroku Postgres" from the results
