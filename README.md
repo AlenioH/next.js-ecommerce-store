@@ -42,9 +42,9 @@ Follow the instructions from the PostgreSQL step on https://www.postgresql.org/d
 
 Run the following queries inside of psql to set up the database and the user:
 
-CREATE DATABASE <databasename>;
-CREATE USER <username> WITH ENCRYPTED PASSWORD '<password>';
-GRANT ALL PRIVILEGES ON DATABASE <databasename> TO <username>;
+CREATE DATABASE `<databasename>`;
+CREATE USER `<username>` WITH ENCRYPTED PASSWORD `'<password>'`;
+GRANT ALL PRIVILEGES ON DATABASE `<databasename>` TO `<username>`;
 Then, to connect to the database using this new user, quit psql and reconnect:
 
 \q
