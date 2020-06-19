@@ -44,9 +44,9 @@ export default function AddOneItem(props: Props) {
   // }, [props.itemsInCart]);
 
   function addOne(id) {
-    let newCart = props.cart.map((item) => {
+    const newCart = props.cart.map((item) => {
       if (item.id === id) {
-        let prodPrice = props.products.find((prod) => prod.id === id);
+        const prodPrice = props.products.find((prod) => prod.id === id);
 
         return {
           ...item,

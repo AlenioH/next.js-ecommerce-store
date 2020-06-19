@@ -22,7 +22,7 @@ type Props = { item: Item; itemsInCart: itemsInCart[] };
 
 export default function RemoveFromCart(props: Props) {
   function removeItem(id) {
-    let newCart = props.itemsInCart.filter((item) => {
+    const newCart = props.itemsInCart.filter((item) => {
       return item.id !== id;
     });
     cookie.set('cart', newCart);

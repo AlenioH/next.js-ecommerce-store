@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
-// import nextCookies from 'next-cookies';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export function totalAmount(itemsInCart) {
   // console.log(itemsInCart);
@@ -11,7 +10,7 @@ export function totalAmount(itemsInCart) {
 }
 
 export default function Header() {
-  let itemsInCart = cookie.getJSON('cart') || [];
+  const itemsInCart = cookie.getJSON('cart') || [];
   // let itemsInCart = cookie.getJSON('cart') || [];
 
   // const totalAmount =

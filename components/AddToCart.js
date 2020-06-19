@@ -1,8 +1,8 @@
 import cookie from 'js-cookie';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export default function AddToCart(props) {
-  let itemsInCart = cookie.getJSON('cart') || [];
+  const itemsInCart = cookie.getJSON('cart') || [];
   console.log('jonas', itemsInCart);
 
   // useEffect(() => {
@@ -11,7 +11,7 @@ export default function AddToCart(props) {
   // }, [itemsInCart]);
 
   function MakeCookies() {
-    let product = {
+    const product = {
       name: props.product.name,
       price: props.total,
       id: props.product.id,
@@ -20,11 +20,11 @@ export default function AddToCart(props) {
       info: props.product.info,
     };
 
-    let itemFilter = itemsInCart.find((item) => item.id === product.id);
+    const itemFilter = itemsInCart.find((item) => item.id === product.id);
 
     //this part checks if there is an item with the id already present in the array of items in cart
     if (itemFilter) {
-      let itemsDouble = itemsInCart.map((item) => {
+      const itemsDouble = itemsInCart.map((item) => {
         if (item.id === props.product.id) {
           //this condition makes sure the map only adjusts the current item
           return {

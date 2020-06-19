@@ -36,13 +36,13 @@ export default function ReduceOneItem(props: Props) {
   // }, [props.itemsInCart]);
 
   function reduceOne(id) {
-    let newCart = props.cart.map((item) => {
+    const newCart = props.cart.map((item) => {
       if (item.id === id) {
         if (item.amount === 1) {
           alert('Use remove button!');
           return item;
         } else {
-          let prodPrice = props.products.find((prod) => prod.id === id);
+          const prodPrice = props.products.find((prod) => prod.id === id);
           return {
             ...item,
             amount: +item.amount - 1,
