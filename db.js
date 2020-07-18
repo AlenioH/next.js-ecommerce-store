@@ -12,7 +12,7 @@ const sql =
 
 export async function getProducts() {
   const products = await sql`
-  SELECT * FROM products
+    SELECT * FROM products
   `;
   return products;
 }
