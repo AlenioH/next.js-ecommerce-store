@@ -12,13 +12,14 @@ const sql =
 
 export async function getProducts() {
   const products = await sql`
-  SELECT * FROM products
+    SELECT * FROM products
   `;
   return products;
 }
 
 export async function getProductById(id) {
   const product = await sql`
-  SELECT * FROM products WHERE id = ${id}`;
+    SELECT * FROM products WHERE id = ${id}
+  `;
   return product[0];
 }
