@@ -38,20 +38,36 @@ Follow the instructions from the PostgreSQL step on https://github.com/upleveled
 
 Run the following queries inside of psql to set up the database and the user:
 
-`CREATE DATABASE databasename>;`
-`CREATE USER <username> WITH ENCRYPTED PASSWORD '<password>';`
-`GRANT ALL PRIVILEGES ON DATABASE <databasename> TO <username>;`
+```
+CREATE DATABASE databasename>;
+```
+
+```
+CREATE USER <username> WITH ENCRYPTED PASSWORD '<password>';
+```
+
+```
+GRANT ALL PRIVILEGES ON DATABASE <databasename> TO <username>;
+```
+
 Then, in order to connect to the database using this new user, quit psql and reconnect:
 
-````
+```
 \q
-psql -U nextjs_ecommerce_score nextjs_ecommerce_store```
+psql -U nextjs_ecommerce_score nextjs_ecommerce_store;
+```
 
 You can run the migrations with the following command:
-```yarn migrate up```
+
+```
+yarn migrate up
+```
 
 To drop the last migration run the following in your terminal:
-```yarn migrate down```
+
+```
+yarn migrate down
+```
 
 ### Deployment instructions for Heroku
 
@@ -63,4 +79,3 @@ To drop the last migration run the following in your terminal:
 - Click on the button for "Enable Automatic Deploys"
 - Go back to the Overview tab and click on "Configure Add-On"
 - Search for "Postgres" and select "Heroku Postgres" from the results
-````
