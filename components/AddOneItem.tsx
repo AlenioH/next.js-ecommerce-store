@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import cookie from 'js-cookie';
-// import { NextPageContext } from 'next';
-
-//type Item = item, an object
-//type Cart = cookies, array of objects
-//type products = db products, array of objects
 
 type Item = {
   id: string;

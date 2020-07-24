@@ -22,6 +22,7 @@ The shop features following pages and functionality:
 - the header shows a shopping cart with the current number of items on all pages.
 
 Products page: <img src="/public/screenshot1.png" width="500">
+<br>
 Cart: <img src="/public/screenshot2.png" width="500">
 
 ## Technologies used
