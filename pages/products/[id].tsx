@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
-import { useState } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import AddToCart from '../../components/AddToCart';
 import Link from 'next/link';
 
@@ -45,7 +44,7 @@ export function Product(props: Props) {
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
-    setTotal(Number(e.target.value) * props.product.price);
+    setTotal(pieces * props.product.price);
   }
 
   return (
@@ -60,7 +59,7 @@ export function Product(props: Props) {
       </Head>
       <Header />
       <div className="wrapper">
-        <img src={props.product.img} alt=""></img>
+        <img src={props.product.img} alt="" />
         <div className="description">
           <h1>{props.product.name}</h1>
           <p>{props.product.info}</p>
@@ -79,12 +78,18 @@ export function Product(props: Props) {
               min="1"
               placeholder="Qty"
               onChange={handlePieces}
-            ></input>
+              value={pieces}
+            />
           </label>
           <p data-cy={'total-price/' + props.product.name.toLowerCase()}>
             {pieces > 1 ? <p>Total: {total}€</p> : ''}
           </p>
-          <AddToCart product={props.product} pieces={pieces} total={total} />
+          <AddToCart
+            product={props.product}
+            pieces={pieces}
+            total={total}
+            initialPrice={props.product.price}
+          />
           <Link href="/products">
             <a className="backToShop">Back to shop</a>
           </Link>
@@ -182,16 +187,15 @@ export function Product(props: Props) {
 export default Product;
 
 // getServerSideProps will ONLY be run on the server, so
-// you can write code here that is "secret" - eg. passwords,
-// database connection information, etc.
+// you can write code here that works with "secret"
+// information - eg. passwords, database connection
+// information, etc.
 
 export async function getServerSideProps(context) {
   const { getProductById } = await import('../../db.js');
 
   const product = await getProductById(context.params.id);
-  if (product === undefined) {
-    return { props: {} };
-  }
+
   return {
     // will be passed to the page component as props
     props: {

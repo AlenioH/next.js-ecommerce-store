@@ -3,17 +3,12 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
 import cookie from 'js-cookie';
-import React from 'react';
+import React, { useState } from 'react';
 import nextCookies from 'next-cookies';
-import { useState, useEffect } from 'react';
 // import PaymentInputs from '../components/PaymentInputs.js';
 
 export default function Payment() {
   const [input, setInput] = useState('');
-
-  // useEffect(() => {
-  //   setInput(input);
-  // }, [input]);
 
   function buy() {
     cookie.remove('cart');
@@ -148,14 +143,14 @@ export default function Payment() {
         <p className="total">
           Total price of items in cart: {cookie.getJSON('total')}€
         </p>
-        {input ? (
+        {!input ? (
+          ''
+        ) : (
           <Link href="/thx">
             <a data-cy="buy-button">
               <button onClick={buy}>BUY!</button>
             </a>
           </Link>
-        ) : (
-          ''
         )}
       </div>
 
@@ -268,7 +263,7 @@ export default function Payment() {
     </div>
   );
 }
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   const { cart, total } = nextCookies(context);
 
   console.log(total);

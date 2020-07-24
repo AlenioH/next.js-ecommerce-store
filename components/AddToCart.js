@@ -29,8 +29,8 @@ export default function AddToCart(props) {
           //this condition makes sure the map only adjusts the current item
           return {
             ...item,
-            amount: item.amount + props.pieces,
-            price: (item.amount + props.pieces) * item.price,
+            amount: item.amount + props.pieces, //ok the amount is correct
+            price: (item.amount + props.pieces) * props.initialPrice,
           };
         } else {
           return item;
