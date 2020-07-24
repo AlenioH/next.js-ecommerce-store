@@ -23,7 +23,10 @@ The shop features following pages and functionality:
 
 Products page: <img src="/public/screenshot1.png" width="500">
 <br>
-Cart: <img src="/public/screenshot2.png" width="500">
+
+### Cart
+
+<img src="/public/screenshot2.png" width="500">
 
 ## Technologies used
 
