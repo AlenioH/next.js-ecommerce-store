@@ -7,7 +7,7 @@ import SearchBar from '../../components/SearchBar.js';
 
 export default function Products({ products }) {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('not active');
+  const [filter, setFilter] = useState('');
 
   function searchFunction(e) {
     setSearch(e.target.value);
@@ -24,7 +24,7 @@ export default function Products({ products }) {
         ></link>
         <title>Bist du Teppich! Shop</title>
       </Head>
-      ;
+
       <Header />
       <div className="rugtainer">
         <SearchBar products={products} searchFunction={searchFunction} />
@@ -32,7 +32,7 @@ export default function Products({ products }) {
           .filter((item) => {
             if (filter === 'active') {
               return item.name.toLowerCase().includes(search.toLowerCase());
-            } else if (filter === 'not active') {
+            } else {
               return true;
             }
           })

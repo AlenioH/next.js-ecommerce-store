@@ -14,26 +14,8 @@ type Item = {
   info: string;
 };
 
-type Cart = {
-  id: string;
-  name: string;
-  img: string;
-  amount: number;
-  price: number;
-  info: string;
-};
-
-type Products = {
-  id: string;
-  name: string;
-  img: string;
-  amount: number;
-  price: number;
-  info: string;
-};
 type Props = { product: Item };
 
-//write inside props props: Props
 export function Product(props: Props) {
   if (!props.product) {
     return <div>Item not found...</div>;
@@ -54,7 +36,7 @@ export function Product(props: Props) {
         <link
           href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
           rel="stylesheet"
-        ></link>
+        />
         <title>{props.product.name || ''}</title>
       </Head>
       <Header />
