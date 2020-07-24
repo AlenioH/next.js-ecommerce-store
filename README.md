@@ -1,16 +1,8 @@
-<!-- Create a readme with:
-title
-description
-all technologies used
-1 or 2 screenshots
-setup instructions
-deployment instructions -->
-
 # Bist du Teppich online-shop
 
 ## Description
 
-The project at hand is an online shop of interior decoration items created with Next.js.
+The project at hand is an online shop of interior decoration items created with Next.js(https://nextjs.org/).
 
 The shop features following pages and functionality:
 
@@ -30,7 +22,7 @@ Products page: <img src="/public/screenshot1.png" width="500">
 
 ## Technologies used
 
-Bist du Teppich is a Next.js app which makes use of PostgresQL database. Migrations are set up with Ley. It uses cookies to keep track of items in cart and their amount. Some pages and components are written using Typescript. The project contains testing with Jest and Cypress. Deployment was carried out with Heroku.
+Bist du Teppich is a Next.js app which makes use of PostgresQL database. Migrations are set up with Ley(https://github.com/lukeed/ley). It uses cookies to keep track of items in cart and their amount. Some pages and components are written using Typescript. The project contains testing with Jest(https://jestjs.io/) and Cypress(https://www.cypress.io/). Deployment was carried out with Heroku(https://dashboard.heroku.com/).
 
 ## Setup instructions
 
@@ -42,23 +34,24 @@ You'll also need PostgreSQL for this.
 
 PostgreSQL Installation instructions
 
-Follow the instructions from the PostgreSQL step on https://www.postgresql.org/docs/10/runtime.html
+Follow the instructions from the PostgreSQL step on https://github.com/upleveled/system-setup.
 
 Run the following queries inside of psql to set up the database and the user:
 
-CREATE DATABASE `<databasename>`;
-CREATE USER `<username>` WITH ENCRYPTED PASSWORD `'<password>'`;
-GRANT ALL PRIVILEGES ON DATABASE `<databasename>` TO `<username>`;
-Then, to connect to the database using this new user, quit psql and reconnect:
+`CREATE DATABASE databasename>;`
+`CREATE USER <username> WITH ENCRYPTED PASSWORD '<password>';`
+`GRANT ALL PRIVILEGES ON DATABASE <databasename> TO <username>;`
+Then, in order to connect to the database using this new user, quit psql and reconnect:
 
+````
 \q
-psql -U nextjs_ecommerce_score nextjs_ecommerce_store
+psql -U nextjs_ecommerce_score nextjs_ecommerce_store```
 
 You can run the migrations with the following command:
-`yarn migrate up`
+```yarn migrate up```
 
 To drop the last migration run the following in your terminal:
-`yarn migrate down`
+```yarn migrate down```
 
 ### Deployment instructions for Heroku
 
@@ -70,3 +63,4 @@ To drop the last migration run the following in your terminal:
 - Click on the button for "Enable Automatic Deploys"
 - Go back to the Overview tab and click on "Configure Add-On"
 - Search for "Postgres" and select "Heroku Postgres" from the results
+````
