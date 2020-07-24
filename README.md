@@ -56,7 +56,7 @@ Then, in order to connect to the database using this new user, quit psql and rec
 
 ```
 \q
-psql -U nextjs_ecommerce_score nextjs_ecommerce_store;
+psql -U <username> <database_name>;
 ```
 
 You can run the migrations with the following command:
