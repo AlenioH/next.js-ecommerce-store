@@ -10,41 +10,14 @@ import AddOneItem from '../components/AddOneItem.tsx';
 import ReduceOneItem from '../components/ReduceOneItem.tsx';
 
 export function totalSum(itemsInCart) {
-  return itemsInCart.length !== 0
-    ? itemsInCart.reduce((acc, cur) => {
-        return acc + cur.price;
-      }, 0)
-    : 0;
+  return itemsInCart.reduce((acc, cur) => {
+    return acc + cur.price;
+  }, 0);
 }
 function CartPage({ cart, products }) {
-  const itemsInCart = cart || []; //changed it to state const, but it wasnt one before. mb i wanna remove set cookies from other child functions????
-  // const [total, setTotal] = useState(cookie.getJSON('total') || 0);
-
-  //to sync the prop to state when re-rendering happens,
-  //you need a useEffect inside the child that listens to prop change:
-
-  // useEffect(() => {
-  //   cookie.set('cart', itemsInCart);
-  // }, [itemsInCart]); ////this gets run every time the value is changed, so it stores new value
-
-  // const [pieces, setPieces] = useState(0);
-  // const [itemTotal, setItemTotal] = useState(0); //yes haha
-  //here you cant go like itemmm
+  const itemsInCart = cart || [];
   const totalCart = totalSum(itemsInCart);
   cookie.set('total', totalCart);
-  //       const totalCart =
-  //   itemsInCart.length !== 0
-  //     ? itemsInCart.reduce((acc, cur) => {
-  //         return acc + cur.price;
-  //       }, 0)
-  //     : 0;
-  // cookie.set('total', totalCart);
-  // setTotal(totalCart);
-  // cookie.set('total', total);
-
-  // useEffect(() => {
-  //   cookie.set('total', total);
-  // }, [total]);
 
   return (
     <div>
@@ -56,28 +29,33 @@ function CartPage({ cart, products }) {
       <div className="container">
         <h1>Shopping Cart</h1>
         <Link href="/products">
-          <a className="backToShop"> Back to shop</a>
+          <a className="backToShop">Back to shop</a>
         </Link>
         <div className="tableItems">
           <div className="headings">
-            <h4> Product</h4>
+            <h4>Product</h4>
             <h4>Description</h4>
             <h4>Quantity</h4>
             <h4>Price</h4>
             <h4>&nbsp;</h4>
           </div>
-          {itemsInCart.length !== 0
-            ? itemsInCart.map((item) => {
+          {itemsInCart.length === 0
+            ? 'The cart is empty...'
+            : itemsInCart.map((item) => {
                 return (
                   <div data-cy={'item-cart'} className="item" key={item.id}>
                     <img src={item.img} alt="item" />
                     <p>{item.name}</p>
                     <span data-cy={'amount-cart'} className="buttonz">
-                      <ReduceOneItem
-                        item={item}
-                        cart={cart}
-                        products={products}
-                      />
+                      {item.amount === 1 ? (
+                        ''
+                      ) : (
+                        <ReduceOneItem
+                          item={item}
+                          cart={cart}
+                          products={products}
+                        />
+                      )}
 
                       <p className="amount-cart">{item.amount}</p>
 
@@ -93,20 +71,19 @@ function CartPage({ cart, products }) {
                     <RemoveFromCart item={item} itemsInCart={itemsInCart} />
                   </div>
                 );
-              })
-            : 'The cart is empty....'}
+              })}
         </div>
         <p className="total">
           Total:
           {totalSum(itemsInCart)}€<br></br>
-          {itemsInCart.length !== 0 ? (
+          {itemsInCart.length === 0 ? (
+            ''
+          ) : (
             <Link href="/payment">
               <a data-cy="checkout-button">
                 <button>Proceed to checkout</button>
               </a>
             </Link>
-          ) : (
-            ' '
           )}
         </p>
       </div>
@@ -231,7 +208,7 @@ export default CartPage;
 export async function getServerSideProps(context) {
   const { cart } = await nextCookies(context);
   const { getProducts } = await import('../db.js');
-  const products = await getProducts(context.params);
+  const products = await getProducts();
 
   return {
     // will be passed to the page component as props

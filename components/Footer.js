@@ -4,14 +4,15 @@ export default function Footer() {
   return (
     <div className="big">
       <div className="all">
-        <hr></hr>
+        <hr />
         <div className="wrapper">
           <ul>
             <li>Terms and conditions</li>
             <li>Cookies and privacy policy</li>
             <li className="rightsReserved">
-              <img alt="logo" src="/favicon.png"></img>© 2020 Bist du Teppich!,
-              inc. All rights reserved
+              <img alt="logo" src="/favicon.png"></img>©{' '}
+              {new Date().getFullYear()} Bist du Teppich!, inc. All rights
+              reserved
             </li>
           </ul>
         </div>

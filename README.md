@@ -13,7 +13,9 @@ The shop features following pages and functionality:
 - a thank you page after a checkout has been completed
 - the header shows a shopping cart with the current number of items on all pages.
 
-Products page: <img src="/public/screenshot1.png" width="500">
+### Product page
+
+<img src="/public/screenshot1.png" width="500">
 <br>
 
 ### Cart

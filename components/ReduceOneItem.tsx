@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cookie from 'js-cookie';
 
 type Item = {
@@ -29,31 +29,20 @@ type Products = {
 };
 type Props = { item: Item; cart: Cart[]; products: Products[] };
 export default function ReduceOneItem(props: Props) {
-  // const [itemsInCart, setItemsInCart] = useState(props.itemsInCart || []);
-
-  // useEffect(() => {
-  //   cookie.set('cart', props.itemsInCart);
-  // }, [props.itemsInCart]);
-
   function reduceOne(id) {
     const newCart = props.cart.map((item) => {
       if (item.id === id) {
-        if (item.amount === 1) {
-          alert('Use remove button!');
-          return item;
-        } else {
-          const prodPrice = props.products.find((prod) => prod.id === id);
-          return {
-            ...item,
-            amount: +item.amount - 1,
-            price: +prodPrice.price * (+item.amount - 1),
-          };
-        }
+        const prodPrice = props.products.find((prod) => prod.id === id);
+        return {
+          ...item,
+          amount: item.amount - 1,
+          price: prodPrice.price * (item.amount - 1),
+        };
       } else {
         return item;
       }
     });
-    // setItemsInCart(newCart);
+
     cookie.set('cart', newCart);
     window.location.reload();
     console.log(newCart);
