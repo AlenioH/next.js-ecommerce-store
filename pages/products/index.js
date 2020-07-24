@@ -110,9 +110,9 @@ export default function Products({ products }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const { getProducts } = await import('../../db.js');
-  const products = await getProducts(context.params);
+  const products = await getProducts();
 
   return {
     props: {
