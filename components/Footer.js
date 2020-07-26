@@ -12,7 +12,7 @@ export default function Footer() {
             <li className="rightsReserved">
               <img alt="logo" src="/favicon.png"></img>©{' '}
               {new Date().getFullYear()} Bist du Teppich!, inc. All rights
-              reserved
+              reserved. Created by Alena Hasslacher.
             </li>
           </ul>
         </div>

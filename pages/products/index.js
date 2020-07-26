@@ -59,7 +59,7 @@ export default function Products({ products }) {
           margin-left: auto;
           margin-right: auto;
           padding-top: 30px;
-          width: 80%;
+          width: 90%;
           background-color: white;
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
