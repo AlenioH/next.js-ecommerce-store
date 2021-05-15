@@ -12,7 +12,7 @@
     "migrate": "dotenv ley"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "dotenv": "8.6.0",
     "dotenv-cli": "^3.1.0",
     "js-cookie": "^2.2.1",
     "ley": "^0.5.0",
