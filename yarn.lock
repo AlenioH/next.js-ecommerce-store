@@ -5135,6 +5135,11 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
+kleur@^4.1.0:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
+  integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
+
 lazy-ass@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/lazy-ass/-/lazy-ass-1.6.0.tgz#7999655e8646c17f089fdd187d150d3324d54513"
@@ -5160,15 +5165,15 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-ley@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ley/-/ley-0.5.0.tgz#4fe515276345a0e8fa5b20afc949da11131bbd72"
-  integrity sha512-axy55YFBr4Zit+r7mULV98zmjcpzI1iAblCSsy3gBQB/YxASVR81OymmRLKJrpcr5/5ELhCjvFL5nGUhJsuhsg==
+ley@^0.8.0:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ley/-/ley-0.8.1.tgz#6e9b750f9850d87f65e7a2f4390900fa4c653a28"
+  integrity sha512-8Nd5uzie4PxiEJcQNv5YL1IQCMzye/0sE8VPB4KczJkyd44NfDyK/7Vbmp9eHYt+dJ4hxaXy+gF4DORSxYGArg==
   dependencies:
-    kleur "^3.0.3"
-    mk-dirs "^2.0.0"
+    kleur "^4.1.0"
+    mk-dirs "^3.0.0"
     sade "^1.7.0"
-    totalist "^1.0.1"
+    totalist "^2.0.0"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"
@@ -5556,10 +5561,10 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mk-dirs@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/mk-dirs/-/mk-dirs-2.0.0.tgz#d91dcd740887c1003ab26d3ca873eb5b34ab57f6"
-  integrity sha512-wPLZZK660O/CvVktlPhk3tDAV/GWplWUr1siR5aKBZr6zZm6NvHZUDO94CdQMJotZMQ6OrUud4hwGypBG0dyPg==
+mk-dirs@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/mk-dirs/-/mk-dirs-3.0.0.tgz#1a0296e04ae5c2e5063db4089907efbdff79b7c4"
+  integrity sha512-FEZDdUFb88hgdnsfAPa4VxcPVOd+8GyZ2jsI965im5bjBlBYhrvXuTqLka/UHa6YdUNN/kZBsVgofhZ3322AJw==
 
 mkdirp@0.5.3:
   version "0.5.3"
@@ -7914,10 +7919,10 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-totalist@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/totalist/-/totalist-1.0.1.tgz#c62ad01d773c1a0c721e18d385767c14712a82da"
-  integrity sha512-HuAt9bWDCdLkebrIQr+i63NgQSvjeD2VTNUIEBqof/4pG4Gb6omuBOMUX0vF371cbfImXQzmb4Ue/0c9MUWGew==
+totalist@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/totalist/-/totalist-2.0.0.tgz#db6f1e19c0fa63e71339bbb8fba89653c18c7eec"
+  integrity sha512-+Y17F0YzxfACxTyjfhnJQEe7afPA0GSpYlFkl2VFMxYP7jshQf9gXV7cH47EfToBumFThfKBvfAcoUn6fdNeRQ==
 
 tough-cookie@^2.3.3, tough-cookie@~2.5.0:
   version "2.5.0"
