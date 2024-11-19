@@ -62,13 +62,13 @@ psql -U nextjs_ecommerce_score nextjs_ecommerce_store;
 You can run the migrations with the following command:
 
 ```
-yarn migrate up
+npm migrate up
 ```
 
 To drop the last migration run the following in your terminal:
 
 ```
-yarn migrate down
+npm migrate down
 ```
 
 ### Deployment instructions for Heroku

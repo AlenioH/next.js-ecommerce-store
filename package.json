@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "heroku-postbuild": "yarn migrate up && next build",
+    "heroku-postbuild": "npm migrate up && next build",
     "build": "next build",
     "start": "next start -p ${PORT:-\"3000\"}",
     "e2e": "cypress open",
