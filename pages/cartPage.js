@@ -131,119 +131,173 @@ function CartPage({ cart, products }) {
       <Footer />
       <style jsx>{`
         .container {
-          margin-top: 140px;
-          width: 80%;
+          margin-top: 90px;
+          width: 90%;
+          max-width: 1200px;
           margin-left: auto;
           margin-right: auto;
-          background-color: white;
-          border-radius: 20px;
-          padding: 10px;
+          background-color: #ffffff;
+          border-radius: 15px;
+          padding: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
         }
+
+        .container:hover {
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
         h1 {
-          margin-left: 15px;
+          color: #2f3640;
+          font-size: 2rem;
+          font-weight: 600;
+          margin-bottom: 30px;
+          text-align: center;
+          text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
+
         a {
           text-decoration: none;
-          font-size: 17px;
+          font-size: 16px;
           color: #2f3640;
           margin-left: 20px;
-          font-weight: bold;
+          font-weight: 500;
+          transition: color 0.3s ease;
         }
 
         a:hover {
+          color: #2ed573;
           text-decoration: underline;
         }
+
         .backToShop {
           background-color: #2ed573;
-          padding: 7px;
-          border-radius: 7px;
-        }
-        .backToShop:hover {
-          background-color: #2f3640;
-          color: white;
-          transition: background-color 0.3s;
-        }
-        .tableItems {
-          padding: 10px;
-
+          padding: 10px 20px;
+          border-radius: 20px;
           text-align: center;
-          border-bottom: 1px solid #2f3640;
+          font-size: 18px;
+          font-weight: 600;
+          color: white;
+          display: inline-block;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .backToShop:hover {
+          background-color: #1e7a3b;
+          transform: translateY(-3px);
+        }
+
+        .tableItems {
+          padding: 15px;
+          text-align: center;
+          border-bottom: 2px solid #ececec;
+          background-color: #f9f9f9;
+          font-size: 16px;
+          color: #333;
         }
 
         .headings {
           display: grid;
           grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-          grid-gap: 10px;
+          grid-gap: 15px;
           align-items: center;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: #2f3640;
         }
 
         .item {
           display: grid;
           grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-          grid-gap: 10px;
+          grid-gap: 15px;
           align-items: center;
+          padding: 15px 0;
+          border-bottom: 2px solid #f3f3f3;
+          font-weight: 500;
+          color: #333;
         }
 
         .buttonz {
           display: flex;
-          flex-direction: row;
-          padding: 0px;
           justify-content: center;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.8rem;
         }
 
         img {
-          height: 70px;
-          align-self: center;
-          margin-left: 30px;
+          height: 80px;
+          width: 80px;
+          border-radius: 10px;
+          object-fit: cover;
+          transition: transform 0.3s ease;
         }
+
+        img:hover {
+          transform: scale(1.05);
+        }
+
         input {
-          padding: 5px;
+          padding: 8px;
           border-radius: 5px;
-          width: 50px;
+          width: 60px;
           text-align: center;
+          font-size: 16px;
+          border: 1px solid #ddd;
+          transition: border 0.2s ease;
+        }
+
+        input:focus {
+          border: 1px solid #2ed573;
+          outline: none;
         }
 
         .total {
           text-align: right;
-          font-size: 20px;
+          font-size: 22px;
+          font-weight: 600;
+          color: #2f3640;
           margin-right: 10px;
+          margin-top: 30px;
         }
 
         button {
-          margin-top: 40px;
           align-self: center;
           background-color: #2ed573;
-          padding: 15px;
-          border-radius: 10px;
+          padding: 15px 30px;
+          border-radius: 30px;
           color: white;
           font-family: inherit;
-          font-size: 120%;
+          font-size: 1.2rem;
+          font-weight: 600;
+          transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         button:hover {
-          background-color: #636e72;
-          transition: background-color 0.3s;
+          background-color: #1e7a3b;
+          transform: translateY(-2px);
         }
       `}</style>
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: 'DM Mono', monospace;
-          background-image: url('/more-leaves.png');
-        }
+    <style jsx global>{`
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff; /* Solid white */
+        background: linear-gradient(45deg, #A3D9A5, #B2E8D1); /* Softer, lighter green tones */
+        background-size: 200% 200%;
+        animation: gradientAnimation 10s ease infinite;
+        font-family: 'DM Mono', monospace;
+        color: #2f3640;
+      }
 
-        * {
-          box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        h1 {
-          color: #2f3640;
-          text-shadow: 2px 2px black;
-        }
-      `}</style>
+      h1 {
+        color: #2f3640;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+    `}</style>
     </div>
   );
 }
