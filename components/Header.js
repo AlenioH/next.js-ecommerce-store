@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
 import React from 'react';
+import { TiShoppingCart } from "react-icons/ti";
 
 export function totalAmount(itemsInCart) {
   return itemsInCart.reduce((accumulator, currentValue) => {
@@ -31,7 +32,7 @@ export default function Header() {
           <Link className="cart" href={'/cartPage'}>
             <a>
               <li className="cartItems">
-                <img src="/cart.png" alt=""></img>
+                <TiShoppingCart size={25} />
                 {totalAmount(itemsInCart) !== 0
                   ? `Items in cart: ${totalAmount(itemsInCart)}`
                   : ''}
@@ -43,47 +44,71 @@ export default function Header() {
       <style jsx>{`
         .wrap {
           width: 100%;
-          font-weight: bold;
-          margin-top: 0;
-          margin-left: 0;
+          font-family: 'Roboto', sans-serif;
         }
 
         .navBar ul {
-          margin-top: 0;
-          margin-left: 0;
-          flex-direction: row;
           display: flex;
           align-items: center;
-          justify-content: space-around;
+          justify-content: space-between;
+          list-style: none;
+          margin: 0;
+          background-color: #fff;
+          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1), 0px 4px 15px rgba(0, 0, 0, 0.05);
           position: fixed;
           top: 0;
-          list-style-type: none;
-          background-color: white;
-          width: 100%;
-          border-bottom: 2px dotted #062a06;
+          left: 0;
+          right: 0;
+          z-index: 10;
         }
 
-        img {
-          height: 50px;
+        .logo {
+          display: flex;
+          align-items: center;
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: #333;
+        }
+
+         img {
+          height: 40px;
+          margin-right: 10px;
           vertical-align: middle;
         }
-        ul a li {
-          padding: 15px;
+
+        li {
+          padding: 10px 15px;
+          font-size: 1.1rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          color: #333;
+          transition: color 0.3s ease, transform 0.3s ease;
         }
+
+        li:hover {
+          color: #2ed573;
+          transform: translateY(-2px);
+        }
+
         .cartItems {
-          font-size: 20px;
-          margin-left: 300px;
+          display: flex;
+          align-items: center;
+          font-size: 1.2rem;
+          gap: 0.5rem;
         }
+
+        .cartItems span {
+          font-size: 0.9rem;
+          color: #555;
+        }
+
         a {
           text-decoration: none;
-          color: #062a06;
-          text-shadow: 1px 1px #2f3640;
-          font-size: 1.5rem;
+          color: inherit;
         }
 
         a:hover {
-          color: #636e72;
-          transition: color 0.3s;
+          color: #2ed573;
         }
       `}</style>
     </div>
