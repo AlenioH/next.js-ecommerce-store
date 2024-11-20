@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
@@ -15,9 +15,47 @@ export function totalSum(itemsInCart) {
   }, 0);
 }
 function CartPage({ cart, products }) {
-  const itemsInCart = cart || [];
+  const [itemsInCart, setItemsInCart] = useState(cart || []);
   const totalCart = totalSum(itemsInCart);
-  cookie.set('total', totalCart);
+
+
+  useEffect(() => {
+    cookie.set('total', totalCart);
+  }, [itemsInCart])
+
+  /**
+   * Increase or decrease amount of one item in cart
+   * @param {string} id if of the product
+   * @param {number} action 0 or 1 where 0 stands for decrease and 1 for increase
+   */
+  const changeQuantity = (id, action) => {
+    const productsMap = new Map(products.map((prod) => [prod.id, prod]));
+
+    const updatedCart = itemsInCart.map((item) => {
+      if (item.id === id) {
+        const prodPrice = productsMap.get(id); // Efficient lookup
+
+        // increase or decrease amount based on action
+        let newAmount = item.amount;
+        if (action === 1) {
+          newAmount++; // Increase amount
+        } else if (action === 0) {
+          newAmount--; // Decrease amount
+        }
+        const newPrice = prodPrice ? prodPrice.price * newAmount : item.price;
+
+        return {
+          ...item,
+          amount: newAmount,
+          price: newPrice,
+        };
+      }
+
+      return item;
+    });
+    // update the local state with the new cart and sync with cookies
+    setItemsInCart(updatedCart);
+  }
 
   return (
     <div>
@@ -54,6 +92,7 @@ function CartPage({ cart, products }) {
                           item={item}
                           cart={cart}
                           products={products}
+                          changeQuantity={changeQuantity}
                         />
                       )}
 
@@ -64,6 +103,7 @@ function CartPage({ cart, products }) {
                         cart={cart}
                         products={products}
                         itemsInCart={itemsInCart}
+                        changeQuantity={changeQuantity}
                       />
                     </span>
                     <p className="total-cart">{item.price}€</p>

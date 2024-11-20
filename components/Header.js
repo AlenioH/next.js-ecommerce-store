@@ -3,7 +3,6 @@ import cookie from 'js-cookie';
 import React from 'react';
 
 export function totalAmount(itemsInCart) {
-  // console.log(itemsInCart);
   return itemsInCart.reduce((accumulator, currentValue) => {
     return accumulator + currentValue.amount;
   }, 0);
@@ -11,20 +10,6 @@ export function totalAmount(itemsInCart) {
 
 export default function Header() {
   const itemsInCart = cookie.getJSON('cart') || [];
-  // let itemsInCart = cookie.getJSON('cart') || [];
-
-  // const totalAmount =
-  //   itemsInCart.length !== 0
-  //     ? itemsInCart.reduce((accumulator, currentValue) => {
-  //         return accumulator + currentValue.amount;
-  //       }, 0)
-  //     : 0;
-  // console.log(typeof totalAmount);
-
-  // useEffect(() => {
-  //   cookie.set('cart', itemsInCart);
-  //   console.log(itemsInCart);
-  // }, [itemsInCart]);
 
   return (
     <div className="wrap">

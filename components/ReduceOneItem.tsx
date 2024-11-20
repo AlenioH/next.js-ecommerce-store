@@ -1,5 +1,4 @@
 import React from 'react';
-import cookie from 'js-cookie';
 
 type Item = {
   id: string;
@@ -27,29 +26,11 @@ type Products = {
   price: number;
   info: string;
 };
-type Props = { item: Item; cart: Cart[]; products: Products[] };
+type Props = { item: Item; cart: Cart[]; products: Products[], changeQuantity: (id: string, action: number) => void };
 export default function ReduceOneItem(props: Props) {
-  function reduceOne(id) {
-    const newCart = props.cart.map((item) => {
-      if (item.id === id) {
-        const prodPrice = props.products.find((prod) => prod.id === id);
-        return {
-          ...item,
-          amount: item.amount - 1,
-          price: prodPrice.price * (item.amount - 1),
-        };
-      } else {
-        return item;
-      }
-    });
-
-    cookie.set('cart', newCart);
-    window.location.reload();
-    console.log(newCart);
-  }
   return (
     <div>
-      <button data-cy="reduce-button" onClick={() => reduceOne(props.item.id)}>
+      <button data-cy="reduce-button" onClick={() => props.changeQuantity(props.item.id, 0)}>
         -
       </button>
 
