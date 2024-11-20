@@ -6,8 +6,7 @@ import Link from 'next/link';
 import cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
 import RemoveFromCart from '../components/RemoveFromCart.tsx';
-import AddOneItem from '../components/AddOneItem.tsx';
-import ReduceOneItem from '../components/ReduceOneItem.tsx';
+import QuantityButton from '../components/QuantityButton.tsx';
 
 export function totalSum(itemsInCart) {
   return itemsInCart.reduce((acc, cur) => {
@@ -88,7 +87,8 @@ function CartPage({ cart, products }) {
                       {item.amount === 1 ? (
                         ''
                       ) : (
-                        <ReduceOneItem
+                        <QuantityButton
+                          action={'decrease'}
                           item={item}
                           cart={cart}
                           products={products}
@@ -98,7 +98,8 @@ function CartPage({ cart, products }) {
 
                       <p className="amount-cart">{item.amount}</p>
 
-                      <AddOneItem
+                      <QuantityButton
+                        action={'increase'}
                         item={item}
                         cart={cart}
                         products={products}
@@ -173,12 +174,14 @@ function CartPage({ cart, products }) {
           display: grid;
           grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
           grid-gap: 10px;
+          align-items: center;
         }
 
         .item {
           display: grid;
           grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
           grid-gap: 10px;
+          align-items: center;
         }
 
         .buttonz {
@@ -186,7 +189,8 @@ function CartPage({ cart, products }) {
           flex-direction: row;
           padding: 0px;
           justify-content: center;
-          align-items: baseline;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         img {
