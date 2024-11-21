@@ -29,33 +29,38 @@ function CartPage({ cart, products }) {
   /**
    * Increase or decrease amount of one item in cart
    * @param {string} id if of the product
-   * @param {number} action 0 or 1 where 0 stands for decrease and 1 for increase
+   * @param {string} action "increase", "decrease", "remove"
    */
   const changeQuantity = (id, action) => {
-    const productsMap = new Map(products.map((prod) => [prod.id, prod]));
+    let updatedCart;
+    if (action === 'remove') {
+      updatedCart = itemsInCart.filter((item) => {
+        return item.id !== id;
+      });
+    } else {
+      const productsMap = new Map(products.map((prod) => [prod.id, prod]));
+      updatedCart = itemsInCart.map((item) => {
+        if (item.id === id) {
+          const prodPrice = productsMap.get(id); // Efficient lookup
 
-    const updatedCart = itemsInCart.map((item) => {
-      if (item.id === id) {
-        const prodPrice = productsMap.get(id); // Efficient lookup
+          // increase or decrease amount based on action
+          let newAmount = item.amount;
+          if (action === 'increase') {
+            newAmount++; // Increase amount
+          } else if (action === 'decrease') {
+            newAmount--; // Decrease amount
+          }
+          const newPrice = prodPrice ? prodPrice.price * newAmount : item.price;
 
-        // increase or decrease amount based on action
-        let newAmount = item.amount;
-        if (action === 1) {
-          newAmount++; // Increase amount
-        } else if (action === 0) {
-          newAmount--; // Decrease amount
+          return {
+            ...item,
+            amount: newAmount,
+            price: newPrice,
+          };
         }
-        const newPrice = prodPrice ? prodPrice.price * newAmount : item.price;
-
-        return {
-          ...item,
-          amount: newAmount,
-          price: newPrice,
-        };
-      }
-
-      return item;
-    });
+        return item;
+      });
+    }
     // update the local state with the new cart and sync with cookies
     setItemsInCart(updatedCart);
   };
@@ -88,17 +93,13 @@ function CartPage({ cart, products }) {
                     <img src={item.img} alt="item" />
                     <p>{item.name}</p>
                     <span data-cy={'amount-cart'} className="buttonz">
-                      {item.amount === 1 ? (
-                        ''
-                      ) : (
-                        <QuantityButton
-                          action={'decrease'}
-                          item={item}
-                          cart={cart}
-                          products={products}
-                          changeQuantity={changeQuantity}
-                        />
-                      )}
+                      <QuantityButton
+                        action={'decrease'}
+                        item={item}
+                        cart={cart}
+                        products={products}
+                        changeQuantity={changeQuantity}
+                      />
 
                       <p className="amount-cart">{item.amount}</p>
 
@@ -113,7 +114,11 @@ function CartPage({ cart, products }) {
                     </span>
                     <p className="total-cart">{item.price}€</p>
 
-                    <RemoveFromCart item={item} itemsInCart={itemsInCart} />
+                    <RemoveFromCart
+                      item={item}
+                      itemsInCart={itemsInCart}
+                      changeQuantity={changeQuantity}
+                    />
                   </div>
                 );
               })}

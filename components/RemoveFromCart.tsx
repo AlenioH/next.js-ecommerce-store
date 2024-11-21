@@ -1,5 +1,5 @@
 import React from 'react';
-import cookie from 'js-cookie';
+import { TiTrash } from 'react-icons/ti';
 
 type Item = {
   id: string;
@@ -18,40 +18,44 @@ type itemsInCart = {
   price: number;
   info: string;
 };
-type Props = { item: Item; itemsInCart: itemsInCart[] };
+type Props = {
+  item: Item;
+  itemsInCart: itemsInCart[];
+  changeQuantity: (id: string, action: string) => void;
+};
 
 export default function RemoveFromCart(props: Props) {
-  function removeItem(id) {
-    const newCart = props.itemsInCart.filter((item) => {
-      return item.id !== id;
-    });
-    cookie.set('cart', newCart);
-
-    window.location.reload();
-    console.log(newCart);
-  }
   return (
     <div>
       <button
         data-cy={'remove-button'}
-        onClick={() => removeItem(props.item.id)}
+        onClick={() => props.changeQuantity(props.item.id, 'remove')}
       >
-        Remove item from cart
+        <TiTrash size={25} />
       </button>
       <style jsx>{`
         button {
-          align-self: center;
-          width: 100px;
-          font-size: 0.8rem;
-          padding: 5px;
-          background-color: lightgray;
-          border-radius: 10px;
-          color: white;
-          font-family: inherit;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+          border: none;
+          border-radius: 50%;
+          background-color: #f5f5f5;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          transition: all 0.3s ease;
         }
+
         button:hover {
-          background-color: #636e72;
-          transition: background-color 0.3s;
+          background-color: #ffcccc;
+          color: #c0392b;
+          transform: scale(1.1);
+          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+          transform: scale(0.95);
         }
       `}</style>
     </div>

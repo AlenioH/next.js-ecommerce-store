@@ -28,12 +28,12 @@ type Products = {
   info: string;
 };
 
-type Props = { action: string, item: Item; cart: Cart[]; products: Products[], changeQuantity: (id: string, action: number) => void};
+type Props = { action: string, item: Item; cart: Cart[]; products: Products[], changeQuantity: (id: string, action: string) => void};
 
 export default function AddOneItem(props: Props) {
   return (
     <div>
-      <button data-cy={props.action === 'increase' ? 'add-button' : 'reduce-button'} onClick={() => props.changeQuantity(props.item.id, props.action === 'increase' ? 1 : 0)}>
+      <button data-cy={props.action === 'increase' ? 'add-button' : 'reduce-button'} onClick={() => props.changeQuantity(props.item.id, props.item.amount === 1 && props.action === 'decrease' ? 'remove' : props.action)}>
         { props.action === 'increase' ? <TiPlus size={25}/> : <TiMinus size={25}/>}
       </button>
       <style jsx>{`
