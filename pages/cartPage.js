@@ -75,7 +75,6 @@ function CartPage({ cart, products }) {
       <Header />
       <div className="container">
         <div className="products-container">
-          <h1>Shopping Cart</h1>
           <Link href="/products">
             <a className="back-to-shop">
               {' '}
@@ -83,6 +82,7 @@ function CartPage({ cart, products }) {
               Back to shop
             </a>
           </Link>
+          <h1>Shopping Cart</h1>
           <div className="tableItems">
             {itemsInCart.length === 0
               ? 'The cart is empty...'
@@ -169,8 +169,10 @@ function CartPage({ cart, products }) {
           color: #2f3640;
           font-size: 1.5rem;
           font-weight: 600;
-          margin-bottom: 30px;
+          margin-bottom: 0;
           text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+          margin-bottom: 2rem;
+          margin-top: 0;
         }
 
         a {
@@ -191,7 +193,6 @@ function CartPage({ cart, products }) {
         }
 
         .tableItems {
-          /* padding: 15px; */
           text-align: center;
           color: #333;
         }
@@ -294,13 +295,13 @@ function CartPage({ cart, products }) {
 
         .back-to-shop {
           color: #636e72;
-          font-size: 0.9rem;
+          font-size: 0.7rem;
           font-weight: 400;
           cursor: pointer;
           display: flex;
           align-items: center;
           width: fit-content;
-          gap: 5px;
+          margin-left: 0;
         }
 
         .back-to-shop:hover {
