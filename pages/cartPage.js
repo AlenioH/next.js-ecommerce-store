@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
@@ -15,12 +15,16 @@ export function totalSum(itemsInCart) {
 }
 function CartPage({ cart, products }) {
   const [itemsInCart, setItemsInCart] = useState(cart || []);
-  const totalCart = totalSum(itemsInCart);
-
 
   useEffect(() => {
+    const totalCart = totalSum(itemsInCart);
+    cookie.set('cart', itemsInCart);
     cookie.set('total', totalCart);
-  }, [itemsInCart])
+
+    // dispatch a custom event so that the Header would know to update the value too
+    const event = new CustomEvent('cartUpdated', { detail: itemsInCart });
+    window.dispatchEvent(event);
+  }, [itemsInCart]);
 
   /**
    * Increase or decrease amount of one item in cart
@@ -54,7 +58,7 @@ function CartPage({ cart, products }) {
     });
     // update the local state with the new cart and sync with cookies
     setItemsInCart(updatedCart);
-  }
+  };
 
   return (
     <div>
@@ -179,7 +183,9 @@ function CartPage({ cart, products }) {
           font-weight: 600;
           color: white;
           display: inline-block;
-          transition: background-color 0.3s ease, transform 0.2s ease;
+          transition:
+            background-color 0.3s ease,
+            transform 0.2s ease;
         }
 
         .backToShop:hover {
@@ -269,7 +275,9 @@ function CartPage({ cart, products }) {
           font-family: inherit;
           font-size: 1.2rem;
           font-weight: 600;
-          transition: background-color 0.3s ease, transform 0.3s ease;
+          transition:
+            background-color 0.3s ease,
+            transform 0.3s ease;
         }
 
         button:hover {
@@ -277,27 +285,31 @@ function CartPage({ cart, products }) {
           transform: translateY(-2px);
         }
       `}</style>
-    <style jsx global>{`
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff; /* Solid white */
-        background: linear-gradient(45deg, #A3D9A5, #B2E8D1); /* Softer, lighter green tones */
-        background-size: 200% 200%;
-        animation: gradientAnimation 10s ease infinite;
-        font-family: 'DM Mono', monospace;
-        color: #2f3640;
-      }
+      <style jsx global>{`
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #ffffff; /* Solid white */
+          background: linear-gradient(
+            45deg,
+            #a3d9a5,
+            #b2e8d1
+          ); /* Softer, lighter green tones */
+          background-size: 200% 200%;
+          animation: gradientAnimation 10s ease infinite;
+          font-family: 'DM Mono', monospace;
+          color: #2f3640;
+        }
 
-      * {
-        box-sizing: border-box;
-      }
+        * {
+          box-sizing: border-box;
+        }
 
-      h1 {
-        color: #2f3640;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-      }
-    `}</style>
+        h1 {
+          color: #2f3640;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+      `}</style>
     </div>
   );
 }

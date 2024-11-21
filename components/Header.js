@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TiShoppingCart } from 'react-icons/ti';
 
 export function totalAmount(itemsInCart) {
@@ -10,13 +10,26 @@ export function totalAmount(itemsInCart) {
 }
 
 export default function Header() {
-  const itemsInCart = cookie.getJSON('cart') || [];
+
+  const [itemsInCart, setItemsInCart] = useState(() => cookie.getJSON('cart') || []);
+
+  useEffect(() => {
+    const handleCartUpdate = (event) => {
+      setItemsInCart(event.detail);
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
 
   return (
     <div className="wrap">
       <div className="navBar">
         <ul>
-          <div className='left-container'>
+          <div className="left-container">
             <Link href={'/index'}>
               <a>
                 <li>
@@ -35,8 +48,10 @@ export default function Header() {
             <Link className="cart" href={'/cartPage'}>
               <a>
                 <li className="cartItems">
-                  <TiShoppingCart size={25} />
-                  Items in cart: {totalAmount(itemsInCart)}
+                  <TiShoppingCart size={45} />
+                  <span className="cart-amount">
+                    {totalAmount(itemsInCart)}
+                  </span>
                 </li>
               </a>
             </Link>
@@ -111,6 +126,20 @@ export default function Header() {
         .cartItems span {
           font-size: 0.9rem;
           color: #555;
+        }
+
+        .cart-amount {
+          border: 1px solid black;
+          border-radius: 50%;
+          padding: 5px;
+          position: absolute;
+          right: 5px;
+          top: 30px;
+          width: 28px;
+          display: flex;
+          justify-content: center;
+          font-weight: bold;
+          background-color: white;
         }
 
         a {
