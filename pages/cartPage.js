@@ -206,6 +206,7 @@ function CartPage({ cart, products }) {
           font-weight: 500;
           color: #333;
           justify-items: center;
+          padding-top: 5px;
         }
 
         @media (max-width: 430px) {
