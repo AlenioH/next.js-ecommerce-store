@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
 import React from 'react';
-import { TiShoppingCart } from "react-icons/ti";
+import { TiShoppingCart } from 'react-icons/ti';
 
 export function totalAmount(itemsInCart) {
   return itemsInCart.reduce((accumulator, currentValue) => {
@@ -16,29 +16,31 @@ export default function Header() {
     <div className="wrap">
       <div className="navBar">
         <ul>
-          <Link href={'/index'}>
-            <a>
-              <li>
-                <img src="/favicon.png" alt="logo couch"></img>Bist du Teppich!
-                Home
-              </li>
-            </a>
-          </Link>
-          <Link href={'/products'}>
-            <a>
-              <li>Go to shop</li>
-            </a>
-          </Link>
-          <Link className="cart" href={'/cartPage'}>
-            <a>
-              <li className="cartItems">
-                <TiShoppingCart size={25} />
-                {totalAmount(itemsInCart) !== 0
-                  ? `Items in cart: ${totalAmount(itemsInCart)}`
-                  : ''}
-              </li>
-            </a>
-          </Link>
+          <div className='left-container'>
+            <Link href={'/index'}>
+              <a>
+                <li>
+                  <img src="/favicon.png" alt="logo couch"></img>Bist du
+                  Teppich! Home
+                </li>
+              </a>
+            </Link>
+            <Link href={'/products'}>
+              <a>
+                <li>Go to shop</li>
+              </a>
+            </Link>
+          </div>
+          {totalAmount(itemsInCart) > 0 && (
+            <Link className="cart" href={'/cartPage'}>
+              <a>
+                <li className="cartItems">
+                  <TiShoppingCart size={25} />
+                  Items in cart: {totalAmount(itemsInCart)}
+                </li>
+              </a>
+            </Link>
+          )}
         </ul>
       </div>
       <style jsx>{`
@@ -54,12 +56,19 @@ export default function Header() {
           list-style: none;
           margin: 0;
           background-color: #fff;
-          box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1), 0px 4px 15px rgba(0, 0, 0, 0.05);
+          box-shadow:
+            0px 10px 20px rgba(0, 0, 0, 0.1),
+            0px 4px 15px rgba(0, 0, 0, 0.05);
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: 10;
+        }
+
+        .left-container {
+          display: flex;
+          align-items: baseline;
         }
 
         .logo {
@@ -70,7 +79,7 @@ export default function Header() {
           color: #333;
         }
 
-         img {
+        img {
           height: 40px;
           margin-right: 10px;
           vertical-align: middle;
@@ -82,7 +91,9 @@ export default function Header() {
           font-weight: 500;
           text-transform: uppercase;
           color: #333;
-          transition: color 0.3s ease, transform 0.3s ease;
+          transition:
+            color 0.3s ease,
+            transform 0.3s ease;
         }
 
         li:hover {
