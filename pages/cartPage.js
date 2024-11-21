@@ -199,7 +199,7 @@ function CartPage({ cart, products }) {
 
         .item {
           display: grid;
-          grid-template-columns: 1fr 2fr 1fr;
+          grid-template-columns: 1fr 1fr 1fr;
           grid-gap: 15px;
           align-items: center;
           border-bottom: 2px solid #f3f3f3;
