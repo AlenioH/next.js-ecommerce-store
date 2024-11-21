@@ -10,8 +10,9 @@ export function totalAmount(itemsInCart) {
 }
 
 export default function Header() {
-
-  const [itemsInCart, setItemsInCart] = useState(() => cookie.getJSON('cart') || []);
+  const [itemsInCart, setItemsInCart] = useState(
+    () => cookie.getJSON('cart') || []
+  );
 
   useEffect(() => {
     const handleCartUpdate = (event) => {
@@ -121,6 +122,7 @@ export default function Header() {
           align-items: center;
           font-size: 1.2rem;
           gap: 0.5rem;
+          position: relative;
         }
 
         .cartItems span {
@@ -129,17 +131,15 @@ export default function Header() {
         }
 
         .cart-amount {
-          border: 1px solid black;
           border-radius: 50%;
           padding: 5px;
           position: absolute;
-          right: 5px;
-          top: 30px;
+          right: 30%;
+          bottom: -5px;
           width: 28px;
           display: flex;
           justify-content: center;
           font-weight: bold;
-          background-color: white;
         }
 
         a {

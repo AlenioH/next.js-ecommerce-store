@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { TiArrowLeft, TiArrowRight } from 'react-icons/ti';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Link from 'next/link';
@@ -73,57 +74,63 @@ function CartPage({ cart, products }) {
       </Head>
       <Header />
       <div className="container">
-        <h1>Shopping Cart</h1>
-        <Link href="/products">
-          <a className="backToShop">Back to shop</a>
-        </Link>
-        <div className="tableItems">
-          <div className="headings">
-            <h4>Product</h4>
-            <h4>Description</h4>
-            <h4>Quantity</h4>
-            <h4>Price</h4>
-            <h4>&nbsp;</h4>
-          </div>
-          {itemsInCart.length === 0
-            ? 'The cart is empty...'
-            : itemsInCart.map((item) => {
-                return (
-                  <div data-cy={'item-cart'} className="item" key={item.id}>
-                    <img src={item.img} alt="item" />
-                    <p>{item.name}</p>
-                    <span data-cy={'amount-cart'} className="buttonz">
-                      <QuantityButton
-                        action={'decrease'}
-                        item={item}
-                        cart={cart}
-                        products={products}
-                        changeQuantity={changeQuantity}
-                      />
+        <div className="products-container">
+          <h1>Shopping Cart</h1>
+          <Link href="/products">
+            <a className="back-to-shop">
+              {' '}
+              <TiArrowLeft size={25} />
+              Back to shop
+            </a>
+          </Link>
+          <div className="tableItems">
+            <div className="headings">
+              <h4>Product</h4>
+              <h4>Quantity</h4>
+              <h4>Price</h4>
+            </div>
+            {itemsInCart.length === 0
+              ? 'The cart is empty...'
+              : itemsInCart.map((item) => {
+                  return (
+                    <div data-cy={'item-cart'} className="item" key={item.id}>
+                      <div>
+                        <img src={item.img} alt="item" />
+                        <p>{item.name}</p>
+                      </div>
+                      <span data-cy={'amount-cart'} className="buttonz">
+                        <QuantityButton
+                          action={'decrease'}
+                          item={item}
+                          cart={cart}
+                          products={products}
+                          changeQuantity={changeQuantity}
+                        />
 
-                      <p className="amount-cart">{item.amount}</p>
+                        <p className="amount-cart">{item.amount}</p>
 
-                      <QuantityButton
-                        action={'increase'}
+                        <QuantityButton
+                          action={'increase'}
+                          item={item}
+                          cart={cart}
+                          products={products}
+                          itemsInCart={itemsInCart}
+                          changeQuantity={changeQuantity}
+                        />
+                      </span>
+                      <p className="total-cart">{item.price}€</p>
+
+                      <RemoveFromCart
                         item={item}
-                        cart={cart}
-                        products={products}
                         itemsInCart={itemsInCart}
                         changeQuantity={changeQuantity}
                       />
-                    </span>
-                    <p className="total-cart">{item.price}€</p>
-
-                    <RemoveFromCart
-                      item={item}
-                      itemsInCart={itemsInCart}
-                      changeQuantity={changeQuantity}
-                    />
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+          </div>
         </div>
-        <p className="total">
+        <div className="total">
           Total:
           {totalSum(itemsInCart)}€<br></br>
           {itemsInCart.length === 0 ? (
@@ -131,15 +138,19 @@ function CartPage({ cart, products }) {
           ) : (
             <Link href="/payment">
               <a data-cy="checkout-button">
-                <button>Proceed to checkout</button>
+                <button className="checkout-button">
+                  Proceed to checkout <TiArrowRight size={30} />
+                </button>
               </a>
             </Link>
           )}
-        </p>
+        </div>
       </div>
       <Footer />
       <style jsx>{`
         .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           margin-top: 90px;
           width: 90%;
           max-width: 1200px;
@@ -150,10 +161,6 @@ function CartPage({ cart, products }) {
           padding: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           transition: all 0.3s ease;
-        }
-
-        .container:hover {
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
@@ -176,40 +183,18 @@ function CartPage({ cart, products }) {
 
         a:hover {
           color: #2ed573;
-          text-decoration: underline;
-        }
-
-        .backToShop {
-          background-color: #2ed573;
-          padding: 10px 20px;
-          border-radius: 20px;
-          text-align: center;
-          font-size: 18px;
-          font-weight: 600;
-          color: white;
-          display: inline-block;
-          transition:
-            background-color 0.3s ease,
-            transform 0.2s ease;
-        }
-
-        .backToShop:hover {
-          background-color: #1e7a3b;
-          transform: translateY(-3px);
         }
 
         .tableItems {
           padding: 15px;
           text-align: center;
-          border-bottom: 2px solid #ececec;
-          background-color: #f9f9f9;
           font-size: 16px;
           color: #333;
         }
 
         .headings {
           display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+          grid-template-columns: 1fr 2fr 1fr 1fr;
           grid-gap: 15px;
           align-items: center;
           font-weight: 600;
@@ -219,13 +204,14 @@ function CartPage({ cart, products }) {
 
         .item {
           display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+          grid-template-columns: 1fr 2fr 1fr 1fr;
           grid-gap: 15px;
           align-items: center;
           padding: 15px 0;
           border-bottom: 2px solid #f3f3f3;
           font-weight: 500;
           color: #333;
+          justify-items: center;
         }
 
         .buttonz {
@@ -237,7 +223,6 @@ function CartPage({ cart, products }) {
 
         img {
           height: 80px;
-          width: 80px;
           border-radius: 10px;
           object-fit: cover;
           transition: transform 0.3s ease;
@@ -268,26 +253,62 @@ function CartPage({ cart, products }) {
           font-weight: 600;
           color: #2f3640;
           margin-right: 10px;
-          margin-top: 30px;
+          align-self: flex-end;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        button {
-          align-self: center;
-          background-color: #2ed573;
-          padding: 15px 30px;
-          border-radius: 30px;
-          color: white;
+        .checkout-button {
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+          background-color: white;
+          color: #2f3640;
+          padding: 12px 36px;
+          border-radius: 5px;
           font-family: inherit;
-          font-size: 1.2rem;
-          font-weight: 600;
+          font-size: 1rem;
+          border: 2px solid #dcdcdc;
+          cursor: pointer;
           transition:
-            background-color 0.3s ease,
-            transform 0.3s ease;
+            color 0.3s ease,
+            border-color 0.3s ease,
+            transform 0.2s ease,
+            box-shadow 0.3s ease;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        button:hover {
-          background-color: #1e7a3b;
+        .checkout-button:hover {
+          color: #2ed573;
+          border-color: #2ed573;
           transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-button:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-shop {
+          color: #636e72;
+          font-size: 0.9rem;
+          font-weight: 400;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          width: fit-content;
+          gap: 5px;
+        }
+
+        .back-to-shop:hover {
+          color: #2ed573;
+          text-decoration: none;
+        }
+
+        .back-to-shop:active {
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
       `}</style>
       <style jsx global>{`
