@@ -252,10 +252,9 @@ function CartPage({ cart, products }) {
 
         .total {
           text-align: right;
-          font-size: 22px;
+          font-size: 1.2rem;
           font-weight: 600;
           color: #2f3640;
-          margin-right: 10px;
           align-self: flex-end;
           display: flex;
           flex-direction: column;
@@ -268,10 +267,10 @@ function CartPage({ cart, products }) {
           margin-left: auto;
           background-color: white;
           color: #2f3640;
-          padding: 12px 36px;
+          padding: 12px;
           border-radius: 5px;
           font-family: inherit;
-          font-size: 1rem;
+          font-size: 0.9rem;
           border: 2px solid #dcdcdc;
           cursor: pointer;
           transition:
