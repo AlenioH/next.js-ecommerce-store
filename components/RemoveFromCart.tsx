@@ -31,7 +31,7 @@ export default function RemoveFromCart(props: Props) {
         data-cy={'remove-button'}
         onClick={() => props.changeQuantity(props.item.id, 'remove')}
       >
-        <TiTrash size={25} />
+        <TiTrash size={20} />
       </button>
       <style jsx>{`
         button {

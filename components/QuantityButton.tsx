@@ -34,7 +34,7 @@ export default function AddOneItem(props: Props) {
   return (
     <div>
       <button data-cy={props.action === 'increase' ? 'add-button' : 'reduce-button'} onClick={() => props.changeQuantity(props.item.id, props.item.amount === 1 && props.action === 'decrease' ? 'remove' : props.action)}>
-        { props.action === 'increase' ? <TiPlus size={25}/> : <TiMinus size={25}/>}
+        { props.action === 'increase' ? <TiPlus size={20}/> : <TiMinus size={20}/>}
       </button>
       <style jsx>{`
         button {

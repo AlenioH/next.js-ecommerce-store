@@ -84,11 +84,6 @@ function CartPage({ cart, products }) {
             </a>
           </Link>
           <div className="tableItems">
-            <div className="headings">
-              <h4>Product</h4>
-              <h4>Quantity</h4>
-              <h4>Price</h4>
-            </div>
             {itemsInCart.length === 0
               ? 'The cart is empty...'
               : itemsInCart.map((item) => {
@@ -98,7 +93,7 @@ function CartPage({ cart, products }) {
                         <img src={item.img} alt="item" />
                         <p>{item.name}</p>
                       </div>
-                      <span data-cy={'amount-cart'} className="buttonz">
+                      <div data-cy={'amount-cart'} className="quantity-buttons">
                         <QuantityButton
                           action={'decrease'}
                           item={item}
@@ -117,14 +112,13 @@ function CartPage({ cart, products }) {
                           itemsInCart={itemsInCart}
                           changeQuantity={changeQuantity}
                         />
-                      </span>
-                      <p className="total-cart">{item.price}€</p>
-
-                      <RemoveFromCart
-                        item={item}
-                        itemsInCart={itemsInCart}
-                        changeQuantity={changeQuantity}
-                      />
+                        <RemoveFromCart
+                          item={item}
+                          itemsInCart={itemsInCart}
+                          changeQuantity={changeQuantity}
+                        />
+                      </div>
+                      <p>Price: {item.price}€</p>
                     </div>
                   );
                 })}
@@ -163,12 +157,19 @@ function CartPage({ cart, products }) {
           transition: all 0.3s ease;
         }
 
+        @media (max-width: 860px) {
+          .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+        }
+
         h1 {
           color: #2f3640;
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 600;
           margin-bottom: 30px;
-          text-align: center;
           text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
@@ -181,44 +182,44 @@ function CartPage({ cart, products }) {
           transition: color 0.3s ease;
         }
 
+        p {
+          font-size: 0.8rem;
+        }
+
         a:hover {
           color: #2ed573;
         }
 
         .tableItems {
-          padding: 15px;
+          /* padding: 15px; */
           text-align: center;
-          font-size: 16px;
           color: #333;
-        }
-
-        .headings {
-          display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr;
-          grid-gap: 15px;
-          align-items: center;
-          font-weight: 600;
-          text-transform: uppercase;
-          color: #2f3640;
         }
 
         .item {
           display: grid;
-          grid-template-columns: 1fr 2fr 1fr 1fr;
+          grid-template-columns: 1fr 2fr 1fr;
           grid-gap: 15px;
           align-items: center;
-          padding: 15px 0;
           border-bottom: 2px solid #f3f3f3;
           font-weight: 500;
           color: #333;
           justify-items: center;
         }
 
-        .buttonz {
+        @media (max-width: 430px) {
+          .item {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          }
+        }
+
+        .quantity-buttons {
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 0.8rem;
+          gap: 0.5rem;
         }
 
         img {
