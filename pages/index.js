@@ -26,6 +26,8 @@ export default function Home() {
         .container {
           margin-top: 70px;
           min-height: 100vh;
+          display: flex;
+          flex-direction: column;
         }
 
         img {

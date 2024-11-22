@@ -89,7 +89,7 @@ function CartPage({ cart, products }) {
               : itemsInCart.map((item) => {
                   return (
                     <div data-cy={'item-cart'} className="item" key={item.id}>
-                      <div>
+                      <div className="item-image-container">
                         <img src={item.img} alt="item" />
                         <p>{item.name}</p>
                       </div>
@@ -193,7 +193,6 @@ function CartPage({ cart, products }) {
         }
 
         .tableItems {
-          text-align: center;
           color: #333;
         }
 
@@ -207,6 +206,18 @@ function CartPage({ cart, products }) {
           color: #333;
           justify-items: center;
           padding-top: 5px;
+        }
+
+        .item-image-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .item-image-container p {
+          margin: 0;
         }
 
         @media (max-width: 430px) {

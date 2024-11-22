@@ -2,64 +2,88 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <div className="big">
-      <div className="all">
-        <hr />
-        <div className="wrapper">
-          <ul>
-            <li>Terms and conditions</li>
-            <li>Cookies and privacy policy</li>
-            <li className="rightsReserved">
-              <img alt="logo" src="/favicon.png"></img>©{' '}
-              {new Date().getFullYear()} Bist du Teppich!, inc. All rights
-              reserved
-            </li>
-          </ul>
+    <footer className="footer">
+      <div className="inner">
+        <ul className="footer-links">
+          <li>
+            <a href="/terms">Terms and Conditions</a>
+          </li>
+          <li>
+            <a href="/privacy">Privacy Policy</a>
+          </li>
+        </ul>
+        <div className="footer-disclaimer">
+          <img alt="logo" src="/favicon.png" className="footer-logo" />
+          <span>
+            © {new Date().getFullYear()} Bist du Teppich!, Inc. All rights
+            reserved.
+          </span>
         </div>
       </div>
       <style jsx>{`
-        * {
-          font-family: 'DM Mono', monospace;
+        .footer {
+          background-color: #f8f9fa;
+          border-top: 1px solid #dfe4ea;
+          padding: 20px 0;
+          text-align: center;
+          font-size: 0.9rem;
           color: #2f3640;
+          margin-top: auto;
         }
 
-        .all {
-          width: 100%;
-          height: 0;
-          margin-top: 40px;
-          margin-bottom: 0;
-        }
-
-        hr {
-          border: 0.5px solid #636e72;
-        }
-
-        .wrapper > * {
+        .inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
           display: flex;
-          flex-direction: row;
-          list-style-type: none;
-          justify-content: flex-start;
-          align-items: center;
-          font-size: 80%;
-        }
-        li {
-          padding: 3px 15px;
-          font-weight: 600;
-        }
-        li:hover {
-          text-decoration: underline;
-          text-decoration-color: #2f3640;
-          transition: text-decoration 0.5s;
+          flex-direction: column;
+          gap: 10px;
         }
 
-        img {
-          width: 30px;
-          vertical-align: middle;
+        .footer-links {
+          display: flex;
+          justify-content: center;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          gap: 20px;
         }
-        .rightsReserved {
-          margin-left: auto;
+
+        .footer-links li a {
+          text-decoration: none;
+          color: #2f3640;
+          font-weight: 600;
+          transition: color 0.3s ease;
+        }
+
+        .footer-links li a:hover {
+          color: #2ed573;
+        }
+
+        .footer-disclaimer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          font-size: 0.8rem;
+        }
+
+        .footer-logo {
+          width: 24px;
+          height: 24px;
+        }
+
+        @media (max-width: 768px) {
+          .footer-links {
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          .footer-disclaimer {
+            flex-direction: column;
+          }
         }
       `}</style>
-    </div>
+    </footer>
   );
 }
