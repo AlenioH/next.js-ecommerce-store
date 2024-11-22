@@ -27,59 +27,55 @@ export default function Header() {
   }, []);
 
   return (
-    <div className="wrap">
-      <div className="navBar">
-        <ul>
-          <div className="left-container">
-            <Link href={'/index'}>
-              <a>
-                <li>
-                  <img src="/favicon.png" alt="logo couch"></img>Bist du
-                  Teppich! Home
-                </li>
-              </a>
-            </Link>
-            <Link href={'/products'}>
-              <a>
-                <li>Go to shop</li>
-              </a>
-            </Link>
-          </div>
-          {totalAmount(itemsInCart) > 0 && (
-            <Link className="cart" href={'/cartPage'}>
-              <a>
-                <li className="cartItems">
-                  <TiShoppingCart size={45} />
-                  <span className="cart-amount">
-                    {totalAmount(itemsInCart)}
-                  </span>
-                </li>
-              </a>
-            </Link>
-          )}
-        </ul>
-      </div>
+    <header>
+      <ul>
+        <div className="left-container">
+          <Link href={'/index'}>
+            <a>
+              <li>
+                <img src="/favicon.png" alt="logo couch"></img>Bist du Teppich!
+                Home
+              </li>
+            </a>
+          </Link>
+          <Link href={'/products'}>
+            <a>
+              <li>Go to shop</li>
+            </a>
+          </Link>
+        </div>
+        {totalAmount(itemsInCart) > 0 && (
+          <Link className="cart" href={'/cartPage'}>
+            <a>
+              <li className="cart-li">
+                <TiShoppingCart size={45} />
+                <span className="cart-amount">{totalAmount(itemsInCart)}</span>
+              </li>
+            </a>
+          </Link>
+        )}
+      </ul>
       <style jsx>{`
-        .wrap {
+        header {
           width: 100%;
           font-family: 'Roboto', sans-serif;
-        }
-
-        .navBar ul {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          list-style: none;
-          margin: 0;
-          background-color: #fff;
-          box-shadow:
-            0px 10px 20px rgba(0, 0, 0, 0.1),
-            0px 4px 15px rgba(0, 0, 0, 0.05);
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: 10;
+          background-color: #fff;
+          box-shadow:
+            0px 10px 20px rgba(0, 0, 0, 0.1),
+            0px 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        header ul {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          list-style: none;
+          margin: 0;
         }
 
         .left-container {
@@ -117,7 +113,7 @@ export default function Header() {
           transform: translateY(-2px);
         }
 
-        .cartItems {
+        .cart-li {
           display: flex;
           align-items: center;
           font-size: 1.2rem;
@@ -125,7 +121,7 @@ export default function Header() {
           position: relative;
         }
 
-        .cartItems span {
+        .cart-li span {
           font-size: 0.9rem;
           color: #555;
         }
@@ -151,6 +147,6 @@ export default function Header() {
           color: #2ed573;
         }
       `}</style>
-    </div>
+    </header>
   );
 }
