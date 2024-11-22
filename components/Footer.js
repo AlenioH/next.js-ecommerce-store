@@ -22,8 +22,6 @@ export default function Footer() {
       </div>
       <style jsx>{`
         .footer {
-          background-color: #f8f9fa;
-          border-top: 1px solid #dfe4ea;
           padding: 20px 0;
           text-align: center;
           font-size: 0.9rem;

@@ -28,20 +28,6 @@ export default function SearchBar(props) {
           font-size: 1.2rem;
         }
       `}</style>
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: 'DM Mono', monospace;
-          background-image: url('/more-leaves.png');
-          color: #2f3640;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 }
