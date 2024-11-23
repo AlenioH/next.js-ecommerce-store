@@ -17,6 +17,23 @@ export async function getProducts() {
   return products;
 }
 
+export async function getProductsSortedByCat() {
+  const products = await sql`
+    SELECT * FROM products
+  `;
+
+  const groupedProducts = products.reduce((groups, product) => {
+    const category = product.category;
+    if (!groups[category]) {
+      groups[category] = []; // initialize a group for the category if it doesn't exist
+    }
+    groups[category].push(product); // add the product to the appropriate group
+    return groups;
+  }, {});
+
+  return groupedProducts;
+}
+
 export async function getProductById(id) {
   const product = await sql`
     SELECT * FROM products WHERE id = ${id}
