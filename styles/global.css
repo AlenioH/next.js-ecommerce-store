@@ -30,16 +30,16 @@ body {
 
 h1 {
   color: #2f3640;
-  text-shadow: 2px 2px black;
 }
 
 header,
 footer {
   background-color: #ffffff;
   color: #2f3640;
-  border-top: 3px solid #3d5a40;
-  border-bottom: 3px solid #3d5a40;
 }
 footer {
   border-top: 5px solid #9e9e9e;
+}
+header {
+  border-bottom: 3px solid #3d5a40;
 }
