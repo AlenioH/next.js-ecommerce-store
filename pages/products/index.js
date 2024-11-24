@@ -15,7 +15,7 @@ export default function Products({ products }) {
   }
 
   return (
-    <div>
+    <div className="main">
       <Head>
         <link rel="icon" href="/favicon.png" />
         <link

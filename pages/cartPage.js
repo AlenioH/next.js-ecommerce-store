@@ -67,7 +67,7 @@ function CartPage({ cart, products }) {
   };
 
   return (
-    <div>
+    <div className="main">
       <Head>
         <title>Bist du Teppich: Your Cart </title>
         <link rel="icon" href="/favicon.png" />
@@ -322,31 +322,6 @@ function CartPage({ cart, products }) {
 
         .back-to-shop:active {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
-      `}</style>
-      <style jsx global>{`
-        body {
-          margin: 0;
-          padding: 0;
-          background-color: #ffffff; /* Solid white */
-          background: linear-gradient(
-            45deg,
-            #a3d9a5,
-            #b2e8d1
-          ); /* Softer, lighter green tones */
-          background-size: 200% 200%;
-          animation: gradientAnimation 10s ease infinite;
-          font-family: 'DM Mono', monospace;
-          color: #2f3640;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-
-        h1 {
-          color: #2f3640;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
       `}</style>
     </div>

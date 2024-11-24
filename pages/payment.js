@@ -37,7 +37,7 @@ export default function Payment() {
   }
 
   return (
-    <div>
+    <div className="main">
       <Head>
         <title>Bist du Teppich: Payment </title>
         <link rel="icon" href="/favicon.png" />

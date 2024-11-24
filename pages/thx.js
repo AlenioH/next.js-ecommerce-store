@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function thx() {
   return (
-    <div>
+    <div className="main">
       <Head>
         <title>Bist du Teppich: Payment </title>
         <link rel="icon" href="/favicon.png" />

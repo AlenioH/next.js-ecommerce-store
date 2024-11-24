@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function Home({ products }) {
   return (
-    <div className="container">
+    <div className="main">
       <Head>
         <title>Bist du Teppich</title>
         <link rel="icon" href="/favicon.png" />
@@ -45,8 +45,7 @@ export default function Home({ products }) {
       <Footer />
 
       <style jsx>{`
-        .container {
-          min-height: 100vh;
+        .main {
           padding-top: 50px;
         }
 

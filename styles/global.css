@@ -8,6 +8,7 @@ body {
   margin: 0;
   font-family: 'DM Mono', monospace;
   color: #2f3640;
+  min-height: 100vh;
 
   /* Light beige base color */
   background-color: #f9f5ed;
@@ -42,4 +43,11 @@ footer {
 }
 header {
   border-bottom: 3px solid #3d5a40;
+}
+
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
