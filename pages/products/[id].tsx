@@ -93,7 +93,6 @@ export function Product(props: Props) {
         }
         img {
           height: 400px;
-          margin-left: -80px;
         }
         h1 {
           margin-bottom: 40px;
@@ -105,7 +104,6 @@ export function Product(props: Props) {
         }
         .price {
           font-size: 130%;
-          text-shadow: 1.5px 1.5px black;
         }
         .info {
           font-size: 90%;
@@ -147,20 +145,6 @@ export function Product(props: Props) {
           padding: 5px;
           border-radius: 5px;
           width: 50px;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: 'DM Mono', monospace;
-          background-image: url('/more-leaves.png');
-          color: #2f3640;
-        }
-        * {
-          box-sizing: border-box;
         }
       `}</style>
     </div>

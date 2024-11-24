@@ -1,14 +1,15 @@
 import cookie from 'js-cookie';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function AddToCart(props) {
-  const itemsInCart = cookie.getJSON('cart') || [];
-  console.log('jonas', itemsInCart);
+  const [itemsInCart, setItemsInCart] = useState(cookie.getJSON('cart') || []);
 
-  // useEffect(() => {
-  //   cookie.set('cart', itemsInCart);
-  //   console.log(itemsInCart);
-  // }, [itemsInCart]);
+  useEffect(() => {
+    cookie.set('cart', itemsInCart);
+    // dispatch a custom event so that the Header would know to update the value too
+    const event = new CustomEvent('cartUpdated', { detail: itemsInCart });
+    window.dispatchEvent(event);
+  }, [itemsInCart]);
 
   function MakeCookies() {
     const product = {
@@ -21,10 +22,11 @@ export default function AddToCart(props) {
     };
 
     const itemFilter = itemsInCart.find((item) => item.id === product.id);
+    let itemsInCartUpd;
 
     //this part checks if there is an item with the id already present in the array of items in cart
     if (itemFilter) {
-      const itemsDouble = itemsInCart.map((item) => {
+      itemsInCartUpd = itemsInCart.map((item) => {
         if (item.id === props.product.id) {
           //this condition makes sure the map only adjusts the current item
           return {
@@ -36,13 +38,11 @@ export default function AddToCart(props) {
           return item;
         }
       });
-      cookie.set('cart', itemsDouble);
     } else {
-      itemsInCart.push(product);
-      cookie.set('cart', itemsInCart);
+      itemsInCartUpd = [...itemsInCart, product];
     }
+    setItemsInCart(itemsInCartUpd);
     alert('The item has been successfully added to the cart!');
-    window.location.reload();
   }
 
   return (
