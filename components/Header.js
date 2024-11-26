@@ -33,14 +33,16 @@ export default function Header() {
           <Link href={'/index'}>
             <a>
               <li>
-                <img src="/favicon.png" alt="logo couch"></img>Bist du Teppich!
-                Home
+                <img src="/favicon.png" alt="logo couch"></img>
+                <span className="display-none">Bist du Teppich! Home</span>
               </li>
             </a>
           </Link>
           <Link href={'/products'}>
             <a>
-              <li>Go to shop</li>
+              <li>
+                <span className="display-none">Go to</span>shop
+              </li>
             </a>
           </Link>
         </div>
@@ -119,6 +121,7 @@ export default function Header() {
           font-size: 1.2rem;
           gap: 0.5rem;
           position: relative;
+          bottom: 5px;
         }
 
         .cart-li span {
@@ -145,6 +148,17 @@ export default function Header() {
 
         a:hover {
           color: #2ed573;
+        }
+
+        @media (max-width: 550px) {
+          .display-none {
+            display: none;
+          }
+
+          img {
+
+            height: 50px;
+          }
         }
       `}</style>
     </header>

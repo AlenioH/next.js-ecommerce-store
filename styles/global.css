@@ -29,6 +29,10 @@ body {
     50px 50px;
 }
 
+ul {
+  all: unset;
+}
+
 h1 {
   color: #2f3640;
 }
