@@ -19,77 +19,132 @@ export default function Products({ products }) {
       <Head>
         <link rel="icon" href="/favicon.png" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
           rel="stylesheet"
-        ></link>
+        />
         <title>Bist du Teppich! Shop</title>
       </Head>
 
       <Header />
-      <div className="rugtainer">
-        <SearchBar products={products} searchFunction={searchFunction} />
-        {products
-          .filter((item) => {
-            if (filter === 'active') {
-              return item.name.toLowerCase().includes(search.toLowerCase());
-            } else {
-              return true;
-            }
-          })
-
-          .map((item) => {
-            return (
-              <div className="itemContainer" key={item.id}>
+      <div className="container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for a product..."
+            value={search}
+            onChange={searchFunction}
+          />
+        </div>
+        <div className="products-grid">
+          {products
+            .filter((item) => {
+              if (filter === 'active') {
+                return item.name.toLowerCase().includes(search.toLowerCase());
+              } else {
+                return true;
+              }
+            })
+            .map((item) => (
+              <div className="product-card" key={item.id}>
                 <Link href={'/products/' + item.id}>
                   <a>
-                    <img src={item.img} alt="item"></img>
+                    <img src={item.img} alt={item.name} />
                     <h3>{item.name}</h3>
-                    <p> {item.price}€</p>
+                    <p>{item.price}€</p>
                   </a>
                 </Link>
               </div>
-            );
-          })}
+            ))}
+        </div>
       </div>
       <Footer />
+
       <style jsx>{`
-        .rugtainer {
-          border-radius: 20px;
-          margin-top: 140px;
-          margin-left: auto;
-          margin-right: auto;
-          padding-top: 30px;
-          width: 80%;
-          background-color: white;
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-gap: 20px;
-        }
-
-        img {
-          height: 180px;
-          width: auto;
-        }
-
-        .itemContainer a {
+        .container {
+          margin: 80px auto;
+          max-width: 1200px;
+          width: 100%;
+          padding: 0 20px;
           display: flex;
           flex-direction: column;
-          align-items: center;
+          gap: 20px;
+        }
+
+        .search-bar {
+          display: flex;
           justify-content: center;
-          padding-top: 5px;
-          text-decoration: none;
-          color: inherit;
+          margin-bottom: 20px;
         }
 
-        .itemContainer:hover {
-          background-color: #e9f6ee;
+        .search-bar input {
+          width: 100%;
+          max-width: 400px;
+          padding: 10px 15px;
+          font-size: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          outline: none;
+          transition: border-color 0.3s;
+        }
 
-          transition: background-color 0.3s;
+        .search-bar input:focus {
+          border-color: #4caf50;
+        }
+
+        .products-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+        }
+
+        .product-card {
+          background: #ffffff;
+          border: 1px solid #eee;
           border-radius: 10px;
+          padding: 20px;
+          text-align: center;
+          transition:
+            box-shadow 0.3s,
+            transform 0.3s;
         }
 
-        .itemContainer h3 {
-          margin-bottom: 0;
+        .product-card:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          transform: translateY(-5px);
+        }
+
+        .product-card img {
+          max-height: 180px;
+          width: 100%;
+          object-fit: contain;
+          border-radius: 8px;
+          margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: #333;
+          margin: 0 0 5px;
+        }
+
+        .product-card p {
+          font-size: 1rem;
+          font-weight: bold;
+          color: #4caf50;
+          margin: 0;
+        }
+
+        @media (max-width: 768px) {
+          .products-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          }
+        }
+
+        @media (max-width: 480px) {
+          .search-bar input {
+            max-width: 100%;
+          }
         }
       `}</style>
     </div>

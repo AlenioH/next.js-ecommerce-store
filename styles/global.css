@@ -55,3 +55,7 @@ header {
   flex-direction: column;
   gap: 2rem;
 }
+
+a {
+  text-decoration: none;
+}
