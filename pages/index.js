@@ -95,10 +95,6 @@ export default function Home({ products }) {
           transition: transform 0.3s ease;
         }
 
-        .category-card:hover {
-          transform: translateY(-5px);
-        }
-
         .category-banner {
           background: linear-gradient(135deg, #2d4f2d, #4f704f);
           padding: 15px;
@@ -141,7 +137,6 @@ export default function Home({ products }) {
 
         .product-card img:hover {
           transform: translateY(-5px);
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         .product-card p {
