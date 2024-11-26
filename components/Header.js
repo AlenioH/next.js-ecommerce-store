@@ -41,7 +41,7 @@ export default function Header() {
           <Link href={'/products'}>
             <a>
               <li>
-                <span className="display-none">Go to</span>shop
+                <span className="display-none">Go to</span> shop
               </li>
             </a>
           </Link>
