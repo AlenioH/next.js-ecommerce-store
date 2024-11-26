@@ -59,7 +59,8 @@ export default function Home({ products }) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          max-width: 1200px;
+          max-width: 1500px;
+          width: 100%;
           margin: 0 auto;
           min-height: 100vh;
           padding: 0 20px;
