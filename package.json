@@ -18,7 +18,7 @@
     "ley": "^0.5.0",
     "next": "9.4.2",
     "next-cookies": "^2.0.3",
-    "postgres": "^1.0.2",
+    "postgres": "^3.4.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-icons": "^5.3.0"
@@ -35,5 +35,9 @@
     "testPathIgnorePatterns": [
       "<rootDir>/cypress"
     ]
+  },
+  "engines": {
+    "node": "20.x",
+    "npm": "8.x"
   }
 }
