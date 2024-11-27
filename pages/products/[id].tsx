@@ -1,7 +1,8 @@
 import Head from 'next/head';
+import { TiArrowLeft } from 'react-icons/ti';
+import React, { useState } from 'react';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
-import React, { useState } from 'react';
 import AddToCart from '../../components/AddToCart';
 import Link from 'next/link';
 
@@ -20,13 +21,12 @@ export function Product(props: Props) {
   if (!props.product) {
     return <div>Item not found...</div>;
   }
-  console.log(props.product);
   const [pieces, setPieces] = useState(1);
   const [total, setTotal] = useState(props.product.price);
 
   function handlePieces(e) {
     setPieces(Number(e.target.value));
-    setTotal(pieces * props.product.price);
+    setTotal(Number(e.target.value) * props.product.price);
   }
 
   return (
@@ -34,128 +34,186 @@ export function Product(props: Props) {
       <Head>
         <link rel="icon" href="/favicon.png" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         <title>{props.product.name || ''}</title>
       </Head>
       <Header />
       <div className="wrapper">
-        <img src={props.product.img} alt="" />
+        <Link href="/products">
+          <a className="back-to-shop">
+            {' '}
+            <TiArrowLeft size={25} />
+            Back to shop
+          </a>
+        </Link>
+        <div className="image-container">
+          <img src={props.product.img} alt={props.product.name} />
+        </div>
         <div className="description">
           <h1>{props.product.name}</h1>
-          <p>{props.product.info}</p>
+          <p className="info">{props.product.info}</p>
           <hr />
-          <p className="info">
+          <p className="price">{props.product.price.toFixed(2)}€</p>
+          <p className="dispatch-info">
             Dispatched in 8-10 weeks.
-            <br></br>
+            <br />
             Free shipping within the 3rd district.
           </p>
-          <p className="price">{props.product.price}€</p>
 
-          <label htmlFor="productNumber">
-            <input
-              data-cy={'input-field/' + props.product.name.toLowerCase()}
-              type="number"
-              min="1"
-              placeholder="Qty"
-              onChange={handlePieces}
-              value={pieces}
-            />
-          </label>
-          <p data-cy={'total-price/' + props.product.name.toLowerCase()}>
-            {pieces > 1 ? <p>Total: {total}€</p> : ''}
+          <div className="quantity-container">
+            <label>
+              <span>Quantity:</span>
+              <input
+                data-cy={`input-field/${props.product.name.toLowerCase()}`}
+                type="number"
+                min="1"
+                placeholder="Qty"
+                onChange={handlePieces}
+                value={pieces}
+              />
+            </label>
+          </div>
+
+          <p
+            className="total-price"
+            data-cy={`total-price/${props.product.name.toLowerCase()}`}
+          >
+            {pieces > 1 && `Total: ${total.toFixed(2)}€`}
           </p>
+
           <AddToCart
             product={props.product}
             pieces={pieces}
             total={total}
             initialPrice={props.product.price}
           />
-          <Link href="/products">
-            <a className="backToShop">Back to shop</a>
-          </Link>
         </div>
       </div>
       <Footer />
+
       <style jsx>{`
+        .main {
+          padding-top: 50px;
+          color: #333;
+        }
+
         .wrapper {
-          border-radius: 20px;
-          margin-top: 140px;
-          width: 80%;
-          margin-left: auto;
-          margin-right: auto;
-          padding: 20px;
-          background-color: white;
           display: grid;
-          grid-template-columns: 2fr 1fr;
-          grid-gap: 20px;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          align-items: start;
+          max-width: 1200px;
+          margin: 50px auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 16px;
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+          position: relative;
         }
-        img {
-          height: 400px;
+
+        .image-container img {
+          width: 100%;
+          max-height: 500px;
+          object-fit: cover;
+          border-radius: 12px;
         }
-        h1 {
-          margin-bottom: 40px;
-        }
+
         .description {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
+          gap: 20px;
         }
-        .price {
-          font-size: 130%;
+
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 10px;
+          color: #222;
         }
+
         .info {
-          font-size: 90%;
+          font-size: 1rem;
+          color: #555;
+          line-height: 1.5;
+        }
+
+        .dispatch-info {
+          font-size: 0.9rem;
+          color: #777;
+        }
+
+        .price {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #27ae60;
+        }
+
+        .quantity-container {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .quantity-container input {
+          padding: 8px;
+          font-size: 1rem;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          width: 60px;
+        }
+
+        .total-price {
+          font-size: 1rem;
+          color: #444;
+        }
+
+        .back-to-shop {
+          position: absolute;
+          top: 15px;
           color: #636e72;
-          margin-top: 0;
-          letter-spacing: 0.01px;
-        }
-        button {
-          margin-top: 40px;
-          align-self: center;
-          background-color: #2f3640;
-          padding: 15px;
-          border-radius: 10px;
-          color: white;
-          font-family: inherit;
-          font-size: 120%;
-        }
-        button:hover {
-          background-color: #636e72;
-          transition: background-color 0.3s;
+          font-size: 1rem;
+          font-weight: 400;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          width: fit-content;
+          margin-left: 0;
         }
 
-        .backToShop {
+        .back-to-shop:hover {
+          color: #2ed573;
           text-decoration: none;
-          background-color: #2f3640;
-          padding: 15px;
-          margin-top: 10px;
-          border-radius: 10px;
-          color: white;
-          font-family: inherit;
-          font-size: 120%;
         }
 
-        .backToShop:hover {
-          background-color: #636e72;
-          transition: background-color 0.3s;
+        .back-to-shop:active {
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
-        input {
-          padding: 5px;
-          border-radius: 5px;
-          width: 50px;
+
+        @media (max-width: 768px) {
+          .wrapper {
+            grid-template-columns: 1fr;
+            padding: 20px;
+          }
+
+          .image-container img {
+            max-height: 300px;
+          }
+
+          .price {
+            font-size: 1.3rem;
+          }
+
+          h1 {
+            font-size: 1.5rem;
+          }
         }
       `}</style>
     </div>
   );
 }
-export default Product;
 
-// getServerSideProps will ONLY be run on the server, so
-// you can write code here that works with "secret"
-// information - eg. passwords, database connection
-// information, etc.
+export default Product;
 
 export async function getServerSideProps(context) {
   const { getProductById } = await import('../../db.js');

@@ -29,7 +29,7 @@ body {
     50px 50px;
 }
 
-ul {
+ul, p {
   all: unset;
 }
 

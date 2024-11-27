@@ -52,7 +52,6 @@ export default function AddToCart(props) {
       </button>
       <style jsx>{`
         button {
-          margin-top: 40px;
           align-self: center;
           background-color: #2f3640;
           padding: 15px;
