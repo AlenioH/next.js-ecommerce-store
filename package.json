@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS=--openssl-legacy-provider next dev",
-    "heroku-postbuild": "npm migrate up && NODE_OPTIONS=--openssl-legacy-provider next build",
+    "heroku-postbuild": "npm run migrate up && NODE_OPTIONS=--openssl-legacy-provider next build",
     "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
     "start": "next start -p ${PORT:-\"3000\"}",
     "e2e": "cypress open",
