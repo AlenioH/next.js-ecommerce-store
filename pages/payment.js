@@ -1,17 +1,20 @@
+import React, { useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import nextCookies from 'next-cookies';
+import cookie from 'js-cookie';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
-import Link from 'next/link';
-import cookie from 'js-cookie';
-import React, { useState } from 'react';
-import nextCookies from 'next-cookies';
 
 export default function Payment() {
+  const router = useRouter();
   const [input, setInput] = useState('');
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     cookie.remove('cart');
     cookie.remove('total');
+    router.replace('/thx');
   }
 
   const regexText = /^[a-zA-Z\s]+$/; // Allow only letters and spaces
@@ -137,11 +140,7 @@ export default function Payment() {
             Total: <strong>{cookie.getJSON('total')}€</strong>
           </p>
           <div className="button-container">
-            <Link href="/thx">
-              <a data-cy="buy-button">
-                <button type="submit">Complete Purchase</button>
-              </a>
-            </Link>
+            <button type="submit">Complete Purchase</button>
           </div>
         </form>
       </div>
