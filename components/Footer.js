@@ -27,6 +27,7 @@ export default function Footer() {
           font-size: 0.9rem;
           color: #2f3640;
           margin-top: auto;
+          width: 100%;
         }
 
         .inner {
