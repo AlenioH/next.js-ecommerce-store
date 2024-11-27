@@ -47,10 +47,12 @@ export default function Products({ products }) {
             .map((item) => (
               <div className="product-card" key={item.id}>
                 <Link href={'/products/' + item.id}>
-                  <a>
+                  <a className="flex-column">
                     <img src={item.img} alt={item.name} />
-                    <h3>{item.name}</h3>
-                    <p>{item.price}€</p>
+                    <div>
+                      <h3>{item.name}</h3>
+                      <p>{item.price}€</p>
+                    </div>
                   </a>
                 </Link>
               </div>
@@ -95,6 +97,7 @@ export default function Products({ products }) {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 20px;
+          align-content: center; */
         }
 
         .product-card {
@@ -114,7 +117,7 @@ export default function Products({ products }) {
         }
 
         .product-card img {
-          max-height: 180px;
+          height: 180px;
           width: 100%;
           object-fit: contain;
           border-radius: 8px;
@@ -133,6 +136,11 @@ export default function Products({ products }) {
           font-weight: bold;
           color: #4caf50;
           margin: 0;
+        }
+
+        a.flex-column {
+          justify-content: space-between;
+          min-height: 100%;
         }
 
         @media (max-width: 768px) {
