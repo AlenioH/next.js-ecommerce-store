@@ -41,7 +41,7 @@ Follow the instructions from the PostgreSQL step on https://github.com/upleveled
 Run the following queries inside of psql to set up the database and the user:
 
 ```
-CREATE DATABASE databasename>;
+CREATE DATABASE <databasename>;
 ```
 
 ```
@@ -62,13 +62,13 @@ psql -U nextjs_ecommerce_score nextjs_ecommerce_store;
 You can run the migrations with the following command:
 
 ```
-npm migrate up
+npm run migrate up
 ```
 
 To drop the last migration run the following in your terminal:
 
 ```
-npm migrate down
+npm run migrate down
 ```
 
 ### Deployment instructions for Heroku
