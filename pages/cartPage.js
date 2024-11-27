@@ -224,7 +224,7 @@ function CartPage({ cart, products }) {
           .item {
             display: flex;
             flex-direction: column;
-            gap: 0;
+            gap: 0.5rem;
           }
         }
 
