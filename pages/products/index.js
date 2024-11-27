@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Header from '../../components/Header.js';
 import Footer from '../../components/Footer.js';
 import React, { useState } from 'react';
-import SearchBar from '../../components/SearchBar.js';
 
 export default function Products({ products }) {
   const [search, setSearch] = useState('');
