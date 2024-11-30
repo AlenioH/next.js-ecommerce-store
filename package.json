@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.36",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^29.0.0",
     "cypress": "^4.8.0",
-    "jest": "^26.0.1",
+    "jest": "^29.0.0",
     "prettier-eslint": "^16.3.0",
     "typescript": "^3.9.5"
   },
