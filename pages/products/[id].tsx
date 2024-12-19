@@ -207,6 +207,10 @@ export function Product(props: Props) {
           h1 {
             font-size: 1.5rem;
           }
+
+          .back-to-shop {
+            top: -15px;
+          }
         }
       `}</style>
     </div>
